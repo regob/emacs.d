@@ -3,13 +3,14 @@
 ; use-package is not needed at runtime
 (eval-when-compile
   (require 'use-package)
-  (setq use-package-always-ensure t))
+  (setq use-package-always-ensure t)
+  (setq use-package-always-defer t))
 
 ; Set autosave directory
 (setq backup-directory-alist `(("." . "~/.saves")))
 (setq backup-by-copying t)
 
-(setq initial-buffer-choice "~")
+;(setq initial-buffer-choice "~")
 (setq initial-frame-alist '((top . 0) (left . 0) (width . 120) (height . 80)))
 
 ; Remove toolbars, menu and scrollbars
@@ -48,18 +49,19 @@
 ;; If there are no archived package contents, refresh them
 (when (not package-archive-contents)
   (package-refresh-contents))
+;; to update packages: list-packages then S-u x
 
 (use-package better-defaults)
 
 (setq inhibit-startup-message t)    ;; Hide the startup message
 (global-linum-mode t)               ;; Enable line numbers globally
-(setq electric-pair-preserve-balance t)
 
 ;; Enable auto-revert-mode
 (global-auto-revert-mode t)
 
 ;; indent with spaces
 (setq-default indent-tabs-mode  nil)
+(setq-default tab-width 4)
 
 ;; =========================
 ;; Appearance configs
@@ -70,13 +72,25 @@
   :init
   (setq minions-mode-line-lighter "☰")
   (minions-mode 1))
+
+;; =========================
+;; Some environment setup
+;; =========================
+
+(setenv "PAGER" "cat")
   
 ;; =========================
 ;; Global development setup
 ;; =========================
 
 ;; enable flycheck globally
-(add-hook 'after-init-hook #'global-flycheck-mode)
+(use-package flycheck
+  :init
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  (setq flycheck-flake8rc "~/.flake8")
+  (setq flycheck-pylintrc "~/.pylintrc")
+  )
+  
 
 (use-package projectile
   :init
@@ -132,12 +146,14 @@
 ;;   (add-hook 'slime-repl-mode-hook 'enable-paredit-mode)
 ;; )
 
-(use-package smartparens
-  :init
-  (add-hook 'prog-mode-hook #'smartparens-mode)
-  :config
-  (smartparens-strict-mode t)
-  )
+;; (use-package smartparens
+;;   :init
+;;   (add-hook 'prog-mode-hook #'smartparens-mode)
+;;   (require 'smartparens-config)
+;;   :config
+;;   )
+
+
 
 
 (use-package multiple-cursors
@@ -155,6 +171,7 @@
 (use-package python
   :init
   (setq python-shell-interpreter "python3")
+  (setq python-shell-interpreter-args "-i")
   :commands python-mode
   :interpreter ("python3" . python-mode)
   :custom
@@ -170,7 +187,7 @@
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode)
   (setq elpy-rpc-python-command "python3")
-  (setq elpy-rpc-backend "jedi")
+;;  (setq elpy-rpc-backend "jedi")
   (setq elpy-rpc-virtualenv-path 'system)
   )
 
@@ -184,15 +201,29 @@
 ;; jedi provides auto completion for Python programs. Depends on the
 ;; Python packages "jedi" and "epc" to be installed on the host
 ;; machine. Don't use this with company, install company-jedi instead
-(use-package jedi
-  :init
-  (add-hook 'python-mode-hook 'jedi:setup)
-  (add-hook 'python-mode-hook 'jedi:ac-setup)
-  (setq jedi:complete-on-dot t)
-  ;; (setq jedi:server-command
-  ;;       '("/home/rego/.emacs.d/.python-environments/default/bin/jediepcserver"))
-  :after python
-  )
+;; (use-package jedi
+;;   :init
+;;   (add-hook 'python-mode-hook 'jedi:setup)
+;;   (add-hook 'python-mode-hook 'jedi:ac-setup)
+;;   (setq jedi:complete-on-dot t)
+;;   ;; (setq jedi:server-command
+;;   ;;       '("/home/rego/.emacs.d/.python-environments/default/bin/jediepcserver"))
+;;   :after python
+;;   )
+
+;; =========================
+;; Markdown
+;; =========================
+
+(use-package markdown-mode)
+
+;; throws error for some X stuff
+;; (use-package grip-mode
+;;   :config
+;;   ;;  (define-key markdown-mode-command-map (kbd "g") #'grip-mode)
+;;   (add-hook 'markdown-mode-hook #'grip-mode)
+;;   )
+
 
 
 ;; =========================
@@ -205,7 +236,7 @@
   auctex
   
   :config
-  (TeX-global-PDF-mode nil)
+;;  (TeX-global-PDF-mode nil)
   (setq LaTeX-indent-environment-list
    '(("verbatim" current-indentation)
      ("verbatim*" current-indentation)
@@ -225,10 +256,20 @@
      ("tabbing")))
 )
 
+;; =========================
+;; Kotlin, Java
+;; =========================
+
+(use-package kotlin-mode
+  :after flycheck
+  :config
+  )
+
 
 ;; =========================
 ;; Erlang
 ;; =========================
+
 
 ; (use-package erlang)
 
@@ -264,10 +305,16 @@
 ;; C / C++ setup
 ;; =========================
 
-(use-package clang-format)
+(use-package clang-format
+  :init
+  (setq clang-format-style "file:/home/rego/.styles/clang_format.yaml")
+  )
+
 (use-package cc-mode
   :init
   (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++17")))
+  (setq c-default-style "linux")
+  (setq-default c-basic-offset 4)
   :bind
   (:map c++-mode-map ("C-c C-f" . 'clang-format-buffer))
   )
@@ -283,6 +330,3 @@
 ;; (modern-c++-font-lock-global-mode t)
 
 
-;; ;; c-style
-;; (setq c-default-style "linux"
-;;       c-basic-offset 4)
