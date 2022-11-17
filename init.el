@@ -6,6 +6,9 @@
   (setq use-package-always-ensure t)
   (setq use-package-always-defer t))
 
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/"))
+; (byte-recompile-directory (expand-file-name "~/.emacs.d") 0)
+
 ; Set autosave directory
 (setq backup-directory-alist `(("." . "~/.saves")))
 (setq backup-by-copying t)
@@ -13,20 +16,10 @@
 ;(setq initial-buffer-choice "~")
 (setq initial-frame-alist '((top . 0) (left . 0) (width . 120) (height . 80)))
 
-; Remove toolbars, menu and scrollbars
-(menu-bar-mode -1)
-(toggle-scroll-bar -1)
-(tool-bar-mode -1)
 
-;; apperance
-(add-hook 'after-init-hook (lambda() (load-theme 'tango-dark)))
-(set-face-attribute 'default nil
-                    :family "SourceCodePro"
-                    :height 100)
-
-;
 ; other window to M-o (default C-x o)
 (global-set-key (kbd "M-o") 'other-window)
+(global-set-key (kbd "C-x 4 s") 'forward-symbol)
 
 ;; windmove mode for S-<arrow> window navigation
 (windmove-default-keybindings)
@@ -67,6 +60,21 @@
 ;; Appearance configs
 ;; =========================
 
+; Remove toolbars, menu and scrollbars
+;(menu-bar-mode -1)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
+
+;; (add-hook 'after-init-hook (lambda() (load-theme 'tango-dark)))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/themes/emacs-theme-gruvbox"))
+(require 'gruvbox-theme)
+; (use-package 'gruvbox-theme)
+(add-hook 'after-init-hook (lambda() (load-theme 'gruvbox)))
+(set-face-attribute 'default nil
+                    :family "SourceCodePro"
+                    :height 100)
+
+
 (use-package minions
   :ensure t
   :init
@@ -74,10 +82,19 @@
   (minions-mode 1))
 
 ;; =========================
-;; Some environment setup
+;; Misc tools and configs
 ;; =========================
 
 (setenv "PAGER" "cat")
+                                        ; (require 'misc-util)
+(remove-hook 'text-mode-hook 'turn-on-auto-fill)
+(use-package centered-cursor-mode
+  :init
+  (global-centered-cursor-mode)
+  ;; (add-hook 'prog-mode-hook #'centered-cursor-mode)
+  ;; (add-hook 'text-mode-hook #'centered-cursor-mode)
+  )
+
   
 ;; =========================
 ;; Global development setup
@@ -136,6 +153,16 @@
   (set-face-foreground 'rainbow-delimiters-depth-9-face "#666") ; dark gray
   )
 
+(use-package yasnippet
+  :init
+  (yas-global-mode 1)
+  :config
+  (add-to-list 'load-path
+             "~/.emacs.d/plugins/yasnippet-radical-snippets")
+  (require 'yasnippet-radical-snippets)
+  (yasnippet-radical-snippets-initialize)
+  )
+
 ;; (use-package paredit
 ;;   :init
 ;;   (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
@@ -157,6 +184,7 @@
 
 
 (use-package multiple-cursors
+  :defer nil
   :config
   (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
   (global-set-key (kbd "C->") 'mc/mark-next-like-this)
@@ -170,26 +198,36 @@
 
 (use-package python
   :init
-  (setq python-shell-interpreter "python3")
+  (setq python-shell-interpreter "python3.8")
   (setq python-shell-interpreter-args "-i")
   :commands python-mode
-  :interpreter ("python3" . python-mode)
+  :interpreter ("python3.8" . python-mode)
   :custom
-  (python-environment-virtualenv (quote ("python3" "-m" "venv")))
+  (python-environment-virtualenv (quote ("python3.8" "-m" "venv")))
   )
 
 
-(use-package elpy
-  :init
-  (advice-add 'python-mode :before 'elpy-enable)
-  :after (python flycheck)
-  :config
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode)
-  (setq elpy-rpc-python-command "python3")
-;;  (setq elpy-rpc-backend "jedi")
-  (setq elpy-rpc-virtualenv-path 'system)
-  )
+;; use local elpy version for jedi fix
+(add-to-list 'load-path "/home/rego/.emacs.d/plugins/elpy")
+(require 'elpy)
+(advice-add 'python-mode :before 'elpy-enable)
+(setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+(add-hook 'elpy-mode-hook 'flycheck-mode)
+(setq elpy-rpc-python-command "python3.8")
+;;  (setq elpy-rpc-backend "company")
+(setq elpy-rpc-virtualenv-path 'system)
+
+;; (use-package elpy
+;;   :init
+;;   (advice-add 'python-mode :before 'elpy-enable)
+;;   :after (python flycheck)
+;;   :config
+;;   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+;;   (add-hook 'elpy-mode-hook 'flycheck-mode)
+;;   (setq elpy-rpc-python-command "python3.8")
+;; ;;  (setq elpy-rpc-backend "company")
+;;   (setq elpy-rpc-virtualenv-path 'system)
+;;   )
 
 (use-package py-autopep8
   :after (python elpy)
@@ -232,6 +270,8 @@
 (use-package tex
   :init
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+  (auto-fill-mode nil)
+  (setq LaTeX-verbatim-environments-local (list "lstlisting"))
   :ensure
   auctex
   
@@ -259,6 +299,8 @@
 ;; =========================
 ;; Kotlin, Java
 ;; =========================
+
+(use-package flycheck-kotlin)
 
 (use-package kotlin-mode
   :after flycheck
@@ -307,7 +349,7 @@
 
 (use-package clang-format
   :init
-  (setq clang-format-style "file:/home/rego/.styles/clang_format.yaml")
+  (setq clang-format-style "file:~/.styles/clang_format.yaml")
   )
 
 (use-package cc-mode
