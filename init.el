@@ -1,15 +1,15 @@
 ;;; Emacs init file
 
-; use-package is not needed at runtime
+;; use-package is not needed at runtime
 (eval-when-compile
   (require 'use-package)
   (setq use-package-always-ensure t)
   (setq use-package-always-defer t))
 
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/"))
-; (byte-recompile-directory (expand-file-name "~/.emacs.d") 0)
+;; (byte-recompile-directory (expand-file-name "~/.emacs.d") 0)
 
-; Set autosave directory
+;; Set autosave directory
 (setq backup-directory-alist `(("." . "~/.saves")))
 (setq backup-by-copying t)
 
@@ -17,7 +17,6 @@
 (setq initial-frame-alist '((top . 0) (left . 0) (width . 120) (height . 80)))
 
 
-; other window to M-o (default C-x o)
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "C-x 4 s") 'forward-symbol)
 
@@ -46,8 +45,8 @@
 
 (use-package better-defaults)
 
-(setq inhibit-startup-message t)    ;; Hide the startup message
-(global-linum-mode t)               ;; Enable line numbers globally
+(setq inhibit-startup-message t)    ; Hide the startup message
+(global-linum-mode t) ; Enable line numbers globally
 
 ;; Enable auto-revert-mode
 (global-auto-revert-mode t)
@@ -60,8 +59,8 @@
 ;; Appearance configs
 ;; =========================
 
-; Remove toolbars, menu and scrollbars
-;(menu-bar-mode -1)
+;; Remove toolbars, menu and scrollbars
+;; (menu-bar-mode -1)
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 
@@ -86,7 +85,7 @@
 ;; =========================
 
 (setenv "PAGER" "cat")
-                                        ; (require 'misc-util)
+;; (require 'misc-util)
 (remove-hook 'text-mode-hook 'turn-on-auto-fill)
 (use-package centered-cursor-mode
   :init
@@ -95,7 +94,7 @@
   ;; (add-hook 'text-mode-hook #'centered-cursor-mode)
   )
 
-  
+
 ;; =========================
 ;; Global development setup
 ;; =========================
@@ -104,10 +103,11 @@
 (use-package flycheck
   :init
   (add-hook 'after-init-hook #'global-flycheck-mode)
+  :config
   (setq flycheck-flake8rc "~/.flake8")
   (setq flycheck-pylintrc "~/.pylintrc")
   )
-  
+
 
 (use-package projectile
   :init
@@ -153,12 +153,14 @@
   (set-face-foreground 'rainbow-delimiters-depth-9-face "#666") ; dark gray
   )
 
+(use-package aggressive-indent)
+
 (use-package yasnippet
   :init
   (yas-global-mode 1)
   :config
   (add-to-list 'load-path
-             "~/.emacs.d/plugins/yasnippet-radical-snippets")
+               "~/.emacs.d/plugins/yasnippet-radical-snippets")
   (require 'yasnippet-radical-snippets)
   (yasnippet-radical-snippets-initialize)
   )
@@ -191,6 +193,12 @@
   (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
   (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
   )
+
+(use-package dumb-jump
+  :init
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+  )
+
 
 ;; =========================
 ;; Python
@@ -265,8 +273,23 @@
 
 
 ;; =========================
+;; Org mode
+;; =========================
+
+(use-package org
+  :bind
+  (:map org-mode-map ("C-c C-x t" . 'org-table-create))
+  :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((python t)))
+  )
+
+
+;; =========================
 ;; LaTeX
 ;; =========================
+
 (use-package tex
   :init
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
@@ -274,27 +297,26 @@
   (setq LaTeX-verbatim-environments-local (list "lstlisting"))
   :ensure
   auctex
-  
   :config
-;;  (TeX-global-PDF-mode nil)
+  (define-key LaTeX-mode-map (kbd "C-c d") 'TeX-doc)
   (setq LaTeX-indent-environment-list
-   '(("verbatim" current-indentation)
-     ("verbatim*" current-indentation)
-     ("filecontents" current-indentation)
-     ("filecontents*" current-indentation)
-     ("tabular")
-     ("tabular*")
-     ("align" LaTeX-indent-tabular)
-     ("align*" LaTeX-indent-tabular)
-     ("array" LaTeX-indent-tabular)
-     ("eqnarray" LaTeX-indent-tabular)
-     ("eqnarray*" LaTeX-indent-tabular)
-     ("displaymath")
-     ("equation")
-     ("equation*")
-     ("picture")
-     ("tabbing")))
-)
+        '(("verbatim" current-indentation)
+          ("verbatim*" current-indentation)
+          ("filecontents" current-indentation)
+          ("filecontents*" current-indentation)
+          ("tabular")
+          ("tabular*")
+          ("align" LaTeX-indent-tabular)
+          ("align*" LaTeX-indent-tabular)
+          ("array" LaTeX-indent-tabular)
+          ("eqnarray" LaTeX-indent-tabular)
+          ("eqnarray*" LaTeX-indent-tabular)
+          ("displaymath")
+          ("equation")
+          ("equation*")
+          ("picture")
+          ("tabbing")))
+  )
 
 ;; =========================
 ;; Kotlin, Java
@@ -303,6 +325,7 @@
 (use-package flycheck-kotlin)
 
 (use-package kotlin-mode
+  :init
   :after flycheck
   :config
   )
@@ -329,17 +352,20 @@
 (use-package haskell-mode)
 
 ;; =========================
-;; Common Lisp
+;; Lisp
 ;; =========================
 
+(add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
+
 (use-package slime
-  :init
+  :config
   (setq inferior-lisp-program "sbcl")
   (defun override-slime-del-key ()
     (define-key slime-repl-mode-map
       (read-kbd-macro paredit-backward-delete-key) nil))
   (add-hook 'slime-repl-mode-hook 'override-slime-del-key)
-)
+  (add-hook 'lisp-mode-hook #'aggressive-indent-mode)
+  )
 
 
 
@@ -348,19 +374,24 @@
 ;; =========================
 
 (use-package clang-format
-  :init
-  (setq clang-format-style "file:~/.styles/clang_format.yaml")
+  :config
+  (let ((pth (file-name-concat (getenv "HOME")
+                               ".styles/clang_format.yaml")))
+    (setq clang-format-style (concat "file:" pth)))
   )
 
 (use-package cc-mode
   :init
-  (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++17")))
   (setq c-default-style "linux")
   (setq-default c-basic-offset 4)
+  (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard
+                                            "c++17")))
+  (add-hook 'c-mode-common-hook 'electric-pair-mode)
+  (add-hook 'c-mode-common-hook #'aggressive-indent-mode)
   :bind
   (:map c++-mode-map ("C-c C-f" . 'clang-format-buffer))
+  (:map c-mode-map ("C-c C-f" . 'clang-format-buffer))
   )
-
 
 
 ;; set flycheck standard
