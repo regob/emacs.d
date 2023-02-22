@@ -116,6 +116,10 @@
   ("C-c p" . 'projectile-command-map)
   )
 
+(use-package ido
+  :config
+  (ido-mode))
+
 (use-package company
   :init
   (add-hook 'after-init-hook 'global-company-mode)
@@ -298,7 +302,7 @@
   :ensure
   auctex
   :config
-  (define-key LaTeX-mode-map (kbd "C-c d") 'TeX-doc)
+  (define-key TeX-mode-map (kbd "C-c d") 'TeX-doc)
   (setq LaTeX-indent-environment-list
         '(("verbatim" current-indentation)
           ("verbatim*" current-indentation)
