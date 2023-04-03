@@ -169,22 +169,16 @@
   (yasnippet-radical-snippets-initialize)
   )
 
-;; (use-package paredit
-;;   :init
-;;   (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-;;   (add-hook 'eval-expression-minibuffer-setup-hook 'enable-paredit-mode)
-;;   (add-hook 'ielm-mode-hook 'enable-paredit-mode)
-;;   (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
-;;   (add-hook 'lisp-mode-hook 'enable-paredit-mode)
-;;   (add-hook 'slime-repl-mode-hook 'enable-paredit-mode)
-;; )
+(electric-pair-mode -1)
+(electric-indent-mode -1) ; TODO: still gets turned on in cc-mode
 
-;; (use-package smartparens
-;;   :init
-;;   (add-hook 'prog-mode-hook #'smartparens-mode)
-;;   (require 'smartparens-config)
-;;   :config
-;;   )
+
+(use-package smartparens
+  :init
+  (add-hook 'python-mode-hook #'smartparens-mode)
+  (require 'smartparens-config)
+  :config
+  )
 
 
 
@@ -281,6 +275,8 @@
 ;; =========================
 
 (use-package org
+  :init
+  (setq org-startup-truncated nil)
   :bind
   (:map org-mode-map ("C-c C-x t" . 'org-table-create))
   :config
@@ -390,11 +386,14 @@
   (setq-default c-basic-offset 4)
   (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard
                                             "c++17")))
-  (add-hook 'c-mode-common-hook 'electric-pair-mode)
+  (add-hook 'c-mode-common-hook (lambda () (c-toggle-hungry-state 1)))
+  (add-hook 'c-mode-common-hook 'smartparens-mode)
   (add-hook 'c-mode-common-hook #'aggressive-indent-mode)
+  
   :bind
   (:map c++-mode-map ("C-c C-f" . 'clang-format-buffer))
   (:map c-mode-map ("C-c C-f" . 'clang-format-buffer))
+  :config
   )
 
 
