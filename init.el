@@ -1,21 +1,29 @@
 ;;; Emacs init file
 
+(require 'package)
+(setq package-archives
+      '(("gnu" . "http://elpa.gnu.org/packages/")
+        ("melpa" . "https://melpa.org/packages/")))
+
+(package-initialize)
+
 ;; use-package is not needed at runtime
-(eval-when-compile
-  (require 'use-package)
-  (setq use-package-always-ensure t)
-  (setq use-package-always-defer t))
+(require 'use-package)
+(setq use-package-always-ensure t)
+(setq use-package-always-defer t)
+;; (eval-when-compile
+;;   (require 'use-package)
+;;   (setq use-package-always-ensure t)
+;;   (setq use-package-always-defer t))
 
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/"))
 ;; (byte-recompile-directory (expand-file-name "~/.emacs.d") 0)
 
 ;; Set autosave directory
-(setq backup-directory-alist `(("." . "~/.saves")))
+(setq backup-directory-alist `(("." . "~/.emacs_saves")))
 (setq backup-by-copying t)
 
-;(setq initial-buffer-choice "~")
 (setq initial-frame-alist '((top . 0) (left . 0) (width . 120) (height . 80)))
-
 
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "C-x 4 s") 'forward-symbol)
@@ -31,12 +39,6 @@
 (setq global-superword-mode t)
 ; (setq global-subword-mode t)
 
-(require 'package)
-(setq package-archives
-      '(("gnu" . "http://elpa.gnu.org/packages/")
-        ("melpa" . "https://melpa.org/packages/")))
-
-(package-initialize)
 
 ;; If there are no archived package contents, refresh them
 (when (not package-archive-contents)
@@ -66,9 +68,8 @@
 
 ;; (add-hook 'after-init-hook (lambda() (load-theme 'tango-dark)))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/themes/emacs-theme-gruvbox"))
-(require 'gruvbox-theme)
-; (use-package 'gruvbox-theme)
-(add-hook 'after-init-hook (lambda() (load-theme 'gruvbox)))
+(use-package gruvbox-theme)
+(add-hook 'after-init-hook (lambda() (load-theme 'gruvbox t)))
 (set-face-attribute 'default nil
                     :family "SourceCodePro"
                     :height 100)
@@ -163,10 +164,10 @@
   :init
   (yas-global-mode 1)
   :config
-  (add-to-list 'load-path
-               "~/.emacs.d/plugins/yasnippet-radical-snippets")
-  (require 'yasnippet-radical-snippets)
-  (yasnippet-radical-snippets-initialize)
+  ;; (add-to-list 'load-path
+  ;;              "~/.emacs.d/plugins/yasnippet-radical-snippets")
+  ;; (require 'yasnippet-radical-snippets)
+  ;; (yasnippet-radical-snippets-initialize)
   )
 
 (electric-pair-mode -1)
@@ -197,6 +198,8 @@
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
   )
 
+(use-package magit)
+
 
 ;; =========================
 ;; Python
@@ -214,14 +217,14 @@
 
 
 ;; use local elpy version for jedi fix
-(add-to-list 'load-path "/home/rego/.emacs.d/plugins/elpy")
-(require 'elpy)
-(advice-add 'python-mode :before 'elpy-enable)
-(setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-(add-hook 'elpy-mode-hook 'flycheck-mode)
-(setq elpy-rpc-python-command "python3.8")
-;;  (setq elpy-rpc-backend "company")
-(setq elpy-rpc-virtualenv-path 'system)
+;; (add-to-list 'load-path "/home/rego/.emacs.d/plugins/elpy")
+;; (use-package 'elpy)
+;; (advice-add 'python-mode :before 'elpy-enable)
+;; (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+;; (add-hook 'elpy-mode-hook 'flycheck-mode)
+;; (setq elpy-rpc-python-command "python3.8")
+;; ;;  (setq elpy-rpc-backend "company")
+;; (setq elpy-rpc-virtualenv-path 'system)
 
 ;; (use-package elpy
 ;;   :init
