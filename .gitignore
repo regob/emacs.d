@@ -1,0 +1,10 @@
+.*.el
+auto-save-list
+*-cache
+projectile-bookmarks.eld
+transient
+url
+eshell
+history
+
+elpa

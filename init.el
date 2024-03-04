@@ -65,11 +65,16 @@
 ;; (menu-bar-mode -1)
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
+(scroll-bar-mode -1)
 
 ;; (add-hook 'after-init-hook (lambda() (load-theme 'tango-dark)))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/themes/emacs-theme-gruvbox"))
-(use-package gruvbox-theme)
-(add-hook 'after-init-hook (lambda() (load-theme 'gruvbox t)))
+;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/themes/emacs-theme-gruvbox"))
+(use-package gruvbox-theme
+  :ensure t
+  :init
+  (add-hook 'after-init-hook (lambda() (load-theme 'gruvbox t)))
+  )
+
 (set-face-attribute 'default nil
                     :family "SourceCodePro"
                     :height 100)
@@ -199,6 +204,21 @@
   )
 
 (use-package magit)
+
+(use-package vertico
+  :init
+  (vertico-mode)
+  )
+;; Optionally use the `orderless' completion style.
+(use-package orderless
+  :init
+  ;; Configure a custom style dispatcher (see the Consult wiki)
+  ;; (setq orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch)
+  ;;       orderless-component-separator #'orderless-escapable-split-on-space)
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
+
 
 
 ;; =========================
@@ -409,3 +429,18 @@
 ;; (modern-c++-font-lock-global-mode t)
 
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-show-quick-access t nil nil "Customized with use-package company")
+ '(package-selected-packages
+   '(melancholy-theme orderless clang-format slime haskell-mode kotlin-mode flycheck-kotlin markdown-mode py-autopep8 yasnippet use-package smartparens rainbow-delimiters projectile multiple-cursors minions magit gruvbox-theme flycheck dumb-jump company centered-cursor-mode better-defaults auctex aggressive-indent))
+ '(warning-suppress-types '((comp))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
