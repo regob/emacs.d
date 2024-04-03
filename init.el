@@ -1,4 +1,7 @@
-;;; Emacs init file
+;;; init.el --- Emacs init file
+;; -*- lexical-binding: t; -*-
+
+
 
 (require 'package)
 (setq package-archives
@@ -11,10 +14,6 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 (setq use-package-always-defer t)
-;; (eval-when-compile
-;;   (require 'use-package)
-;;   (setq use-package-always-ensure t)
-;;   (setq use-package-always-defer t))
 
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/"))
 ;; (byte-recompile-directory (expand-file-name "~/.emacs.d") 0)
@@ -93,12 +92,33 @@
 (setenv "PAGER" "cat")
 ;; (require 'misc-util)
 (remove-hook 'text-mode-hook 'turn-on-auto-fill)
+
 (use-package centered-cursor-mode
   :init
   (global-centered-cursor-mode)
   ;; (add-hook 'prog-mode-hook #'centered-cursor-mode)
   ;; (add-hook 'text-mode-hook #'centered-cursor-mode)
   )
+
+
+;; (use-package treemacs)
+
+
+
+;; =========================
+;; User functions
+;; =========================
+
+(defun rb-jump-to-init-file ()
+  (interactive)
+  (find-file user-init-file)
+  ;; (switch-to-buffer "~/.emacs.d/init.el")
+  )
+
+;; my user keymap
+(define-prefix-command 'rb-user-keymap)
+(global-set-key (kbd "C-c 8") 'rb-user-keymap)
+(bind-key (kbd "i") 'rb-jump-to-init-file 'rb-user-keymap)
 
 
 ;; =========================
@@ -208,7 +228,32 @@
 (use-package vertico
   :init
   (vertico-mode)
+  (add-hook 'minibuffer-mode-hook (lambda ()
+                                    (centered-cursor-mode -1)))
+  ;; :bind (:map minibuffer-local-map
+  ;;             ("C-v" . ccm-scroll-up)
+  ;;             )
   )
+
+;; Enable rich annotations using the Marginalia package
+(use-package marginalia
+  ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
+  ;; available in the *Completions* buffer, add it to the
+  ;; `completion-list-mode-map'.
+  :bind (:map minibuffer-local-map
+              ("M-A" . marginalia-cycle)
+              )
+  
+
+  ;; The :init section is always executed.
+  :init
+
+  ;; Marginalia must be activated in the :init section of use-package such that
+  ;; the mode gets enabled right away. Note that this forces loading the
+  ;; package.
+  (marginalia-mode))
+
+
 ;; Optionally use the `orderless' completion style.
 (use-package orderless
   :init
@@ -278,6 +323,14 @@
 ;;   :after python
 ;;   )
 
+
+;; =========================
+;; R
+;; =========================
+
+(use-package ess)
+
+
 ;; =========================
 ;; Markdown
 ;; =========================
@@ -292,6 +345,12 @@
 ;;   )
 
 
+
+;; =========================
+;; CSV
+;; =========================
+
+(use-package csv-mode)
 
 ;; =========================
 ;; Org mode
@@ -436,7 +495,7 @@
  ;; If there is more than one, they won't work right.
  '(company-show-quick-access t nil nil "Customized with use-package company")
  '(package-selected-packages
-   '(melancholy-theme orderless clang-format slime haskell-mode kotlin-mode flycheck-kotlin markdown-mode py-autopep8 yasnippet use-package smartparens rainbow-delimiters projectile multiple-cursors minions magit gruvbox-theme flycheck dumb-jump company centered-cursor-mode better-defaults auctex aggressive-indent))
+   '(treemacs marginalia fireplace hyperbole melancholy-theme orderless clang-format slime haskell-mode kotlin-mode flycheck-kotlin markdown-mode py-autopep8 yasnippet use-package smartparens rainbow-delimiters projectile multiple-cursors minions magit gruvbox-theme flycheck dumb-jump company centered-cursor-mode better-defaults auctex aggressive-indent))
  '(warning-suppress-types '((comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

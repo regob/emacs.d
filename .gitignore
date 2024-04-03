@@ -1,6 +1,8 @@
+**/#*
 .*.el
 auto-save-list
 *-cache
+.cache
 projectile-bookmarks.eld
 transient
 url
@@ -8,3 +10,4 @@ eshell
 history
 
 elpa
+timelog
