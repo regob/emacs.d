@@ -1,5 +1,5 @@
-**/#*
 .*.el
+*.last
 auto-save-list
 *-cache
 .cache
@@ -9,5 +9,14 @@ url
 eshell
 history
 
-elpa
 timelog
+
+# ignored directories
+elpa
+backups
+projects
+experiments
+
+# temporary files
+.lsp-session*
+**/#*

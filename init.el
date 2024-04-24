@@ -1,6 +1,4 @@
-;;; init.el --- Emacs init file
-;; -*- lexical-binding: t; -*-
-
+;;; init.el --- Emacs init file  -*- lexical-binding: t; -*-
 
 
 (require 'package)
@@ -26,6 +24,9 @@
 
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "C-x 4 s") 'forward-symbol)
+;; always ask before killing emacs (does not hold for emacsclient though)
+(setq confirm-kill-emacs 'yes-or-no-p)
+
 
 ;; windmove mode for S-<arrow> window navigation
 (windmove-default-keybindings)
@@ -47,7 +48,18 @@
 (use-package better-defaults)
 
 (setq inhibit-startup-message t)    ; Hide the startup message
-(global-linum-mode t) ; Enable line numbers globally
+
+;; Enable line numbers only when executing goto-line
+;; from http://whattheemacsd.com/
+(global-set-key [remap goto-line] 'goto-line-with-feedback)
+(defun goto-line-with-feedback ()
+  "Show line numbers temporarily, while prompting for the line number input"
+  (interactive)
+  (unwind-protect
+      (progn
+        (display-line-numbers-mode)
+        (goto-line (read-number "Goto line: ")))
+    (display-line-numbers-mode -1)))
 
 ;; Enable auto-revert-mode
 (global-auto-revert-mode t)
@@ -65,6 +77,7 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+
 
 ;; (add-hook 'after-init-hook (lambda() (load-theme 'tango-dark)))
 ;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/themes/emacs-theme-gruvbox"))
@@ -103,7 +116,10 @@
 
 ;; (use-package treemacs)
 
-
+(use-package dired-sidebar
+  :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
+  :ensure t
+  :commands (dired-sidebar-toggle-sidebar))
 
 ;; =========================
 ;; User functions
@@ -121,17 +137,22 @@
 (bind-key (kbd "i") 'rb-jump-to-init-file 'rb-user-keymap)
 
 
+
+(use-package anzu
+  :init
+  (add-hook 'after-init-hook 'global-anzu-mode)
+  :config
+  (setq anzu-mode-lighter "")
+  )
+  
 ;; =========================
 ;; Global development setup
 ;; =========================
 
 ;; enable flycheck globally
 (use-package flycheck
-  :init
-  (add-hook 'after-init-hook #'global-flycheck-mode)
   :config
-  (setq flycheck-flake8rc "~/.flake8")
-  (setq flycheck-pylintrc "~/.pylintrc")
+  (add-hook 'prog-mode-hook 'flycheck-mode)
   )
 
 
@@ -142,9 +163,11 @@
   ("C-c p" . 'projectile-command-map)
   )
 
-(use-package ido
-  :config
-  (ido-mode))
+;; (use-package ido
+;;   :config
+;;   (ido-mode))
+
+
 
 (use-package company
   :init
@@ -183,7 +206,10 @@
   (set-face-foreground 'rainbow-delimiters-depth-9-face "#666") ; dark gray
   )
 
-(use-package aggressive-indent)
+(use-package aggressive-indent
+  :hook
+  ((css-mode . aggressive-indent-mode))
+  )
 
 (use-package yasnippet
   :init
@@ -201,9 +227,12 @@
 
 (use-package smartparens
   :init
-  (add-hook 'python-mode-hook #'smartparens-mode)
+  ;; (add-hook 'python-mode-hook #'smartparens-mode)
+  ;; (add-hook 'css-mode-hook #'smart
   (require 'smartparens-config)
-  :config
+  :hook
+  ((python-mode . smartparens-mode)
+   (css-mode . smartparens-mode))
   )
 
 
@@ -223,7 +252,15 @@
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
   )
 
+;; version control stuff (git)
 (use-package magit)
+
+(use-package diff-hl
+  :hook
+  ((prog-mode . diff-hl-mode))
+  )
+
+(use-package git-modes)
 
 (use-package vertico
   :init
@@ -265,6 +302,59 @@
         completion-category-overrides '((file (styles partial-completion)))))
 
 
+(use-package lsp-mode
+  :init
+  (setq lsp-keymap-prefix "C-c l")
+  ;; :hook
+  ;; (((python-mode c-mode c++-mode) . lsp))
+  :config
+  (setq lsp-enable-symbol-highlighting nil)
+  (setq lsp-enable-on-type-formatting nil)
+  )
+
+(use-package lsp-ui
+  :commands lsp-ui-mode)
+
+
+;; optionally if you want to use debugger
+;; (use-package dap-mode)
+;; (use-package dap-LANGUAGE) to load the dap adapter for your language
+
+;; optional if you want which-key integration
+;; (use-package which-key
+;;   :config
+;;   (which-key-mode))
+
+
+;; =========================
+;; Web stuff
+;; =========================
+
+(use-package web-mode
+  :mode
+  (("\\.xml\\'"        . web-mode)
+   ("\\.html\\'"       . web-mode)
+   ("\\.htm\\'"        . web-mode))
+  
+  ;; :hook
+  ;; (web-mode . web-mode-toggle-current-element-highlight)
+  )
+
+(use-package css-mode
+  :ensure nil
+  )
+
+;; =========================
+;; shell
+;; =========================
+
+(use-package sh-script
+  :ensure nil
+  :config
+  (setq sh-basic-offset 4)
+  )
+  
+
 
 ;; =========================
 ;; Python
@@ -272,12 +362,21 @@
 
 (use-package python
   :init
-  (setq python-shell-interpreter "python3.8")
+  (setq python-shell-interpreter "python3")
   (setq python-shell-interpreter-args "-i")
   :commands python-mode
-  :interpreter ("python3.8" . python-mode)
-  :custom
-  (python-environment-virtualenv (quote ("python3.8" "-m" "venv")))
+  :interpreter ("python3" . python-mode)
+  ;;(python-environment-virtualenv (quote ("python3.8" "-m" "venv")))
+  )
+
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-pyright))))
+
+(use-package envrc
+  :init
+  (add-hook 'after-init-hook 'envrc-global-mode)
   )
 
 
@@ -303,11 +402,11 @@
 ;;   (setq elpy-rpc-virtualenv-path 'system)
 ;;   )
 
-(use-package py-autopep8
-  :after (python elpy)
-  :bind*
-  (:map elpy-mode-map ("C-c C-f" . 'py-autopep8-buffer))
-  )
+;; (use-package py-autopep8
+;;   :after (python elpy)
+;;   :bind*
+;;   (:map elpy-mode-map ("C-c C-f" . 'py-autopep8-buffer))
+;;   )
 
 
 ;; jedi provides auto completion for Python programs. Depends on the
@@ -437,6 +536,7 @@
 ;; Lisp
 ;; =========================
 
+(use-package emacs-lisp)
 (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
 
 (use-package slime
@@ -455,12 +555,12 @@
 ;; C / C++ setup
 ;; =========================
 
-(use-package clang-format
-  :config
-  (let ((pth (file-name-concat (getenv "HOME")
-                               ".styles/clang_format.yaml")))
-    (setq clang-format-style (concat "file:" pth)))
-  )
+;; (use-package clang-format
+;;   :config
+;;   (let ((pth (file-name-concat (getenv "HOME")
+;;                                ".styles/clang_format.yaml")))
+;;     (setq clang-format-style (concat "file:" pth)))
+;;   )
 
 (use-package cc-mode
   :init
@@ -470,11 +570,11 @@
                                             "c++17")))
   (add-hook 'c-mode-common-hook (lambda () (c-toggle-hungry-state 1)))
   (add-hook 'c-mode-common-hook 'smartparens-mode)
-  (add-hook 'c-mode-common-hook #'aggressive-indent-mode)
-  
-  :bind
-  (:map c++-mode-map ("C-c C-f" . 'clang-format-buffer))
-  (:map c-mode-map ("C-c C-f" . 'clang-format-buffer))
+  ;; (add-hook 'c-mode-common-hook #'aggressive-indent-mode)
+
+  ;; :bind
+  ;; (:map c++-mode-map ("C-c C-f" . 'clang-format-buffer))
+  ;; (:map c-mode-map ("C-c C-f" . 'clang-format-buffer))
   :config
   )
 
@@ -494,8 +594,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-show-quick-access t nil nil "Customized with use-package company")
+ '(org-fold-core-style 'overlays)
  '(package-selected-packages
-   '(treemacs marginalia fireplace hyperbole melancholy-theme orderless clang-format slime haskell-mode kotlin-mode flycheck-kotlin markdown-mode py-autopep8 yasnippet use-package smartparens rainbow-delimiters projectile multiple-cursors minions magit gruvbox-theme flycheck dumb-jump company centered-cursor-mode better-defaults auctex aggressive-indent))
+   '(web-mode lsp-pyright lsp-ui lsp-mode anzu dired-sidebar treemacs marginalia fireplace hyperbole melancholy-theme orderless clang-format slime haskell-mode kotlin-mode flycheck-kotlin markdown-mode py-autopep8 yasnippet use-package smartparens rainbow-delimiters projectile multiple-cursors minions magit gruvbox-theme flycheck dumb-jump company centered-cursor-mode better-defaults auctex aggressive-indent))
  '(warning-suppress-types '((comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
