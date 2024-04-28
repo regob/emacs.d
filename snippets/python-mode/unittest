@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# name: unittest
+# key: _unit
+# group : definitions
+# expand-env: ((yas-indent-line nil))
+# --
+
+# Tests #######################################################################
+import unittest
+
+class ${1:class}(unittest.TestCase):
+
+    def ${2:methodname}(self):
+          $0
+
+if __name__ == "__main__":
+   unittest.main()
+          

@@ -151,16 +151,18 @@
 
 ;; enable flycheck globally
 (use-package flycheck
-  :config
+  :init
   (add-hook 'prog-mode-hook 'flycheck-mode)
   )
-
 
 (use-package projectile
   :init
   (add-hook 'prog-mode-hook #'(lambda () (projectile-mode +1)))
   :bind-keymap
   ("C-c p" . 'projectile-command-map)
+  :custom
+  (add-to-list 'projectile-globally-ignored-directories ".venv")
+  (add-to-list 'projectile-globally-ignored-directories ".direnv")
   )
 
 ;; (use-package ido
@@ -220,6 +222,8 @@
   ;; (require 'yasnippet-radical-snippets)
   ;; (yasnippet-radical-snippets-initialize)
   )
+
+(use-package yasnippet-snippets)
 
 (electric-pair-mode -1)
 (electric-indent-mode -1) ; TODO: still gets turned on in cc-mode
@@ -364,6 +368,7 @@
   :init
   (setq python-shell-interpreter "python3")
   (setq python-shell-interpreter-args "-i")
+  (add-hook 'python-mode-hook #'electric-indent-local-mode)
   :commands python-mode
   :interpreter ("python3" . python-mode)
   ;;(python-environment-virtualenv (quote ("python3.8" "-m" "venv")))
@@ -536,7 +541,7 @@
 ;; Lisp
 ;; =========================
 
-(use-package emacs-lisp)
+;;(use-package emacs-lisp)
 (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
 
 (use-package slime
@@ -593,10 +598,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(company-show-quick-access t nil nil "Customized with use-package company")
  '(org-fold-core-style 'overlays)
  '(package-selected-packages
-   '(web-mode lsp-pyright lsp-ui lsp-mode anzu dired-sidebar treemacs marginalia fireplace hyperbole melancholy-theme orderless clang-format slime haskell-mode kotlin-mode flycheck-kotlin markdown-mode py-autopep8 yasnippet use-package smartparens rainbow-delimiters projectile multiple-cursors minions magit gruvbox-theme flycheck dumb-jump company centered-cursor-mode better-defaults auctex aggressive-indent))
+   '(emacs-lisp yasnippet-snippets web-mode lsp-pyright lsp-ui lsp-mode anzu dired-sidebar treemacs marginalia fireplace hyperbole melancholy-theme orderless clang-format slime haskell-mode kotlin-mode flycheck-kotlin markdown-mode py-autopep8 yasnippet use-package smartparens rainbow-delimiters projectile multiple-cursors minions magit gruvbox-theme flycheck dumb-jump company centered-cursor-mode better-defaults auctex aggressive-indent))
+ '(python-indent-trigger-commands '(indent-for-tab-command yas-expand yas/expand newline))
  '(warning-suppress-types '((comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -604,3 +609,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'dired-find-alternate-file 'disabled nil)
