@@ -108,7 +108,7 @@
 
 (use-package centered-cursor-mode
   :init
-  (global-centered-cursor-mode)
+  ;; (global-centered-cursor-mode)
   ;; (add-hook 'prog-mode-hook #'centered-cursor-mode)
   ;; (add-hook 'text-mode-hook #'centered-cursor-mode)
   )
@@ -170,6 +170,12 @@
 ;;   (ido-mode))
 
 
+;; don't use orderless for company capf
+;; We follow a suggestion by company maintainer u/hvis:
+;; https://www.reddit.com/r/emacs/comments/nichkl/comment/gz1jr3s/
+(defun company-completion-styles (capf-fn &rest args)
+  (let ((completion-styles '(basic partial-completion)))
+    (apply capf-fn args)))
 
 (use-package company
   :init
@@ -178,16 +184,19 @@
   :custom
   (company-idle-delay 0.2)
   (company-selection-wrap-around t)
-  (company-minimum-prefix-length 2)
+  (company-minimum-prefix-length 3)
   (company-candidates-length 30)
-  (company-require-match nil)
+  (company-require-match t)
   (company-dabbrev-ignore-case nil)
   (company-dabbrev-downcase nil)
-  (company-show-numbers t)
+  (company-show-numbers nil)
   :config
   (bind-keys :map company-active-map
              ("TAB" . company-complete))
+  ;;  (setq company-backends '(company-capf))
+  (advice-add 'company-capf :around #'company-completion-styles)
   )
+
 
 
 (use-package rainbow-delimiters
@@ -235,8 +244,9 @@
   ;; (add-hook 'css-mode-hook #'smart
   (require 'smartparens-config)
   :hook
-  ((python-mode . smartparens-mode)
-   (css-mode . smartparens-mode))
+  (;;(python-mode . smartparens-mode)
+   (css-mode . smartparens-mode)
+   (prog-mode . smartparens-mode))
   )
 
 
@@ -260,8 +270,11 @@
 (use-package magit)
 
 (use-package diff-hl
-  :hook
-  ((prog-mode . diff-hl-mode))
+  :init
+  (add-hook 'after-init-hook #'global-diff-hl-mode)
+  ;; :hook
+  ;; ((prog-mode . diff-hl-mode)
+  ;;  (org-mode . diff-hl-mode))
   )
 
 (use-package git-modes)
@@ -303,7 +316,11 @@
   ;;       orderless-component-separator #'orderless-escapable-split-on-space)
   (setq completion-styles '(orderless basic)
         completion-category-defaults nil
-        completion-category-overrides '((file (styles partial-completion)))))
+        completion-category-overrides '((file (styles
+                                               partial-completion
+                                               regexp)))))
+
+
 
 
 (use-package lsp-mode
@@ -544,12 +561,13 @@
 ;;(use-package emacs-lisp)
 (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
 
+
 (use-package slime
   :config
   (setq inferior-lisp-program "sbcl")
   (defun override-slime-del-key ()
     (define-key slime-repl-mode-map
-      (read-kbd-macro paredit-backward-delete-key) nil))
+                (read-kbd-macro paredit-backward-delete-key) nil))
   (add-hook 'slime-repl-mode-hook 'override-slime-del-key)
   (add-hook 'lisp-mode-hook #'aggressive-indent-mode)
   )
