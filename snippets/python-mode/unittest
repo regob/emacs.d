@@ -14,5 +14,4 @@ class ${1:class}(unittest.TestCase):
           $0
 
 if __name__ == "__main__":
-   unittest.main()
-          
+    pass
