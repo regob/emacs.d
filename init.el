@@ -205,7 +205,7 @@
   (company-selection-wrap-around t)
   (company-minimum-prefix-length 3)
   (company-candidates-length 30)
-  (company-require-match t)
+  (company-require-match nil)
   (company-dabbrev-ignore-case nil)
   (company-dabbrev-downcase nil)
   (company-show-numbers nil)
@@ -316,7 +316,7 @@
   :bind (:map minibuffer-local-map
               ("M-A" . marginalia-cycle)
               )
-  
+
 
   ;; The :init section is always executed.
   :init
@@ -345,8 +345,8 @@
 (use-package lsp-mode
   :init
   (setq lsp-keymap-prefix "C-c l")
-  ;; :hook
-  ;; (((python-mode c-mode c++-mode) . lsp))
+  :hook
+  (((python-mode c-mode c++-mode) . lsp))
   :config
   (setq lsp-enable-symbol-highlighting nil)
   (setq lsp-enable-on-type-formatting nil)
@@ -354,6 +354,20 @@
 
 (use-package lsp-ui
   :commands lsp-ui-mode)
+
+(use-package dap-mode
+  :init
+  (dap-ui-mode)
+  (dap-ui-many-windows-mode)
+
+  :hook
+  (((python-mode) . dap-mode))
+
+  :config
+  (require 'dap-python)
+  (setq dap-python-debugger 'debugpy)
+  )
+
 
 
 ;; optionally if you want to use debugger
@@ -375,7 +389,7 @@
   (("\\.xml\\'"        . web-mode)
    ("\\.html\\'"       . web-mode)
    ("\\.htm\\'"        . web-mode))
-  
+
   ;; :hook
   ;; (web-mode . web-mode-toggle-current-element-highlight)
   )
@@ -393,7 +407,7 @@
   :config
   (setq sh-basic-offset 4)
   )
-  
+
 
 
 ;; =========================
@@ -405,10 +419,17 @@
   (setq python-shell-interpreter "python3")
   (setq python-shell-interpreter-args "-i")
   (add-hook 'python-mode-hook #'electric-indent-local-mode)
+
+  ;; set compile command with current file name
+  (add-hook 'python-mode-hook #'(lambda ()
+                                  (set (make-local-variable 'compile-command)
+                                       (concat "python3 " buffer-file-name))))
+
   :commands python-mode
   :interpreter ("python3" . python-mode)
   ;;(python-environment-virtualenv (quote ("python3.8" "-m" "venv")))
   )
+
 
 (use-package lsp-pyright
   :ensure t
@@ -635,9 +656,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(company-show-quick-access nil nil nil "Customized with use-package company")
  '(org-fold-core-style 'overlays)
  '(package-selected-packages
-   '(emacs-lisp yasnippet-snippets web-mode lsp-pyright lsp-ui lsp-mode anzu dired-sidebar treemacs marginalia fireplace hyperbole melancholy-theme orderless clang-format slime haskell-mode kotlin-mode flycheck-kotlin markdown-mode py-autopep8 yasnippet use-package smartparens rainbow-delimiters projectile multiple-cursors minions magit gruvbox-theme flycheck dumb-jump company centered-cursor-mode better-defaults auctex aggressive-indent))
+   '(switch-window org-anki envrc inheritenv dap-python dap-mode emacs-lisp yasnippet-snippets web-mode lsp-pyright lsp-ui lsp-mode anzu dired-sidebar treemacs fireplace melancholy-theme clang-format kotlin-mode flycheck-kotlin py-autopep8 use-package rainbow-delimiters projectile multiple-cursors gruvbox-theme centered-cursor-mode better-defaults auctex aggressive-indent))
  '(python-indent-trigger-commands '(indent-for-tab-command yas-expand yas/expand newline))
  '(warning-suppress-types '((comp))))
 (custom-set-faces
