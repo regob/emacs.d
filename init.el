@@ -22,7 +22,6 @@
 
 (setq initial-frame-alist '((top . 0) (left . 0) (width . 120) (height . 80)))
 
-(global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "C-x 4 s") 'forward-symbol)
 ;; always ask before killing emacs (does not hold for emacsclient though)
 (setq confirm-kill-emacs 'yes-or-no-p)
@@ -69,11 +68,25 @@
 (setq-default tab-width 4)
 
 ;; =========================
+;; Window config
+;; =========================
+
+;; Make "C-x o" prompt for a target window when there are more than 2
+(use-package switch-window
+  :init
+  (setq-default switch-window-shortcut-style 'alphabet)
+  (setq-default switch-window-timeout nil)
+  (global-set-key (kbd "C-x o") 'switch-window)
+  (global-set-key (kbd "M-o") 'switch-window)
+  )
+
+
+;; =========================
 ;; Appearance configs
 ;; =========================
 
 ;; Remove toolbars, menu and scrollbars
-;; (menu-bar-mode -1)
+(menu-bar-mode -1)
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
