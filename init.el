@@ -528,6 +528,12 @@
    '((python t)))
   )
 
+(use-package org-anki
+  :after org
+  :config
+  (customize-set-variable 'org-anki-default-deck "dump")
+  )
+
 
 ;; =========================
 ;; LaTeX
