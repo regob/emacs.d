@@ -16,7 +16,12 @@ elpa
 backups
 projects
 experiments
+multisession
+request
 
 # temporary files
 .lsp-session*
 **/#*
+.dap-breakpoints
+dap*
+session*
