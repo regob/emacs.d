@@ -97,6 +97,21 @@
 
 
 ;; =========================
+;; Session config
+;; =========================
+
+(use-package session
+  :init
+  (add-hook 'after-init-hook 'session-initialize)
+  
+  :ensure t
+  :config
+  (setq session-save-file (locate-user-emacs-file ".session"))
+  (setq session-name-disable-regexp "\\(?:\\`'/tmp\\|\\.git/[A-Z_]+\\'\\)")
+  (setq session-save-file-coding-system 'utf-8)
+  )
+
+;; =========================
 ;; Appearance configs
 ;; =========================
 
@@ -316,8 +331,8 @@
 (use-package vertico
   :init
   (vertico-mode)
-  (add-hook 'minibuffer-mode-hook (lambda ()
-                                    (centered-cursor-mode -1)))
+  ;; (add-hook 'minibuffer-mode-hook (lambda ()
+  ;;                                   (centered-cursor-mode -1)))
   ;; :bind (:map minibuffer-local-map
   ;;             ("C-v" . ccm-scroll-up)
   ;;             )
