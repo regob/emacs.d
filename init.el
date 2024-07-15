@@ -28,7 +28,7 @@
 
 
 ;; windmove mode for S-<arrow> window navigation
-(windmove-default-keybindings)
+;; (windmove-default-keybindings)
 
 ;; visual line mode enabled, without word wrapping
 (setq visual-line-mode t)
