@@ -16,7 +16,7 @@
 (setq use-package-always-ensure t)
 (setq use-package-always-defer t)
 
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/"))
+(add-to-list 'load-path (expand-file-name "plugins" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (setq custom-file (locate-user-emacs-file "custom.el"))
 ;; (byte-recompile-directory (expand-file-name "~/.emacs.d") 0)
@@ -111,35 +111,6 @@
   (setq session-save-file-coding-system 'utf-8)
   )
 
-;; =========================
-;; Appearance configs
-;; =========================
-
-;; Remove toolbars, menu and scrollbars
-(menu-bar-mode -1)
-(toggle-scroll-bar -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-
-
-;; (add-hook 'after-init-hook (lambda() (load-theme 'tango-dark)))
-;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/themes/emacs-theme-gruvbox"))
-(use-package gruvbox-theme
-  :ensure t
-  :init
-  (add-hook 'after-init-hook (lambda() (load-theme 'gruvbox t)))
-  )
-
-(set-face-attribute 'default nil
-                    :family "SourceCodePro"
-                    :height 100)
-
-
-(use-package minions
-  :ensure t
-  :init
-  (setq minions-mode-line-lighter "☰")
-  (minions-mode 1))
 
 ;; =========================
 ;; Misc tools and configs
@@ -337,37 +308,6 @@
   ;;             ("C-v" . ccm-scroll-up)
   ;;             )
   )
-
-;; Enable rich annotations using the Marginalia package
-(use-package marginalia
-  ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
-  ;; available in the *Completions* buffer, add it to the
-  ;; `completion-list-mode-map'.
-  :bind (:map minibuffer-local-map
-              ("M-A" . marginalia-cycle)
-              )
-
-
-  ;; The :init section is always executed.
-  :init
-
-  ;; Marginalia must be activated in the :init section of use-package such that
-  ;; the mode gets enabled right away. Note that this forces loading the
-  ;; package.
-  (marginalia-mode))
-
-
-;; Optionally use the `orderless' completion style.
-(use-package orderless
-  :init
-  ;; Configure a custom style dispatcher (see the Consult wiki)
-  ;; (setq orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch)
-  ;;       orderless-component-separator #'orderless-escapable-split-on-space)
-  (setq completion-styles '(orderless basic)
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles
-                                               partial-completion
-                                               regexp)))))
 
 
 
@@ -630,61 +570,12 @@
 
 (use-package haskell-mode)
 
-;; =========================
-;; Lisp
-;; =========================
 
-;;(use-package emacs-lisp)
-(add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
-
-
-(use-package slime
-  :config
-  (setq inferior-lisp-program "sbcl")
-  (defun override-slime-del-key ()
-    (define-key slime-repl-mode-map
-                (read-kbd-macro paredit-backward-delete-key) nil))
-  (add-hook 'slime-repl-mode-hook 'override-slime-del-key)
-  (add-hook 'lisp-mode-hook #'aggressive-indent-mode)
-  )
-
-
-
-;; =========================
-;; C / C++ setup
-;; =========================
-
-;; (use-package clang-format
-;;   :config
-;;   (let ((pth (file-name-concat (getenv "HOME")
-;;                                ".styles/clang_format.yaml")))
-;;     (setq clang-format-style (concat "file:" pth)))
-;;   )
-
-(use-package cc-mode
-  :init
-  (setq c-default-style "linux")
-  (setq-default c-basic-offset 4)
-  (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard
-                                            "c++17")))
-  (add-hook 'c-mode-common-hook (lambda () (c-toggle-hungry-state 1)))
-  (add-hook 'c-mode-common-hook 'smartparens-mode)
-  ;; (add-hook 'c-mode-common-hook #'aggressive-indent-mode)
-
-  ;; :bind
-  ;; (:map c++-mode-map ("C-c C-f" . 'clang-format-buffer))
-  ;; (:map c-mode-map ("C-c C-f" . 'clang-format-buffer))
-  :config
-  )
-
-
-;; set flycheck standard
-
-;; (define-key c-mode-base-map (kbd "C-c C-f") 'clang-format-buffer)
-
-;; ;; c++ modern syntax highlighting, needed??
-;; (require 'modern-cpp-font-lock)
-;; (modern-c++-font-lock-global-mode t)
+(require 'init-editing-utils nil t)
+(require 'init-appearance nil t)
+(require 'init-minibuffer nil t)
+(require 'init-lisp nil t)
+(require 'init-cc nil t)
 
 
 ;; =========================
@@ -695,3 +586,5 @@
 (require 'init-local nil t)
 
 (put 'dired-find-alternate-file 'disabled nil)
+
+;;; init.el ends here

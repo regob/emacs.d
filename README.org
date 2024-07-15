@@ -1,0 +1,8 @@
+* My emacs config
+
+My crappy emacs config, that somehow works.
+
+* References
+
+- [[https://github.com/purcell/emacs.d][Purcell's emacs.d]]
+- [[https://www.masteringemacs.org/][Mastering Emacs]]

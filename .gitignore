@@ -24,6 +24,7 @@ projects
 experiments
 multisession
 request
+plugins/
 
 # temporary files
 .lsp-session*
@@ -31,5 +32,7 @@ request
 .dap-breakpoints
 dap*
 session*
+.session
+bookmarks
 .emacs.desktop
 server/
