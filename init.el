@@ -1,5 +1,8 @@
 ;;; init.el --- Emacs init file  -*- lexical-binding: t; -*-
 
+;; Pre-config local settings, for setting paths, etc needed for setup.
+(require 'init-local-pre nil t)
+
 
 (require 'package)
 (setq package-archives
@@ -14,13 +17,17 @@
 (setq use-package-always-defer t)
 
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/"))
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(setq custom-file (locate-user-emacs-file "custom.el"))
 ;; (byte-recompile-directory (expand-file-name "~/.emacs.d") 0)
+
+
 
 ;; Set autosave directory
 (setq backup-directory-alist `(("." . "~/.emacs_saves")))
 (setq backup-by-copying t)
 
-(setq initial-frame-alist '((top . 0) (left . 0) (width . 120) (height . 80)))
+;;(setq initial-frame-alist '((top . 0) (left . 0) (width . 120) (height . 80)))
 
 (global-set-key (kbd "C-x 4 s") 'forward-symbol)
 ;; always ask before killing emacs (does not hold for emacsclient though)
@@ -33,6 +40,14 @@
 ;; visual line mode enabled, without word wrapping
 (setq visual-line-mode t)
 (setq word-wrap nil)
+
+;; set font
+(set-face-attribute 'default nil
+                    :family "Source Code Pro"
+                    :height 90
+                    :weight 'normal
+                    :width 'normal)
+(copy-face 'default 'fixed-pitch)
 
 ;; modes for navigating super_words and CamelCase words
 (setq global-superword-mode t)
@@ -657,21 +672,11 @@
 ;; (modern-c++-font-lock-global-mode t)
 
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(company-show-quick-access nil nil nil "Customized with use-package company")
- '(org-fold-core-style 'overlays)
- '(package-selected-packages
-   '(switch-window org-anki envrc inheritenv dap-python dap-mode emacs-lisp yasnippet-snippets web-mode lsp-pyright lsp-ui lsp-mode anzu dired-sidebar treemacs fireplace melancholy-theme clang-format kotlin-mode flycheck-kotlin py-autopep8 use-package rainbow-delimiters projectile multiple-cursors gruvbox-theme centered-cursor-mode better-defaults auctex aggressive-indent))
- '(python-indent-trigger-commands '(indent-for-tab-command yas-expand yas/expand newline))
- '(warning-suppress-types '((comp))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;; =========================
+;; Trailer
+;; =========================
+
+;; Allow users to provide an optional "init-local" containing personal settings
+(require 'init-local nil t)
+
 (put 'dired-find-alternate-file 'disabled nil)
