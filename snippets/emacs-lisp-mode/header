@@ -1,0 +1,13 @@
+# -*- mode: snippet; -*-
+# contributor: 
+# name: simple header
+# key: head
+# --
+;;; ${1:name}.el --- ${2:summary} -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
+
+
+(provide '$1)
+
+;;; $1.el ends here

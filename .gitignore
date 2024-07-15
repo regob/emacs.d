@@ -1,6 +1,7 @@
 .*.el
 *.last
 auto-save-list
+org-persist/
 *-cache
 .cache
 projectile-bookmarks.eld
@@ -10,6 +11,11 @@ eshell
 history
 
 timelog
+
+# local customizations
+lisp/init-local.el
+lisp/init-local-pre.el
+custom.el
 
 # ignored directories
 elpa
@@ -25,3 +31,5 @@ request
 .dap-breakpoints
 dap*
 session*
+.emacs.desktop
+server/
