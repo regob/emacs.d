@@ -16,7 +16,7 @@
   )
 
 
-                                        ; Use the `orderless' completion style for space separated orderless completion
+;; Use the `orderless' completion style for space separated orderless completion
 (use-package orderless
   :init
   ;; Configure a custom style dispatcher (see the Consult wiki)
@@ -26,10 +26,11 @@
         completion-category-defaults nil
         completion-category-overrides '((file (styles
                                                partial-completion
-                                               regexp)))
+                                               )))
         )
 
   )
+
 
 (provide 'init-minibuffer)
 
