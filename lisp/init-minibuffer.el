@@ -2,6 +2,12 @@
 ;;; Commentary:
 ;;; Code:
 
+;; vertical completion in the minibuffer
+(use-package vertico
+  :init
+  (vertico-mode)
+  )
+
 ;; Enable rich annotations using the Marginalia package
 (use-package marginalia
   :init
@@ -28,9 +34,7 @@
                                                partial-completion
                                                )))
         )
-
   )
-
 
 (provide 'init-minibuffer)
 

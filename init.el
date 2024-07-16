@@ -30,6 +30,7 @@
 ;;(setq initial-frame-alist '((top . 0) (left . 0) (width . 120) (height . 80)))
 
 (global-set-key (kbd "C-x 4 s") 'forward-symbol)
+
 ;; always ask before killing emacs (does not hold for emacsclient though)
 (setq confirm-kill-emacs 'yes-or-no-p)
 
@@ -59,7 +60,7 @@
   (package-refresh-contents))
 ;; to update packages: list-packages then S-u x
 
-(use-package better-defaults)
+
 
 (setq inhibit-startup-message t)    ; Hide the startup message
 
@@ -78,9 +79,6 @@
 ;; Enable auto-revert-mode
 (global-auto-revert-mode t)
 
-;; indent with spaces
-(setq-default indent-tabs-mode  nil)
-(setq-default tab-width 4)
 
 ;; =========================
 ;; Window config
@@ -258,16 +256,7 @@
 (electric-indent-mode -1) ; TODO: still gets turned on in cc-mode
 
 
-(use-package smartparens
-  :init
-  ;; (add-hook 'python-mode-hook #'smartparens-mode)
-  ;; (add-hook 'css-mode-hook #'smart
-  (require 'smartparens-config)
-  :hook
-  (;;(python-mode . smartparens-mode)
-   (css-mode . smartparens-mode)
-   (prog-mode . smartparens-mode))
-  )
+
 
 
 
@@ -284,29 +273,6 @@
 (use-package dumb-jump
   :init
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
-  )
-
-;; version control stuff (git)
-(use-package magit)
-
-(use-package diff-hl
-  :init
-  (add-hook 'after-init-hook #'global-diff-hl-mode)
-  ;; :hook
-  ;; ((prog-mode . diff-hl-mode)
-  ;;  (org-mode . diff-hl-mode))
-  )
-
-(use-package git-modes)
-
-(use-package vertico
-  :init
-  (vertico-mode)
-  ;; (add-hook 'minibuffer-mode-hook (lambda ()
-  ;;                                   (centered-cursor-mode -1)))
-  ;; :bind (:map minibuffer-local-map
-  ;;             ("C-v" . ccm-scroll-up)
-  ;;             )
   )
 
 
@@ -572,6 +538,7 @@
 
 
 (require 'init-editing-utils nil t)
+(require 'init-vc nil t)
 (require 'init-appearance nil t)
 (require 'init-minibuffer nil t)
 (require 'init-lisp nil t)
