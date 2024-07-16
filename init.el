@@ -44,6 +44,9 @@
 ;; always ask before killing emacs (does not hold for emacsclient though)
 (setq confirm-kill-emacs 'yes-or-no-p)
 
+(global-set-key (kbd "C-x C-b") #'ibuffer)
+
+
 ;; If there are no archived package contents, refresh them
 (when (not package-archive-contents)
   (package-refresh-contents))
