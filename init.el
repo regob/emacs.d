@@ -1,5 +1,10 @@
 ;;; init.el --- Emacs init file  -*- lexical-binding: t; -*-
 
+
+;; ====================================
+;; Initialize package manager and paths
+;; ====================================
+
 ;; Pre-config local settings, for setting paths, etc needed for setup.
 (require 'init-local-pre nil t)
 
@@ -18,8 +23,13 @@
 
 (add-to-list 'load-path (expand-file-name "plugins" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+
+;; save customizations to custom.el (which is ignored) instead of init.el
 (setq custom-file (locate-user-emacs-file "custom.el"))
-;; (byte-recompile-directory (expand-file-name "~/.emacs.d") 0)
+
+;; Recompile the init files
+(byte-recompile-file user-init-file)
+(byte-recompile-directory (expand-file-name "lisp" user-emacs-directory) 0)
 
 
 
@@ -34,35 +44,12 @@
 ;; always ask before killing emacs (does not hold for emacsclient though)
 (setq confirm-kill-emacs 'yes-or-no-p)
 
-
-;; windmove mode for S-<arrow> window navigation
-;; (windmove-default-keybindings)
-
-;; visual line mode enabled, without word wrapping
-(setq visual-line-mode t)
-(setq word-wrap nil)
-
-;; set font
-(set-face-attribute 'default nil
-                    :family "Source Code Pro"
-                    :height 90
-                    :weight 'normal
-                    :width 'normal)
-(copy-face 'default 'fixed-pitch)
-
-;; modes for navigating super_words and CamelCase words
-(setq global-superword-mode t)
-; (setq global-subword-mode t)
-
-
 ;; If there are no archived package contents, refresh them
 (when (not package-archive-contents)
   (package-refresh-contents))
 ;; to update packages: list-packages then S-u x
 
 
-
-(setq inhibit-startup-message t)    ; Hide the startup message
 
 ;; Enable line numbers only when executing goto-line
 ;; from http://whattheemacsd.com/
@@ -76,46 +63,8 @@
         (goto-line (read-number "Goto line: ")))
     (display-line-numbers-mode -1)))
 
-;; Enable auto-revert-mode
-(global-auto-revert-mode t)
-
-
-;; =========================
-;; Window config
-;; =========================
-
-;; Make "C-x o" prompt for a target window when there are more than 2
-(use-package switch-window
-  :init
-  (setq-default switch-window-shortcut-style 'alphabet)
-  (setq-default switch-window-timeout nil)
-  (global-set-key (kbd "C-x o") 'switch-window)
-  (global-set-key (kbd "M-o") 'switch-window)
-  )
-
-
-;; =========================
-;; Session config
-;; =========================
-
-(use-package session
-  :init
-  (add-hook 'after-init-hook 'session-initialize)
-  
-  :ensure t
-  :config
-  (setq session-save-file (locate-user-emacs-file ".session"))
-  (setq session-name-disable-regexp "\\(?:\\`'/tmp\\|\\.git/[A-Z_]+\\'\\)")
-  (setq session-save-file-coding-system 'utf-8)
-  )
-
-
-;; =========================
-;; Misc tools and configs
-;; =========================
 
 (setenv "PAGER" "cat")
-;; (require 'misc-util)
 (remove-hook 'text-mode-hook 'turn-on-auto-fill)
 
 (use-package centered-cursor-mode
@@ -150,12 +99,7 @@
 
 
 
-(use-package anzu
-  :init
-  (add-hook 'after-init-hook 'global-anzu-mode)
-  :config
-  (setq anzu-mode-lighter "")
-  )
+
 
 (use-package avy
   :init
@@ -182,40 +126,6 @@
   (add-to-list 'projectile-globally-ignored-directories ".venv")
   (add-to-list 'projectile-globally-ignored-directories ".direnv")
   )
-
-;; (use-package ido
-;;   :config
-;;   (ido-mode))
-
-
-;; don't use orderless for company capf
-;; We follow a suggestion by company maintainer u/hvis:
-;; https://www.reddit.com/r/emacs/comments/nichkl/comment/gz1jr3s/
-(defun company-completion-styles (capf-fn &rest args)
-  (let ((completion-styles '(basic partial-completion)))
-    (apply capf-fn args)))
-
-(use-package company
-  :init
-  (add-hook 'after-init-hook 'global-company-mode)
-  :diminish ""
-  :custom
-  (company-idle-delay 0.2)
-  (company-selection-wrap-around t)
-  (company-minimum-prefix-length 3)
-  (company-candidates-length 30)
-  (company-require-match nil)
-  (company-dabbrev-ignore-case nil)
-  (company-dabbrev-downcase nil)
-  (company-show-numbers nil)
-  :config
-  (bind-keys :map company-active-map
-             ("TAB" . company-complete))
-  ;;  (setq company-backends '(company-capf))
-  (advice-add 'company-capf :around #'company-completion-styles)
-  )
-
-
 
 (use-package rainbow-delimiters
   :init
@@ -261,116 +171,12 @@
 
 
 
-(use-package multiple-cursors
-  :defer nil
-  :config
-  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-  )
+
 
 (use-package dumb-jump
   :init
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
   )
-
-
-
-
-(use-package lsp-mode
-  :init
-  (setq lsp-keymap-prefix "C-c l")
-  :hook
-  (((python-mode c-mode c++-mode) . lsp))
-  :config
-  (setq lsp-enable-symbol-highlighting nil)
-  (setq lsp-enable-on-type-formatting nil)
-  )
-
-(use-package lsp-ui
-  :commands lsp-ui-mode)
-
-(use-package dap-mode
-  :init
-  (dap-ui-mode)
-  (dap-ui-many-windows-mode)
-
-  :hook
-  (((python-mode) . dap-mode))
-
-  :config
-  (require 'dap-python)
-  (setq dap-python-debugger 'debugpy)
-  )
-
-
-
-;; optionally if you want to use debugger
-;; (use-package dap-mode)
-;; (use-package dap-LANGUAGE) to load the dap adapter for your language
-
-;; optional if you want which-key integration
-;; (use-package which-key
-;;   :config
-;;   (which-key-mode))
-
-
-;; =========================
-;; Web stuff
-;; =========================
-
-(use-package web-mode
-  :mode
-  (("\\.xml\\'"        . web-mode)
-   ("\\.html\\'"       . web-mode)
-   ("\\.htm\\'"        . web-mode))
-
-  ;; :hook
-  ;; (web-mode . web-mode-toggle-current-element-highlight)
-  )
-
-(use-package css-mode
-  :ensure nil
-  )
-
-;; =========================
-;; shell
-;; =========================
-
-(use-package sh-script
-  :ensure nil
-  :config
-  (setq sh-basic-offset 4)
-  )
-
-
-
-;; =========================
-;; Python
-;; =========================
-
-(use-package python
-  :init
-  (setq python-shell-interpreter "python3")
-  (setq python-shell-interpreter-args "-i")
-  (add-hook 'python-mode-hook #'electric-indent-local-mode)
-
-  ;; set compile command with current file name
-  (add-hook 'python-mode-hook #'(lambda ()
-                                  (set (make-local-variable 'compile-command)
-                                       (concat "python3 " buffer-file-name))))
-
-  :commands python-mode
-  :interpreter ("python3" . python-mode)
-  ;;(python-environment-virtualenv (quote ("python3.8" "-m" "venv")))
-  )
-
-
-(use-package lsp-pyright
-  :ensure t
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-pyright))))
 
 (use-package envrc
   :init
@@ -378,134 +184,10 @@
   )
 
 
-;; use local elpy version for jedi fix
-;; (add-to-list 'load-path "/home/rego/.emacs.d/plugins/elpy")
-;; (use-package 'elpy)
-;; (advice-add 'python-mode :before 'elpy-enable)
-;; (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-;; (add-hook 'elpy-mode-hook 'flycheck-mode)
-;; (setq elpy-rpc-python-command "python3.8")
-;; ;;  (setq elpy-rpc-backend "company")
-;; (setq elpy-rpc-virtualenv-path 'system)
-
-;; (use-package elpy
-;;   :init
-;;   (advice-add 'python-mode :before 'elpy-enable)
-;;   :after (python flycheck)
-;;   :config
-;;   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-;;   (add-hook 'elpy-mode-hook 'flycheck-mode)
-;;   (setq elpy-rpc-python-command "python3.8")
-;; ;;  (setq elpy-rpc-backend "company")
-;;   (setq elpy-rpc-virtualenv-path 'system)
-;;   )
-
-;; (use-package py-autopep8
-;;   :after (python elpy)
-;;   :bind*
-;;   (:map elpy-mode-map ("C-c C-f" . 'py-autopep8-buffer))
-;;   )
-
-
-;; jedi provides auto completion for Python programs. Depends on the
-;; Python packages "jedi" and "epc" to be installed on the host
-;; machine. Don't use this with company, install company-jedi instead
-;; (use-package jedi
-;;   :init
-;;   (add-hook 'python-mode-hook 'jedi:setup)
-;;   (add-hook 'python-mode-hook 'jedi:ac-setup)
-;;   (setq jedi:complete-on-dot t)
-;;   ;; (setq jedi:server-command
-;;   ;;       '("/home/rego/.emacs.d/.python-environments/default/bin/jediepcserver"))
-;;   :after python
-;;   )
-
-
-;; =========================
-;; R
-;; =========================
-
 (use-package ess)
-
-
-;; =========================
-;; Markdown
-;; =========================
-
 (use-package markdown-mode)
 
-;; throws error for some X stuff
-;; (use-package grip-mode
-;;   :config
-;;   ;;  (define-key markdown-mode-command-map (kbd "g") #'grip-mode)
-;;   (add-hook 'markdown-mode-hook #'grip-mode)
-;;   )
-
-
-
-;; =========================
-;; CSV
-;; =========================
-
 (use-package csv-mode)
-
-;; =========================
-;; Org mode
-;; =========================
-
-(use-package org
-  :init
-  (setq org-startup-truncated nil)
-  :bind
-  (:map org-mode-map ("C-c C-x t" . 'org-table-create))
-  :config
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((python t)))
-  )
-
-(use-package org-anki
-  :after org
-  :config
-  (customize-set-variable 'org-anki-default-deck "dump")
-  )
-
-
-;; =========================
-;; LaTeX
-;; =========================
-
-(use-package tex
-  :init
-  (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-  (auto-fill-mode nil)
-  (setq LaTeX-verbatim-environments-local (list "lstlisting"))
-  :ensure
-  auctex
-  :config
-  (define-key TeX-mode-map (kbd "C-c d") 'TeX-doc)
-  (setq LaTeX-indent-environment-list
-        '(("verbatim" current-indentation)
-          ("verbatim*" current-indentation)
-          ("filecontents" current-indentation)
-          ("filecontents*" current-indentation)
-          ("tabular")
-          ("tabular*")
-          ("align" LaTeX-indent-tabular)
-          ("align*" LaTeX-indent-tabular)
-          ("array" LaTeX-indent-tabular)
-          ("eqnarray" LaTeX-indent-tabular)
-          ("eqnarray*" LaTeX-indent-tabular)
-          ("displaymath")
-          ("equation")
-          ("equation*")
-          ("picture")
-          ("tabbing")))
-  )
-
-;; =========================
-;; Kotlin, Java
-;; =========================
 
 (use-package flycheck-kotlin)
 
@@ -515,35 +197,20 @@
   :config
   )
 
-
-;; =========================
-;; Erlang
-;; =========================
-
-
-; (use-package erlang)
-
-;; =========================
-;; Prolog
-;; =========================
-
-; associate file extension .pl with this mode
-(add-to-list 'auto-mode-alist '("\\.pl\\'" . prolog-mode))
-
-;; =========================
-;; Haskell
-;; =========================
-
-(use-package haskell-mode)
-
-
 (require 'init-editing-utils nil t)
+(require 'init-company nil t)
 (require 'init-vc nil t)
 (require 'init-appearance nil t)
+(require 'init-windows nil t)
+(require 'init-sessions nil t)
 (require 'init-minibuffer nil t)
 (require 'init-lisp nil t)
 (require 'init-cc nil t)
-
+(require 'init-web nil t)
+(require 'init-org nil t)
+(require 'init-tex nil t)
+(require 'init-sh nil t)
+(require 'init-python nil t)
 
 ;; =========================
 ;; Trailer

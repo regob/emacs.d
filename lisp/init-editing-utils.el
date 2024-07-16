@@ -6,7 +6,16 @@
 (setq-default indent-tabs-mode  nil)
 (setq-default tab-width 4)
 
-;;; Some settings following taken from better-defaults
+;; modes for navigating super_words and CamelCase words
+(setq global-superword-mode t)
+;; (setq global-subword-mode t)
+
+;; visual line mode enabled, without word wrapping
+(setq visual-line-mode t)
+(setq word-wrap nil)
+
+
+;;; Some settings taken from better-defaults
 ;;; TODO integrate some more from there?
 
 ;; zap-up-to-char instead of zap-to-char
@@ -36,6 +45,19 @@
   :ensure t
   :init
   (which-key-mode))
+
+(use-package multiple-cursors
+  :defer nil
+  :config
+  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+  )
+
+;; Enable auto-revert-mode
+(global-auto-revert-mode t)
+
 
 
 (provide 'init-editing-utils)

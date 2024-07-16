@@ -17,24 +17,39 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
+(setq inhibit-startup-message t)    ; Hide the startup message
 
-;; Select font installed in the order of priority
-;; https://emacsredux.com/blog/2021/12/22/check-if-a-font-is-available-with-emacs-lisp/
-(cond
- ((member "Source Code Pro" (font-family-list))
-  (set-face-attribute 'default nil
-                      :family "Source Code Pro"
-                      :height 100))
- ;; on Windows its written without spaces
- ((member "SourceCodePro" (font-family-list))
-  (set-face-attribute 'default nil
-                      :family "SourceCodePro"
-                      :height 100))
- (t
-  (warn "Default fonts are not installed. Make sure to install one or select another one!"))
- )
+(defun rb-init-font ()
+  "Initialize display font from a list of options."
+  
+  ;; Select font installed in the order of priority
+  ;; https://emacsredux.com/blog/2021/12/22/check-if-a-font-is-available-with-emacs-lisp/
+  (cond
+   ((member "Source Code Pro" (font-family-list))
+    (set-face-attribute 'default nil
+                        :family "Source Code Pro"
+                        :height 100))
+   ;; on Windows its written without spaces
+   ((member "SourceCodePro" (font-family-list))
+    (set-face-attribute 'default nil
+                        :family "SourceCodePro"
+                        :height 100))
+   (t
+    (warn "Default fonts are not installed. Make sure to install one or select another one!"))
+   )
+
+  (copy-face 'default 'fixed-pitch)
+  )
+
+(add-hook 'after-init-hook #'rb-init-font)
 
 
+(use-package anzu
+  :init
+  (add-hook 'after-init-hook 'global-anzu-mode)
+  :config
+  (setq anzu-mode-lighter "")
+  )
 
 (use-package minions
   :ensure t

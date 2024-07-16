@@ -36,3 +36,4 @@ session*
 bookmarks
 .emacs.desktop
 server/
+*.elc
