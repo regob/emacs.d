@@ -36,7 +36,8 @@
   :hook
   (;;(python-mode . smartparens-mode)
    (css-mode . smartparens-mode)
-   (prog-mode . smartparens-mode))
+   (prog-mode . smartparens-mode)
+   (org-mode . smartparens-mode))
   )
 
 

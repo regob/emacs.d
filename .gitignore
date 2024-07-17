@@ -37,3 +37,4 @@ bookmarks
 .emacs.desktop
 server/
 *.elc
+temp/
