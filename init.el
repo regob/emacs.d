@@ -44,7 +44,6 @@
 ;; always ask before killing emacs (does not hold for emacsclient though)
 (setq confirm-kill-emacs 'yes-or-no-p)
 
-(global-set-key (kbd "C-x C-b") #'ibuffer)
 
 
 ;; If there are no archived package contents, refresh them
@@ -101,8 +100,16 @@
 (bind-key (kbd "i") 'rb-jump-to-init-file 'rb-user-keymap)
 
 
+(global-set-key (kbd "C-x C-b") #'ibuffer)
 
-
+;; macro keymap
+(define-prefix-command 'rb-macro-keymap)
+(global-set-key (kbd "C-c m") 'rb-macro-keymap)
+(bind-key (kbd "s") #'start-kbd-macro 'rb-macro-keymap)
+(bind-key (kbd "e") #'end-kbd-macro 'rb-macro-keymap)
+(bind-key (kbd "q") #'kbd-macro-query 'rb-macro-keymap)
+(bind-key (kbd "r") #'call-last-kbd-macro 'rb-macro-keymap)
+(bind-key (kbd "m") #'edit-last-kbd-macro 'rb-macro-keymap)
 
 (use-package avy
   :init
