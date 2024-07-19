@@ -8,6 +8,7 @@
   :bind
   (:map org-mode-map ("C-c C-x t" . 'org-table-create))
 
+  :commands org-mode
   :config
   (org-babel-do-load-languages
    'org-babel-load-languages
