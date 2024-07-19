@@ -40,7 +40,6 @@
 ;;(setq initial-frame-alist '((top . 0) (left . 0) (width . 120) (height . 80)))
 
 (global-set-key (kbd "C-x 4 s") 'forward-symbol)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; always ask before killing emacs (does not hold for emacsclient though)
 (setq confirm-kill-emacs 'yes-or-no-p)
