@@ -2,8 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-
-
 (use-package org
   :bind
   (:map org-mode-map ("C-c C-x t" . 'org-table-create))
@@ -21,7 +19,7 @@
 
   (setq-default org-export-coding-system 'utf-8
                 org-confirm-babel-evaluate nil
-                org-startup-truncated t)
+                org-startup-truncated nil)
   )
 
 ;; Create anki flashcards from org sections

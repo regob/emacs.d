@@ -30,11 +30,9 @@
 ;; Automatic parenthesis handling
 (use-package smartparens
   :init
-  ;; (add-hook 'python-mode-hook #'smartparens-mode)
-  ;; (add-hook 'css-mode-hook #'smart
   (require 'smartparens-config)
   :hook
-  (;;(python-mode . smartparens-mode)
+  (
    (css-mode . smartparens-mode)
    (prog-mode . smartparens-mode)
    (org-mode . smartparens-mode))

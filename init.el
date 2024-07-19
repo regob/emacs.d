@@ -27,9 +27,8 @@
 ;; save customizations to custom.el (which is ignored) instead of init.el
 (setq custom-file (locate-user-emacs-file "custom.el"))
 
-;; Recompile the init files
-(byte-recompile-file user-init-file)
-(byte-recompile-directory (expand-file-name "lisp" user-emacs-directory) 0)
+
+
 
 
 
@@ -89,15 +88,24 @@
 ;; =========================
 
 (defun rb-jump-to-init-file ()
+  "Open init.el in the current window."
   (interactive)
   (find-file user-init-file)
-  ;; (switch-to-buffer "~/.emacs.d/init.el")
   )
+
+(defun rb-byte-recompile ()
+  "Byte recompile all init files."
+  (interactive)
+  (byte-recompile-file user-init-file)
+  (byte-recompile-directory (expand-file-name "lisp" user-emacs-directory) 0)
+  )
+
 
 ;; my user keymap
 (define-prefix-command 'rb-user-keymap)
 (global-set-key (kbd "C-c 8") 'rb-user-keymap)
 (bind-key (kbd "i") 'rb-jump-to-init-file 'rb-user-keymap)
+(bind-key (kbd "c") #'rb-byte-recompile 'rb-user-keymap)
 
 
 (global-set-key (kbd "C-x C-b") #'ibuffer)
