@@ -216,6 +216,7 @@
   )
 
 (require 'init-editing-utils nil t)
+(require 'init-consult nil t)
 (require 'init-company nil t)
 (require 'init-vc nil t)
 (require 'init-appearance nil t)
