@@ -96,10 +96,9 @@
 (defun rb-byte-recompile ()
   "Byte recompile all init files."
   (interactive)
-  (byte-recompile-file user-init-file)
+  (byte-recompile-file user-init-file 0)
   (byte-recompile-directory (expand-file-name "lisp" user-emacs-directory) 0)
   )
-
 
 ;; my user keymap
 (define-prefix-command 'rb-user-keymap)
