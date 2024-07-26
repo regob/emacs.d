@@ -17,9 +17,9 @@
      (shell . t)
      (sql . t)))
 
-  (setq-default org-export-coding-system 'utf-8
-                org-confirm-babel-evaluate nil
-                org-startup-truncated nil)
+  (setq org-export-coding-system 'utf-8
+        org-confirm-babel-evaluate nil
+        org-startup-truncated nil)
   )
 
 ;; Create anki flashcards from org sections
