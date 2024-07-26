@@ -28,11 +28,10 @@
    ((member "Source Code Pro" (font-family-list))
     (set-face-attribute 'default nil
                         :family "Source Code Pro"
-                        :height 100))
-   ;; on Windows its written without spaces
-   ((member "SourceCodePro" (font-family-list))
+                        :height 95))
+   ((member "Consolas" (font-family-list))
     (set-face-attribute 'default nil
-                        :family "SourceCodePro"
+                        :family "Consolas"
                         :height 100))
    (t
     (warn "Default fonts are not installed. Make sure to install one or select another one!"))
