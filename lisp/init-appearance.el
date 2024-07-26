@@ -33,6 +33,10 @@
     (set-face-attribute 'default nil
                         :family "Consolas"
                         :height 100))
+   ((member "DejaVu Sans Mono" (font-family-list))
+    (set-face-attribute 'default nil
+                        :family "DejaVu Sans Mono"
+                        :height 100))
    (t
     (warn "Default fonts are not installed. Make sure to install one or select another one!"))
    )
