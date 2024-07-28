@@ -36,7 +36,8 @@
 (setq backup-directory-alist `(("." . "~/.emacs_saves")))
 (setq backup-by-copying t)
 
-;;(setq initial-frame-alist '((top . 0) (left . 0) (width . 120) (height . 80)))
+;; start in full screen
+(push '(fullscreen . maximized) default-frame-alist)
 
 (global-set-key (kbd "C-x 4 s") 'forward-symbol)
 
