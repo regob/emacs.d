@@ -16,16 +16,29 @@
 
 
 ;;; Some settings taken from better-defaults
-;;; TODO integrate some more from there?
 
 ;; zap-up-to-char instead of zap-to-char
 (global-set-key (kbd "M-z") 'zap-up-to-char)
+(global-set-key (kbd "M-/") 'hippie-expand)
 
 ;; Swap regex and standard isearch
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
+
+
+(require 'apropos)
+(setq apropos-do-all t)
+
+(setq save-interprogram-paste-before-kill t
+
+      mouse-yank-at-point t
+      require-final-newline t
+      visible-bell t
+      frame-inhibit-implied-resize t
+      )
+
 
 ;; Automatic parenthesis handling
 (use-package smartparens
