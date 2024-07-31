@@ -220,6 +220,7 @@
 (require 'init-org nil t)
 
 (require 'init-editing-utils nil t)
+(require 'init-utils nil t)
 (require 'init-consult nil t)
 
 ;; try corfu instead of company
