@@ -1,5 +1,6 @@
 ;;; init.el --- Emacs init file  -*- lexical-binding: t; -*-
-
+;;; Commentary:
+;;; Code:
 
 ;; ====================================
 ;; Initialize package manager and paths
@@ -8,29 +9,77 @@
 ;; Pre-config local settings, for setting paths, etc needed for setup.
 (require 'init-local-pre nil t)
 
+;; Example Elpaca configuration -*- lexical-binding: t; -*-
+(defvar elpaca-installer-version 0.7)
+(defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
+(defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
+(defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
+(defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
+                              :ref nil :depth 1
+                              :files (:defaults "elpaca-test.el" (:exclude "extensions"))
+                              :build (:not elpaca--activate-package)))
+(let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
+       (build (expand-file-name "elpaca/" elpaca-builds-directory))
+       (order (cdr elpaca-order))
+       (default-directory repo))
+  (add-to-list 'load-path (if (file-exists-p build) build repo))
+  (unless (file-exists-p repo)
+    (make-directory repo t)
+    (when (< emacs-major-version 28) (require 'subr-x))
+    (condition-case-unless-debug err
+        (if-let ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
+                 ((zerop (apply #'call-process `("git" nil ,buffer t "clone"
+                                                 ,@(when-let ((depth (plist-get order :depth)))
+                                                     (list (format "--depth=%d" depth) "--no-single-branch"))
+                                                 ,(plist-get order :repo) ,repo))))
+                 ((zerop (call-process "git" nil buffer t "checkout"
+                                       (or (plist-get order :ref) "--"))))
+                 (emacs (concat invocation-directory invocation-name))
+                 ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
+                                       "--eval" "(byte-recompile-directory \".\" 0 'force)")))
+                 ((require 'elpaca))
+                 ((elpaca-generate-autoloads "elpaca" repo)))
+            (progn (message "%s" (buffer-string)) (kill-buffer buffer))
+          (error "%s" (with-current-buffer buffer (buffer-string))))
+      ((error) (warn "%s" err) (delete-directory repo 'recursive))))
+  (unless (require 'elpaca-autoloads nil t)
+    (require 'elpaca)
+    (elpaca-generate-autoloads "elpaca" repo)
+    (load "./elpaca-autoloads")))
+(add-hook 'after-init-hook #'elpaca-process-queues)
+(elpaca `(,@elpaca-order))
 
-(require 'package)
-(setq package-archives
-      '(("gnu" . "http://elpa.gnu.org/packages/")
-        ("melpa" . "https://melpa.org/packages/")))
+;; Should enable no-symlink mode on Windows
+(if (eq system-type 'windows-nt)
+    (elpaca-no-symlink-mode))
 
-(package-initialize)
 
-;; use-package is not needed at runtime
-(require 'use-package)
+;; Install a package via the elpaca macro
+;; See the "recipes" section of the manual for more details.
+
+;; (elpaca example-package)
+
+;; Install use-package support
+(elpaca elpaca-use-package
+  ;; Enable use-package :ensure support for Elpaca.
+  (elpaca-use-package-mode))
+
 (setq use-package-always-ensure t)
-(setq use-package-always-defer t)
+;;(setq use-package-always-defer t)      
+
+
+;; ====================================
+;; General setup
+;; ====================================
+
+;; (use-package diminish)
 
 (add-to-list 'load-path (expand-file-name "plugins" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 ;; save customizations to custom.el (which is ignored) instead of init.el
 (setq custom-file (locate-user-emacs-file "custom.el"))
-
-
-
-
-
+(add-hook 'elpaca-after-init-hook (lambda () (load custom-file)))
 
 ;; Set autosave directory
 (setq backup-directory-alist `(("." . "~/.emacs_saves")))
@@ -43,15 +92,6 @@
 
 ;; always ask before killing emacs (does not hold for emacsclient though)
 (setq confirm-kill-emacs 'yes-or-no-p)
-
-
-
-;; If there are no archived package contents, refresh them
-(when (not package-archive-contents)
-  (package-refresh-contents))
-;; to update packages: list-packages then S-u x
-
-
 
 ;; Enable line numbers only when executing goto-line
 ;; from http://whattheemacsd.com/
@@ -68,16 +108,6 @@
 
 (setenv "PAGER" "cat")
 (remove-hook 'text-mode-hook 'turn-on-auto-fill)
-
-(use-package centered-cursor-mode
-  :init
-  ;; (global-centered-cursor-mode)
-  ;; (add-hook 'prog-mode-hook #'centered-cursor-mode)
-  ;; (add-hook 'text-mode-hook #'centered-cursor-mode)
-  )
-
-
-;; (use-package treemacs)
 
 (use-package dired-sidebar
   :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
@@ -120,7 +150,7 @@
 (bind-key (kbd "m") #'edit-last-kbd-macro 'rb-macro-keymap)
 
 (use-package avy
-  :init
+  :config
   (global-set-key (kbd "C-'") 'avy-goto-char-2)
   (global-set-key (kbd "C-;") 'avy-goto-char-timer)
   )
@@ -131,12 +161,12 @@
 
 ;; enable flycheck globally
 (use-package flycheck
-  :init
+  :config
   (add-hook 'prog-mode-hook 'flycheck-mode)
   )
 
 (use-package projectile
-  :init
+  :config
   (add-hook 'prog-mode-hook #'(lambda () (projectile-mode +1)))
   :bind-keymap
   ("C-c p" . 'projectile-command-map)
@@ -146,11 +176,6 @@
   )
 
 (use-package rainbow-delimiters
-  :init
-  ;; turn on rainbow delims in all programming languages and LaTeX
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-  (add-hook 'LaTeX-mode-hook #'rainbow-delimiters-mode)
-
   :config
   (set-face-foreground 'rainbow-delimiters-depth-1-face "#c66") ; red
   (set-face-foreground 'rainbow-delimiters-depth-2-face "#6c6") ; green
@@ -161,44 +186,31 @@
   (set-face-foreground 'rainbow-delimiters-depth-7-face "#ccc") ; light gray
   (set-face-foreground 'rainbow-delimiters-depth-8-face "#999") ; medium gray
   (set-face-foreground 'rainbow-delimiters-depth-9-face "#666") ; dark gray
-  )
+  ;; turn on rainbow delims in all programming languages and LaTeX
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'LaTeX-mode-hook 'rainbow-delimiters-mode)
 
-(use-package aggressive-indent
-  :hook
-  ((css-mode . aggressive-indent-mode))
   )
 
 (use-package yasnippet
-  :init
-  (yas-global-mode 1)
   :config
   ;; (add-to-list 'load-path
   ;;              "~/.emacs.d/plugins/yasnippet-radical-snippets")
   ;; (require 'yasnippet-radical-snippets)
   ;; (yasnippet-radical-snippets-initialize)
+  (yas-global-mode 1)
   )
 
 (use-package yasnippet-snippets)
 
-(electric-pair-mode -1)
-(electric-indent-mode -1) ; TODO: still gets turned on in cc-mode
-
-
-
-
-
-
-
-
-
 (use-package dumb-jump
-  :init
+  :config
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
   )
 
 (use-package envrc
-  :init
-  (add-hook 'after-init-hook 'envrc-global-mode)
+  :config
+  (envrc-global-mode)
   )
 
 
@@ -210,9 +222,7 @@
 (use-package flycheck-kotlin)
 
 (use-package kotlin-mode
-  :init
   :after flycheck
-  :config
   )
 
 (require 'init-editing-utils nil t)

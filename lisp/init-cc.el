@@ -10,7 +10,7 @@
 ;;   )
 
 (use-package cc-mode
-  :init
+  :config
   (setq c-default-style "linux")
   (setq-default c-basic-offset 4)
   (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard
@@ -22,7 +22,6 @@
   ;; :bind
   ;; (:map c++-mode-map ("C-c C-f" . 'clang-format-buffer))
   ;; (:map c-mode-map ("C-c C-f" . 'clang-format-buffer))
-  :config
   )
 
 

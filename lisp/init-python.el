@@ -5,7 +5,7 @@
 
 
 (use-package python
-  :init
+  :config
   (setq python-shell-interpreter "python3")
   (setq python-shell-interpreter-args "-i")
   (add-hook 'python-mode-hook #'electric-indent-local-mode)

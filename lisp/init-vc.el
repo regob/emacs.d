@@ -7,8 +7,8 @@
 
 ;; Git changes highlighted on the fringe
 (use-package diff-hl
-  :init
-  (add-hook 'after-init-hook #'global-diff-hl-mode)
+  :config
+  (add-hook 'elpaca-after-init-hook #'global-diff-hl-mode)
   ;; :hook
   ;; ((prog-mode . diff-hl-mode)
   ;;  (org-mode . diff-hl-mode))

@@ -29,6 +29,9 @@
   (customize-set-variable 'org-anki-default-deck "dump")
   )
 
+(use-package anki-editor
+  :ensure (:host github :repo "anki-editor/anki-editor" :branch "master")
+  )
 
 ;; Following configs taken from:
 ;; https://github.com/purcell/emacs.d/blob/master/lisp/init-org.el

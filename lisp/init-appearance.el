@@ -5,9 +5,8 @@
 (setq custom-safe-themes t)
 
 (use-package gruvbox-theme
-  :ensure t
-  :init
-  (add-hook 'after-init-hook (lambda() (load-theme 'gruvbox t)))
+  :config
+  (load-theme 'gruvbox t)
   )
 
 
@@ -21,6 +20,7 @@
 
 (defun rb-init-font ()
   "Initialize display font from a list of options."
+  (interactive)
   
   ;; Select font installed in the order of priority
   ;; https://emacsredux.com/blog/2021/12/22/check-if-a-font-is-available-with-emacs-lisp/
@@ -44,21 +44,20 @@
   (copy-face 'default 'fixed-pitch)
   )
 
-(add-hook 'after-init-hook #'rb-init-font)
+(add-hook 'elpaca-after-init-hook #'rb-init-font)
 
 
 (use-package anzu
-  :init
-  (add-hook 'after-init-hook 'global-anzu-mode)
   :config
   (setq anzu-mode-lighter "")
+  (global-anzu-mode)
   )
 
-(use-package minions
-  :ensure t
-  :init
-  (setq minions-mode-line-lighter "☰")
-  (minions-mode 1))
+;; (use-package minions
+;;   :config
+;;   (setq minions-mode-line-lighter "☰")
+;;   (minions-mode 1)
+;;   )
 
 
 (provide 'init-appearance)
