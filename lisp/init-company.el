@@ -9,25 +9,25 @@
   (let ((completion-styles '(basic partial-completion)))
     (apply capf-fn args)))
 
-(use-package company
-  :init
-  (add-hook 'after-init-hook 'global-company-mode)
-  :diminish ""
-  :custom
-  (company-idle-delay 0.2)
-  (company-selection-wrap-around t)
-  (company-minimum-prefix-length 3)
-  (company-candidates-length 30)
-  (company-require-match nil)
-  (company-dabbrev-ignore-case nil)
-  (company-dabbrev-downcase nil)
-  (company-show-numbers nil)
-  :config
-  (bind-keys :map company-active-map
-             ("TAB" . company-complete))
-  ;;  (setq company-backends '(company-capf))
-  (advice-add 'company-capf :around #'company-completion-styles)
-  )
+;; (use-package company
+;;   ;; :diminish ""
+;;   :custom
+;;   (company-idle-delay 0.2)
+;;   (company-selection-wrap-around t)
+;;   (company-minimum-prefix-length 3)
+;;   (company-candidates-length 30)
+;;   (company-require-match nil)
+;;   (company-dabbrev-ignore-case nil)
+;;   (company-dabbrev-downcase nil)
+;;   (company-show-numbers nil)
+  
+;;   :config
+;;   (bind-keys :map company-active-map
+;;              ("TAB" . company-complete))
+;;   ;;  (setq company-backends '(company-capf))
+;;   (advice-add 'company-capf :around #'company-completion-styles)
+;;   (global-company-mode)
+;;   )
 
 
 (provide 'init-company)

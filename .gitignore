@@ -25,6 +25,7 @@ experiments
 multisession
 request
 plugins/
+elpaca/
 
 # temporary files
 .lsp-session*

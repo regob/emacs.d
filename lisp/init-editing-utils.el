@@ -39,10 +39,12 @@
       frame-inhibit-implied-resize t
       )
 
+(electric-pair-mode -1)
+(electric-indent-mode -1) ; TODO: still gets turned on in cc-mode
 
 ;; Automatic parenthesis handling
 (use-package smartparens
-  :init
+  :config
   (require 'smartparens-config)
   :hook
   (
@@ -55,7 +57,7 @@
 ;; Show key suggestions when typing a key chord
 (use-package which-key
   :ensure t
-  :init
+  :config
   (which-key-mode))
 
 (use-package multiple-cursors

@@ -3,27 +3,25 @@
 ;;; Code:
 
 (use-package lsp-mode
-  :init
-  (setq lsp-keymap-prefix "C-c l")
   :hook
   (((python-mode c-mode c++-mode) . lsp))
   :config
   (setq lsp-enable-symbol-highlighting nil)
   (setq lsp-enable-on-type-formatting nil)
+  (setq lsp-keymap-prefix "C-c l")
   )
 
 (use-package lsp-ui
   :commands lsp-ui-mode)
 
 (use-package dap-mode
-  :init
-  (dap-ui-mode)
-  (dap-ui-many-windows-mode)
-
   :hook
   (((python-mode) . dap-mode))
 
   :config
+  (dap-ui-mode)
+  (dap-ui-many-windows-mode)
+
   (require 'dap-python)
   (setq dap-python-debugger 'debugpy)
   )

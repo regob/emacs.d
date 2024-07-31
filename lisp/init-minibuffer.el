@@ -4,27 +4,27 @@
 
 ;; vertical completion in the minibuffer
 (use-package vertico
-  :init
+  :config
   (vertico-mode)
   )
 
 ;; Enable rich annotations using the Marginalia package
 (use-package marginalia
-  :init
-  (marginalia-mode)
-  
   ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
   ;; available in the *Completions* buffer, add it to the
   ;; `completion-list-mode-map'.
   :bind (:map minibuffer-local-map
               ("M-A" . marginalia-cycle)
               )
+
+  :config
+  (marginalia-mode)
   )
 
 
 ;; Use the `orderless' completion style for space separated orderless completion
 (use-package orderless
-  :init
+  :config
   ;; Configure a custom style dispatcher (see the Consult wiki)
   ;; (setq orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch)
   ;;       orderless-component-separator #'orderless-escapable-split-on-space)

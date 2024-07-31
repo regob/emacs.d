@@ -64,7 +64,7 @@
   :hook (completion-list-mode . consult-preview-at-point-mode)
 
   ;; The :init configuration is always executed (Not lazy)
-  :init
+  :config
 
   ;; Optionally configure the register formatting. This improves the register
   ;; preview for `consult-register', `consult-register-load',
@@ -82,7 +82,7 @@
 
   ;; Configure other variables and modes in the :config section,
   ;; after lazily loading the package.
-  :config
+  ;; :config
 
   ;; Optionally configure preview. The default value
   ;; is 'any, such that any key triggers the preview.
@@ -108,7 +108,6 @@
   ;; You may want to use `embark-prefix-help-command' or which-key instead.
   ;; (keymap-set consult-narrow-map (concat consult-narrow-key " ?") #'consult-narrow-help)
   )
-
 
 (provide 'init-consult)
 

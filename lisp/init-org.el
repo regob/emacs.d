@@ -3,19 +3,20 @@
 ;;; Code:
 
 (use-package org
+  :after python
   :bind
   (:map org-mode-map ("C-c C-x t" . 'org-table-create))
 
   :commands org-mode
   :config
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((R . t)
-     (emacs-lisp . t)
-     (plantuml . t)
-     (python . t)
-     (shell . t)
-     (sql . t)))
+  ;; (org-babel-do-load-languages
+  ;;  'org-babel-load-languages
+  ;;  '((R . t)
+  ;;    (emacs-lisp . t)
+  ;;    (plantuml . t)
+  ;;    (python . t)
+  ;;    (shell . t)
+  ;;    (sql . t)))
 
   (setq org-export-coding-system 'utf-8
         org-confirm-babel-evaluate nil
@@ -29,6 +30,9 @@
   (customize-set-variable 'org-anki-default-deck "dump")
   )
 
+(use-package anki-editor
+  :ensure (:host github :repo "anki-editor/anki-editor" :branch "master")
+  )
 
 ;; Following configs taken from:
 ;; https://github.com/purcell/emacs.d/blob/master/lisp/init-org.el
