@@ -1,41 +1,22 @@
-.*.el
-*.last
-auto-save-list
-org-persist/
-*-cache
-.cache
-projectile-bookmarks.eld
-transient
-url
-eshell
-history
+# ignore everything
+*
 
-timelog
+# except the .el files in the lisp/ directory
+!lisp
+!lisp/*.el
 
-# local customizations
+# keep init files
+!init.el
+!early-init.el
+
+# but ignore local customizations
 lisp/init-local.el
 lisp/init-local-pre.el
 custom.el
 
-# ignored directories
-elpa
-backups
-projects
-experiments
-multisession
-request
-plugins/
-elpaca/
+# keep snippets
+snippets/
 
-# temporary files
-.lsp-session*
-**/#*
-.dap-breakpoints
-dap*
-session*
-.session
-bookmarks
-.emacs.desktop
-server/
-*.elc
-temp/
+# keep some necessary files
+README.org
+LICENSE
