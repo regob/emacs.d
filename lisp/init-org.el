@@ -3,19 +3,20 @@
 ;;; Code:
 
 (use-package org
+  :after python
   :bind
   (:map org-mode-map ("C-c C-x t" . 'org-table-create))
 
   :commands org-mode
   :config
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((R . t)
-     (emacs-lisp . t)
-     (plantuml . t)
-     (python . t)
-     (shell . t)
-     (sql . t)))
+  ;; (org-babel-do-load-languages
+  ;;  'org-babel-load-languages
+  ;;  '((R . t)
+  ;;    (emacs-lisp . t)
+  ;;    (plantuml . t)
+  ;;    (python . t)
+  ;;    (shell . t)
+  ;;    (sql . t)))
 
   (setq org-export-coding-system 'utf-8
         org-confirm-babel-evaluate nil

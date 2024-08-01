@@ -5,16 +5,28 @@
 (setq custom-safe-themes t)
 
 (use-package gruvbox-theme
-  :config
-  (load-theme 'gruvbox t)
+  :ensure t ;; (gruvbox-theme :files ("*.el"))
+  :init
+  (add-hook 'elpaca-after-init-hook #'(lambda () (load-theme 'gruvbox t)))
   )
 
+;; (use-package uwu-theme
+;;   :ensure (uwu-theme :host github :repo "kborling/uwu-theme" :files ("*.el"))
+;;   :config
+;;   (setq
+;;    uwu-distinct-line-numbers 'nil
+;;    uwu-scale-org-headlines t
+;;    uwu-use-variable-pitch t)
+;;   (load-theme 'uwu t))
 
 ;; Remove toolbars, menu and scrollbars
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+
+;; start in full screen
+(push '(fullscreen . maximized) default-frame-alist)
 
 (setq inhibit-startup-message t)    ; Hide the startup message
 
@@ -44,14 +56,26 @@
   (copy-face 'default 'fixed-pitch)
   )
 
-(add-hook 'elpaca-after-init-hook #'rb-init-font)
+(add-hook 'window-setup-hook #'rb-init-font)
 
 
-(use-package anzu
-  :config
-  (setq anzu-mode-lighter "")
-  (global-anzu-mode)
-  )
+;; Enable line numbers only when executing goto-line
+;; from http://whattheemacsd.com/
+(defun goto-line-with-feedback ()
+  "Show line numbers temporarily, while prompting for the line number input"
+  (interactive)
+  (unwind-protect
+      (progn
+        (display-line-numbers-mode)
+        (goto-line (read-number "Goto line: ")))
+    (display-line-numbers-mode -1)))
+(global-set-key [remap goto-line] 'goto-line-with-feedback)
+
+;; (use-package anzu
+;;   :config
+;;   (setq anzu-mode-lighter "")
+;;   (global-anzu-mode)
+;;   )
 
 ;; (use-package minions
 ;;   :config

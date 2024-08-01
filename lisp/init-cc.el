@@ -10,6 +10,7 @@
 ;;   )
 
 (use-package cc-mode
+  :ensure nil
   :config
   (setq c-default-style "linux")
   (setq-default c-basic-offset 4)

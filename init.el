@@ -9,6 +9,9 @@
 ;; Pre-config local settings, for setting paths, etc needed for setup.
 (require 'init-local-pre nil t)
 
+;; always load .el if newer than .elc
+(setq load-prefer-newer t)
+
 ;; Example Elpaca configuration -*- lexical-binding: t; -*-
 (defvar elpaca-installer-version 0.7)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
@@ -53,20 +56,13 @@
 (if (eq system-type 'windows-nt)
     (elpaca-no-symlink-mode))
 
-
-;; Install a package via the elpaca macro
-;; See the "recipes" section of the manual for more details.
-
-;; (elpaca example-package)
-
 ;; Install use-package support
 (elpaca elpaca-use-package
   ;; Enable use-package :ensure support for Elpaca.
-  (elpaca-use-package-mode))
-
-(setq use-package-always-ensure t)
-;;(setq use-package-always-defer t)      
-
+  (elpaca-use-package-mode)
+  ;; Assume :ensure t unless otherwise specified.
+  (setq elpaca-use-package-by-default t)
+  )
 
 ;; ====================================
 ;; General setup
@@ -74,39 +70,23 @@
 
 ;; (use-package diminish)
 
-(add-to-list 'load-path (expand-file-name "plugins" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
-;; save customizations to custom.el (which is ignored) instead of init.el
+;; save customizations to custom.el, if exists (which is git-ignored) instead of init.el
 (setq custom-file (locate-user-emacs-file "custom.el"))
-(add-hook 'elpaca-after-init-hook (lambda () (load custom-file)))
+(add-hook 'elpaca-after-init-hook (lambda () (load custom-file t)))
 
 ;; Set autosave directory
 (setq backup-directory-alist `(("." . "~/.emacs_saves")))
 (setq backup-by-copying t)
 
-;; start in full screen
-(push '(fullscreen . maximized) default-frame-alist)
-
-(global-set-key (kbd "C-x 4 s") 'forward-symbol)
-
 ;; always ask before killing emacs (does not hold for emacsclient though)
 (setq confirm-kill-emacs 'yes-or-no-p)
 
-;; Enable line numbers only when executing goto-line
-;; from http://whattheemacsd.com/
-(global-set-key [remap goto-line] 'goto-line-with-feedback)
-(defun goto-line-with-feedback ()
-  "Show line numbers temporarily, while prompting for the line number input"
-  (interactive)
-  (unwind-protect
-      (progn
-        (display-line-numbers-mode)
-        (goto-line (read-number "Goto line: ")))
-    (display-line-numbers-mode -1)))
-
-
+;; Set cat as pager, as less does not work well in eshell
 (setenv "PAGER" "cat")
+
+;; turn off auto fill 
 (remove-hook 'text-mode-hook 'turn-on-auto-fill)
 
 (use-package dired-sidebar
@@ -189,7 +169,6 @@
   ;; turn on rainbow delims in all programming languages and LaTeX
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'LaTeX-mode-hook 'rainbow-delimiters-mode)
-
   )
 
 (use-package yasnippet
@@ -225,6 +204,21 @@
   :after flycheck
   )
 
+;; (use-package treesit-auto
+;;   :custom
+;;   (treesit-auto-install 'prompt)
+;;   :config
+;;   (treesit-auto-add-to-auto-mode-alist 'all)
+;;   (global-treesit-auto-mode))
+
+(require 'init-tex nil t)
+(require 'init-sh nil t)
+(require 'init-python nil t)
+(require 'init-lisp nil t)
+(require 'init-cc nil t)
+(require 'init-web nil t)
+(require 'init-org nil t)
+
 (require 'init-editing-utils nil t)
 (require 'init-consult nil t)
 (require 'init-company nil t)
@@ -233,13 +227,6 @@
 (require 'init-windows nil t)
 (require 'init-sessions nil t)
 (require 'init-minibuffer nil t)
-(require 'init-lisp nil t)
-(require 'init-cc nil t)
-(require 'init-web nil t)
-(require 'init-org nil t)
-(require 'init-tex nil t)
-(require 'init-sh nil t)
-(require 'init-python nil t)
 
 ;; =========================
 ;; Trailer
@@ -247,7 +234,5 @@
 
 ;; Allow users to provide an optional "init-local" containing personal settings
 (require 'init-local nil t)
-
-(put 'dired-find-alternate-file 'disabled nil)
 
 ;;; init.el ends here

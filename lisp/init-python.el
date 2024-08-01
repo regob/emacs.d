@@ -5,6 +5,7 @@
 
 
 (use-package python
+  :ensure nil
   :config
   (setq python-shell-interpreter "python3")
   (setq python-shell-interpreter-args "-i")

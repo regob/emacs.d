@@ -44,7 +44,6 @@
 
 ;; Automatic parenthesis handling
 (use-package smartparens
-  :ensure t
   :config
   (require 'smartparens-config)
   :hook
