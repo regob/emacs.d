@@ -22,6 +22,11 @@
   )
 
 
+(use-package writeroom-mode
+  :init
+  (setq writeroom-width 120)
+  )
+
 (provide 'init-utils)
 
 ;;; init-utils.el ends here
