@@ -16,6 +16,10 @@
   (add-hook 'lisp-mode-hook #'aggressive-indent-mode)
   )
 
+(use-package highlight-quoted
+  :init
+  (add-hook 'emacs-lisp-mode-hook 'highlight-quoted-mode)
+  )
 
 (provide 'init-lisp)
 
