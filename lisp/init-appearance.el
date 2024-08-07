@@ -30,6 +30,19 @@
 
 (setq inhibit-startup-message t)    ; Hide the startup message
 
+;; if gui do something in whatver type of emacs instance we are using
+;; adapted from https://www.reddit.com/r/emacs/comments/pc189c/comment/hafl5os/
+(defun rb-apply-if-gui (&rest action)
+  "Do specified ACTION if we're in a gui regardless of daemon or not."
+  (if (daemonp)
+      (add-hook 'server-after-make-frame-hook
+                #'(lambda ()
+                    (if (display-graphic-p (selected-frame))
+                        (apply action))
+                    ))
+    (if (display-graphic-p)
+        (apply action))))
+
 (defun rb-init-font ()
   "Initialize display font from a list of options."
   (interactive)
@@ -56,12 +69,12 @@
   (copy-face 'default 'fixed-pitch)
   )
 
-(add-hook 'window-setup-hook #'rb-init-font)
-
+;; Initialize fonts if running with a GUI
+(rb-apply-if-gui 'rb-init-font)
 
 ;; Enable line numbers only when executing goto-line
 ;; from http://whattheemacsd.com/
-(defun goto-line-with-feedback ()
+(defun rb-goto-line-with-feedback ()
   "Show line numbers temporarily, while prompting for the line number input"
   (interactive)
   (unwind-protect
@@ -69,7 +82,7 @@
         (display-line-numbers-mode)
         (goto-line (read-number "Goto line: ")))
     (display-line-numbers-mode -1)))
-(global-set-key [remap goto-line] 'goto-line-with-feedback)
+(global-set-key [remap goto-line] 'rb-goto-line-with-feedback)
 
 ;; (use-package anzu
 ;;   :config
