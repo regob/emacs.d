@@ -27,6 +27,12 @@
   (setq writeroom-width 120)
   )
 
+(use-package woman
+  :ensure nil
+  :config
+  (setq woman-fill-frame t)
+  )
+
 (provide 'init-utils)
 
 ;;; init-utils.el ends here
