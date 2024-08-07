@@ -166,6 +166,7 @@
 (use-package aggressive-indent
   :hook
   ((css-mode . aggressive-indent-mode))
+  ((emacs-lisp-mode . aggressive-indent-mode))
   )
 
 (use-package yasnippet
@@ -231,6 +232,7 @@
 (require 'init-tex nil t)
 (require 'init-sh nil t)
 (require 'init-python nil t)
+(require 'init-powershell nil t)
 
 ;; =========================
 ;; Trailer
