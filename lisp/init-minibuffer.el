@@ -22,20 +22,6 @@
   )
 
 
-;; Use the `orderless' completion style for space separated orderless completion
-(use-package orderless
-  :config
-  ;; Configure a custom style dispatcher (see the Consult wiki)
-  ;; (setq orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch)
-  ;;       orderless-component-separator #'orderless-escapable-split-on-space)
-  (setq completion-styles '(orderless basic)
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles
-                                               partial-completion
-                                               )))
-        )
-  )
-
 (provide 'init-minibuffer)
 
 ;;; init-minibuffer.el ends here
