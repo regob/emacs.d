@@ -19,7 +19,6 @@
 
 ;; zap-up-to-char instead of zap-to-char
 (global-set-key (kbd "M-z") 'zap-up-to-char)
-(global-set-key (kbd "M-/") 'hippie-expand)
 
 ;; Swap regex and standard isearch
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)

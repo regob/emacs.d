@@ -221,7 +221,10 @@
 
 (require 'init-editing-utils nil t)
 (require 'init-consult nil t)
-(require 'init-company nil t)
+
+;; try corfu instead of company
+;; (require 'init-company nil t)
+(require 'init-completion nil t)
 (require 'init-vc nil t)
 (require 'init-appearance nil t)
 (require 'init-windows nil t)
