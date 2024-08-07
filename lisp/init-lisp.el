@@ -2,14 +2,11 @@
 ;;; Commentary:
 ;;; Code:
 
-;; aggressive indent goes well with lisp
-(use-package aggressive-indent
+(use-package elisp-mode
+  :ensure nil
   :config
-  (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
-  ;; ((css-mode . aggressive-indent-mode))
+  (setq sentence-end-double-space nil)
   )
-
-
 
 (use-package slime
   :config
@@ -21,6 +18,10 @@
   (add-hook 'lisp-mode-hook #'aggressive-indent-mode)
   )
 
+(use-package highlight-quoted
+  :init
+  (add-hook 'emacs-lisp-mode-hook 'highlight-quoted-mode)
+  )
 
 (provide 'init-lisp)
 
