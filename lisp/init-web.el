@@ -7,9 +7,6 @@
   (("\\.xml\\'"        . web-mode)
    ("\\.html\\'"       . web-mode)
    ("\\.htm\\'"        . web-mode))
-
-  ;; :hook
-  ;; (web-mode . web-mode-toggle-current-element-highlight)
   )
 
 (use-package css-mode

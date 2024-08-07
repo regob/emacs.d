@@ -27,6 +27,7 @@
 (use-package org-anki
   :after org
   :config
+  (setq-default org-keyword-properties '("ANKI_DECK" . "dump"))
   (customize-set-variable 'org-anki-default-deck "dump")
   )
 
