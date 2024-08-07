@@ -171,6 +171,12 @@
   (add-hook 'LaTeX-mode-hook 'rainbow-delimiters-mode)
   )
 
+(use-package aggressive-indent
+  :hook
+  ((css-mode . aggressive-indent-mode))
+  ((emacs-lisp-mode . aggressive-indent-mode))
+  )
+
 (use-package yasnippet
   :config
   ;; (add-to-list 'load-path
@@ -231,6 +237,14 @@
 (require 'init-windows nil t)
 (require 'init-sessions nil t)
 (require 'init-minibuffer nil t)
+(require 'init-lisp nil t)
+(require 'init-cc nil t)
+(require 'init-web nil t)
+(require 'init-org nil t)
+(require 'init-tex nil t)
+(require 'init-sh nil t)
+(require 'init-python nil t)
+(require 'init-powershell nil t)
 
 ;; =========================
 ;; Trailer
