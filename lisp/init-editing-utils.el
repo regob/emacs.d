@@ -48,7 +48,8 @@
   (
    (css-mode . smartparens-mode)
    (prog-mode . smartparens-mode)
-   (org-mode . smartparens-mode))
+   (org-mode . smartparens-mode)
+   (ielm . smartparens-mode))
   )
 
 
@@ -71,6 +72,15 @@
 (global-auto-revert-mode t)
 
 
+;; default to utf-8 as on windows sometimes latin-1 is detected?
+(if (eq system-type 'windows-nt)
+    (progn
+      (set-default-coding-systems 'utf-8)
+      (setq-default buffer-file-coding-system 'utf-8-unix))
+  )
+
+;; https://www.masteringemacs.org/article/script-files-executable-automatically
+(add-hook 'after-save-hook #'executable-make-buffer-file-executable-if-script-p)
 
 (provide 'init-editing-utils)
 

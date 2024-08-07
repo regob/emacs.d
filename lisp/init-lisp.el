@@ -2,9 +2,11 @@
 ;;; Commentary:
 ;;; Code:
 
-;; aggressive indent goes well with lisp
-(add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
-
+(use-package elisp-mode
+  :ensure nil
+  :config
+  (setq sentence-end-double-space nil)
+  )
 
 (use-package slime
   :config
