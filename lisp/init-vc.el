@@ -4,6 +4,11 @@
 
 ;; Git integration
 (use-package magit)
+(use-package transient
+  :ensure (:source "MELPA")
+  )
+
+
 
 ;; Git changes highlighted on the fringe
 (use-package diff-hl
