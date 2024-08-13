@@ -1,12 +1,15 @@
+# ignore everything
 *
 
+# except the .el files in the lisp/ directory
 !lisp
 !lisp/*.el
 
+# keep init files
 !init.el
 !early-init.el
 
-# local customizations
+# but ignore local customizations
 lisp/init-local.el
 lisp/init-local-pre.el
 custom.el
@@ -14,6 +17,6 @@ custom.el
 # keep snippets
 snippets/
 
-# some necessary files
+# keep some necessary files
 README.org
 LICENSE
