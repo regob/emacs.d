@@ -28,10 +28,6 @@
 (setq custom-file (locate-user-emacs-file "custom.el"))
 
 
-
-
-
-
 ;; Set autosave directory
 (setq backup-directory-alist `(("." . "~/.emacs_saves")))
 (setq backup-by-copying t)

@@ -9,8 +9,7 @@
 ;; should have `#+FILETAGS: REFILE' at the top.
 ;;; Code:
 
-(defvar rb/org-refile-extra-list (list)
-  "List of projects containing org files. Used for setting refiling targets")
+
 
 (use-package org
   :bind
@@ -20,6 +19,7 @@
   (:map global-map ("C-c a" . 'org-agenda))
 
   :config
+  (push 'org-habit org-modules)
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((R . t)
@@ -34,19 +34,40 @@
         org-confirm-babel-evaluate nil
         org-startup-truncated nil)
 
+  (defvar rb-org-global-prefix-map (make-sparse-keymap)
+    "A keymap for handy global access to org helpers, particularly clocking.")
+
   ;; ----------------------------------------------------------------------------
-  ;; org todo and agenda setup
+  ;; Org refile
   ;; ----------------------------------------------------------------------------
 
+  (defvar rb/org-refile-extra-list (list)
+    "List of projects containing org files. Used for setting refiling targets")
 
   ;; Targets include this file and any file contributing to the agenda - up to 3 levels deep
   (setq org-refile-targets
         '((nil :maxlevel . 3)
-          (org-agenda-files :maxlevel . 3)
-          (rb/org-refile-extra-list :maxlevel . 3)))
+          (org-agenda-files :maxlevel . 3)))
   
   ;; Save buffers after refiling
   (advice-add 'org-refile :after (lambda (&rest _) (org-save-all-org-buffers)))
+
+  (defun rb/org-refile-extra ()
+    "Refile with extra targets included besides agenda files."
+    (interactive)
+    (let ((org-refile-targets
+           (quote ((nil :maxlevel . 3)
+                   (org-agenda-files :maxlevel . 3)
+                   (rb/org-refile-extra-list :maxlevel . 3)))))
+      (org-refile))
+    )
+
+  (bind-key (kbd "w") #'rb/org-refile-extra 'rb-org-global-prefix-map)
+  (setq org-refile-allow-creating-parent-nodes 'confirm)
+
+  ;; ----------------------------------------------------------------------------
+  ;; org todo and agenda setup
+  ;; ----------------------------------------------------------------------------
 
   (setq org-agenda-sticky t
         org-agenda-window-setup 'current-window
@@ -54,17 +75,17 @@
         )
 
   (setq org-stuck-projects
-        '("PROJ" ("NEXT")))
+        '("/PROJ" ("NEXT")))
 
   ;; Following configs adapted from:
   ;; https://github.com/purcell/emacs.d/blob/master/lisp/init-org.el
   ;; and https://doc.norang.ca/org-mode.html
 
   (setq org-capture-templates
-        `(("t" "todo" entry (file "")  ; "" => `org-default-notes-file'
+        `(("t" "todo" entry (file "") ; "" => `org-default-notes-file'
            "* TODO %?\n%U\n" :clock-resume t)
           ("m" "meeting" entry (file "")
-           "* MEETING %? :MEETING:\n%U\n" :clock-resume t)
+           "* MEETING Call %<%m-%d %H:%M> :MEETING:\n%U\n%?" :clock-resume t)
           ("r" "respond" entry (file "")
            "* NEXT Respond to %?\n%U\n" :clock-resume t)
           ("n" "note" entry (file "")
@@ -104,16 +125,52 @@
                   (tags "REFILE"
                         ((org-agenda-overriding-header "Tasks to Refile")
                          (org-tags-match-list-sublevels nil)))
-                  (tags-todo "-CANCELLED/!"
-                             ((org-agenda-overriding-header "Stuck Projects")
-                              (org-agenda-skip-function 'bh/skip-non-stuck-projects)
-                              (org-agenda-sorting-strategy
-                               '(category-keep))))
-                  (tags "-REFILE/"
-                        ((org-agenda-overriding-header "Tasks to Archive")
-                         (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
-                         (org-tags-match-list-sublevels nil))))
-                 nil))))
+                  (stuck "-CANCELLED"
+                         ((org-agenda-overriding-header "Stuck projects")))
+                  (tags-todo "-CANCELLED/NEXT"
+                             ((org-agenda-overriding-header "Project next tasks")))
+                  (tags-todo "-CANCELLED/TODO"
+                             ((org-agenda-overriding-header "Standalone tasks")
+                              (org-agenda-skip-function 'rb/skip-project-tasks)))
+                  (tags-todo "-CANCELLED/HOLD|WAITING|DELEGATED"
+                             ((org-agenda-overriding-header "Waiting tasks"))))
+                 )
+                nil))))
+
+  ;; org agenda helper functions
+  ;; adapted from: https://doc.norang.ca/org-mode.html#Projects
+
+  (defun rb/is-project-p ()
+    "Is the org subtree currently at point a project?"
+    (let ((todo-state (org-get-todo-state)))
+      (eq (read todo-state) 'PROJ)
+      )
+    )
+
+  (defun rb/is-subtask-p ()
+    "Any task which is a subtask of another project"
+    (let ((is-subproject)
+          (is-a-task (member (nth 2 (org-heading-components)) org-todo-keywords-1)))
+      (save-excursion
+        (while (and (not is-subproject) (org-up-heading-safe))
+          (when (eq (nth 2 (org-heading-components)) "PROJ")
+            (setq is-subproject t))))
+      (and is-a-task is-subproject)))
+  
+  (defun rb/skip-project-tasks ()
+    (save-restriction
+      (widen)
+      (let* ((subtree-end (save-excursion (org-end-of-subtree t))))
+        (cond
+         ((rb/is-project-p)
+          subtree-end)
+         ((org-is-habit-p)
+          subtree-end)
+         ((rb/is-subtask-p)
+          subtree-end)
+         (t
+          nil)))))
+  
 
 
   ;; ----------------------------------------------------------------------------
@@ -123,9 +180,6 @@
   (setq org-clock-into-drawer t
         org-clock-out-remove-zero-time-clocks t
         )
-
-  (defvar rb-org-global-prefix-map (make-sparse-keymap)
-    "A keymap for handy global access to org helpers, particularly clocking.")
 
   (define-key rb-org-global-prefix-map (kbd "j") 'org-clock-goto)
   (define-key rb-org-global-prefix-map (kbd "l") 'org-clock-in-last)
@@ -141,9 +195,8 @@
   (customize-set-variable 'org-anki-default-deck "dump")
   )
 
-
-
-
+;; (use-package org-modern
+;;   )
 
 
 (provide 'init-org)
