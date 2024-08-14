@@ -77,6 +77,13 @@
   (setq org-stuck-projects
         '("/PROJ" ("NEXT")))
 
+  (setq org-tag-alist
+        '(("INPROGRESS" . ?i)
+          ("MEETING" . ?m)
+          ("NOTE" . ?n)
+          ("CANCELLED" . ?c)
+          ("REFILE" . ?r)))
+
   ;; Following configs adapted from:
   ;; https://github.com/purcell/emacs.d/blob/master/lisp/init-org.el
   ;; and https://doc.norang.ca/org-mode.html
@@ -127,15 +134,26 @@
                          (org-tags-match-list-sublevels nil)))
                   (stuck "-CANCELLED"
                          ((org-agenda-overriding-header "Stuck projects")))
-                  (tags-todo "-CANCELLED/NEXT"
-                             ((org-agenda-overriding-header "Project next tasks")))
-                  (tags-todo "-CANCELLED/TODO"
-                             ((org-agenda-overriding-header "Standalone tasks")
+                  (tags-todo "INPROGRESS/!"
+                             ((org-agenda-overriding-header "Tasks in progress")))
+                  (tags-todo "-CANCELLED-INPROGRESS/NEXT"
+                             ((org-agenda-overriding-header "Project next tasks (backlog)")))
+                  (tags-todo "-CANCELLED-INPROGRESS/TODO"
+                             ((org-agenda-overriding-header "Standalone tasks (backlog)")
                               (org-agenda-skip-function 'rb/skip-project-tasks)))
                   (tags-todo "-CANCELLED/HOLD|WAITING|DELEGATED"
                              ((org-agenda-overriding-header "Waiting tasks"))))
                  )
-                nil))))
+                nil)))
+
+  (setq org-todo-state-tags-triggers
+        (quote (("CANCELLED" ("CANCELLED" . t) ("INPROGRESS"))
+                ("WAITING" ("INPROGRESS"))
+                ("HOLD" ("INPROGRESS"))
+                (done ("INPROGRESS") ("HOLD"))
+                ("TODO" ("CANCELLED"))
+                ("NEXT" ("CANCELLED"))
+                ("DONE" ("INPROGRESS") ("CANCELLED")))))
 
   ;; org agenda helper functions
   ;; adapted from: https://doc.norang.ca/org-mode.html#Projects
