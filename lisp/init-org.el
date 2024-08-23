@@ -22,6 +22,8 @@
         org-confirm-babel-evaluate nil
         org-startup-truncated nil
         )
+  ;; unbind some conflicting keys
+  (unbind-key "C-'"  'org-mode-map)
   )
 
 ;; Create anki flashcards from org sections
