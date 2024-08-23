@@ -25,6 +25,7 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
+
 ;; start in full screen
 (push '(fullscreen . maximized) default-frame-alist)
 
@@ -71,6 +72,8 @@
 
 ;; Initialize fonts if running with a GUI
 (rb-apply-if-gui 'rb-init-font)
+
+(column-number-mode)
 
 ;; Enable line numbers only when executing goto-line
 ;; from http://whattheemacsd.com/
