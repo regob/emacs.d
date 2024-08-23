@@ -17,7 +17,7 @@
               ("M-A" . marginalia-cycle)
               )
 
-  :config
+  :init
   (marginalia-mode)
   )
 
