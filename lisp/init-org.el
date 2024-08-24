@@ -12,7 +12,6 @@
 
 
 (use-package org
-  :after python
   :bind
   (:map org-mode-map ("C-c C-x t" . 'org-table-create))
   (:map global-map ("C-c l" . 'org-store-link))
