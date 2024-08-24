@@ -15,7 +15,9 @@ lisp/init-local-pre.el
 custom.el
 
 # keep snippets
-snippets/
+!snippets/
+!snippets/*/
+!snippets/*/*
 
 # keep some necessary files
 README.org
