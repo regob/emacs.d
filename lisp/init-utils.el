@@ -33,6 +33,13 @@
   (setq woman-fill-frame t)
   )
 
+(use-package recentf
+  :ensure nil
+  :config
+  (setq recentf-max-saved-items 300)
+  (recentf-mode))
+
+
 (provide 'init-utils)
 
 ;;; init-utils.el ends here
