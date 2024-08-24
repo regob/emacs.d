@@ -224,6 +224,7 @@
 (require 'init-cc nil t)
 (require 'init-web nil t)
 (require 'init-org nil t)
+(require 'init-powershell nil t)
 
 (require 'init-editing-utils nil t)
 (require 'init-utils nil t)
@@ -237,14 +238,6 @@
 (require 'init-windows nil t)
 (require 'init-sessions nil t)
 (require 'init-minibuffer nil t)
-(require 'init-lisp nil t)
-(require 'init-cc nil t)
-(require 'init-web nil t)
-(require 'init-org nil t)
-(require 'init-tex nil t)
-(require 'init-sh nil t)
-(require 'init-python nil t)
-(require 'init-powershell nil t)
 
 ;; =========================
 ;; Trailer
