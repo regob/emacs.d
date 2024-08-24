@@ -27,15 +27,9 @@
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
 
-(require 'apropos)
-(setq apropos-do-all t)
-
 (setq save-interprogram-paste-before-kill t
-
       mouse-yank-at-point t
       require-final-newline t
-      visible-bell t
-      frame-inhibit-implied-resize t
       )
 
 (electric-pair-mode -1)
@@ -52,13 +46,6 @@
    (org-mode . smartparens-mode)
    (ielm . smartparens-mode))
   )
-
-
-;; Show key suggestions when typing a key chord
-(use-package which-key
-  :ensure t
-  :config
-  (which-key-mode))
 
 (use-package multiple-cursors
   :defer nil
@@ -82,6 +69,19 @@
 
 ;; https://www.masteringemacs.org/article/script-files-executable-automatically
 (add-hook 'after-save-hook #'executable-make-buffer-file-executable-if-script-p)
+
+;; ----------------------------------------------------------------------------
+;; Macro config
+;; ----------------------------------------------------------------------------
+
+(define-prefix-command 'rb-macro-keymap)
+(global-set-key (kbd "C-c m") 'rb-macro-keymap)
+(bind-key (kbd "s") #'start-kbd-macro 'rb-macro-keymap)
+(bind-key (kbd "e") #'end-kbd-macro 'rb-macro-keymap)
+(bind-key (kbd "q") #'kbd-macro-query 'rb-macro-keymap)
+(bind-key (kbd "r") #'call-last-kbd-macro 'rb-macro-keymap)
+(bind-key (kbd "m") #'edit-last-kbd-macro 'rb-macro-keymap)
+
 
 (provide 'init-editing-utils)
 

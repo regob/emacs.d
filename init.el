@@ -68,8 +68,6 @@
 ;; General setup
 ;; ====================================
 
-;; (use-package diminish)
-
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 ;; save customizations to custom.el, if exists (which is git-ignored) instead of init.el
@@ -89,45 +87,8 @@
 ;; turn off auto fill 
 (remove-hook 'text-mode-hook 'turn-on-auto-fill)
 
-(use-package dired-sidebar
-  :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
-  :ensure t
-  :commands (dired-sidebar-toggle-sidebar))
-
-;; =========================
-;; User functions
-;; =========================
-
-(defun rb-jump-to-init-file ()
-  "Open init.el in the current window."
-  (interactive)
-  (find-file user-init-file)
-  )
-
-(defun rb-byte-recompile ()
-  "Byte recompile all init files."
-  (interactive)
-  (byte-recompile-file user-init-file 0)
-  (byte-recompile-directory (expand-file-name "lisp" user-emacs-directory) 0)
-  )
-
-;; my user keymap
-(define-prefix-command 'rb-user-keymap)
-(global-set-key (kbd "C-c 8") 'rb-user-keymap)
-(bind-key (kbd "i") 'rb-jump-to-init-file 'rb-user-keymap)
-(bind-key (kbd "c") #'rb-byte-recompile 'rb-user-keymap)
-
 
 (global-set-key (kbd "C-x C-b") #'ibuffer)
-
-;; macro keymap
-(define-prefix-command 'rb-macro-keymap)
-(global-set-key (kbd "C-c m") 'rb-macro-keymap)
-(bind-key (kbd "s") #'start-kbd-macro 'rb-macro-keymap)
-(bind-key (kbd "e") #'end-kbd-macro 'rb-macro-keymap)
-(bind-key (kbd "q") #'kbd-macro-query 'rb-macro-keymap)
-(bind-key (kbd "r") #'call-last-kbd-macro 'rb-macro-keymap)
-(bind-key (kbd "m") #'edit-last-kbd-macro 'rb-macro-keymap)
 
 (use-package avy
   :config
@@ -201,43 +162,31 @@
 
 (use-package ess)
 (use-package markdown-mode)
-
 (use-package csv-mode)
 
-(use-package flycheck-kotlin)
+(require 'init-tex nil nil)
+(require 'init-sh nil nil)
+(require 'init-python nil nil)
+(require 'init-lisp nil nil)
+(require 'init-cc nil nil)
+(require 'init-web nil nil)
+(require 'init-org nil nil)
+(require 'init-powershell nil nil)
 
-(use-package kotlin-mode
-  :after flycheck
-  )
-
-;; (use-package treesit-auto
-;;   :custom
-;;   (treesit-auto-install 'prompt)
-;;   :config
-;;   (treesit-auto-add-to-auto-mode-alist 'all)
-;;   (global-treesit-auto-mode))
-
-(require 'init-tex nil t)
-(require 'init-sh nil t)
-(require 'init-python nil t)
-(require 'init-lisp nil t)
-(require 'init-cc nil t)
-(require 'init-web nil t)
-(require 'init-org nil t)
-(require 'init-powershell nil t)
-
-(require 'init-editing-utils nil t)
-(require 'init-utils nil t)
-(require 'init-consult nil t)
+(require 'init-editing-utils nil nil)
+(require 'init-dired nil nil)
+(require 'init-help nil nil)
+(require 'init-utils nil nil)
+(require 'init-consult nil nil)
 
 ;; try corfu instead of company
-;; (require 'init-company nil t)
-(require 'init-completion nil t)
-(require 'init-vc nil t)
-(require 'init-appearance nil t)
-(require 'init-windows nil t)
-(require 'init-sessions nil t)
-(require 'init-minibuffer nil t)
+;; (require 'init-company nil nil)
+(require 'init-completion nil nil)
+(require 'init-vc nil nil)
+(require 'init-appearance nil nil)
+(require 'init-windows nil nil)
+(require 'init-sessions nil nil)
+(require 'init-minibuffer nil nil)
 
 ;; =========================
 ;; Trailer

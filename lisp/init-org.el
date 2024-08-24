@@ -210,21 +210,9 @@
   (define-key global-map (kbd "C-c o") rb-org-global-prefix-map)
   )
 
-;; Create anki flashcards from org sections
-(use-package org-anki
-  :after org
-  :config
-  (setq-default org-keyword-properties '("ANKI_DECK" . "dump"))
-  (customize-set-variable 'org-anki-default-deck "dump")
-  )
-
 (use-package anki-editor
   :ensure (:host github :repo "anki-editor/anki-editor" :branch "master")
   )
-
-;; (use-package org-modern
-;;   )
-
 
 (provide 'init-org)
 

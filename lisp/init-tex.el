@@ -3,32 +3,12 @@
 ;;; Code:
 
 
-;; (use-package tex
-;;   :ensure
-;;   auctex
-;;   :config
-;;   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-;;   (auto-fill-mode nil)
-;;   (setq LaTeX-verbatim-environments-local (list "lstlisting"))
-;;   (define-key TeX-mode-map (kbd "C-c d") 'TeX-doc)
-;;   (setq LaTeX-indent-environment-list
-;;         '(("verbatim" current-indentation)
-;;           ("verbatim*" current-indentation)
-;;           ("filecontents" current-indentation)
-;;           ("filecontents*" current-indentation)
-;;           ("tabular")
-;;           ("tabular*")
-;;           ("align" LaTeX-indent-tabular)
-;;           ("align*" LaTeX-indent-tabular)
-;;           ("array" LaTeX-indent-tabular)
-;;           ("eqnarray" LaTeX-indent-tabular)
-;;           ("eqnarray*" LaTeX-indent-tabular)
-;;           ("displaymath")
-;;           ("equation")
-;;           ("equation*")
-;;           ("picture")
-;;           ("tabbing")))
-;;   )
+(use-package tex-mode
+  :ensure nil
+  :config
+  (add-hook 'latex-mode-hook 'turn-on-reftex)
+  ;; maybe configure LaTeX-indent-environment-list (removed)
+  )
 
 
 (provide 'init-tex)

@@ -5,19 +5,9 @@
 (setq custom-safe-themes t)
 
 (use-package gruvbox-theme
-  :ensure t ;; (gruvbox-theme :files ("*.el"))
   :init
   (add-hook 'elpaca-after-init-hook #'(lambda () (load-theme 'gruvbox t)))
   )
-
-;; (use-package uwu-theme
-;;   :ensure (uwu-theme :host github :repo "kborling/uwu-theme" :files ("*.el"))
-;;   :config
-;;   (setq
-;;    uwu-distinct-line-numbers 'nil
-;;    uwu-scale-org-headlines t
-;;    uwu-use-variable-pitch t)
-;;   (load-theme 'uwu t))
 
 ;; Remove toolbars, menu and scrollbars
 (menu-bar-mode -1)
@@ -25,11 +15,17 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
+(setq visible-bell t                    ; Flash when bell would be emitted
+      frame-inhibit-implied-resize t    ; Keep frame size
+      inhibit-startup-message t         ; Hide the startup message
+      )
+
+;; Show column numbers
+(column-number-mode)
 
 ;; start in full screen
 (push '(fullscreen . maximized) default-frame-alist)
 
-(setq inhibit-startup-message t)    ; Hide the startup message
 
 ;; if gui do something in whatver type of emacs instance we are using
 ;; adapted from https://www.reddit.com/r/emacs/comments/pc189c/comment/hafl5os/
@@ -43,6 +39,10 @@
                     ))
     (if (display-graphic-p)
         (apply action))))
+
+;; ----------------------------------------------------------------------------
+;; Font config
+;; ----------------------------------------------------------------------------
 
 (defun rb-init-font ()
   "Initialize display font from a list of options."
@@ -73,7 +73,7 @@
 ;; Initialize fonts if running with a GUI
 (rb-apply-if-gui 'rb-init-font)
 
-(column-number-mode)
+
 
 ;; Enable line numbers only when executing goto-line
 ;; from http://whattheemacsd.com/
@@ -87,18 +87,11 @@
     (display-line-numbers-mode -1)))
 (global-set-key [remap goto-line] 'rb-goto-line-with-feedback)
 
-;; (use-package anzu
-;;   :config
-;;   (setq anzu-mode-lighter "")
-;;   (global-anzu-mode)
-;;   )
-
-;; (use-package minions
-;;   :config
-;;   (setq minions-mode-line-lighter "☰")
-;;   (minions-mode 1)
-;;   )
-
+(use-package anzu
+  :config
+  (setq anzu-mode-lighter "")
+  (global-anzu-mode)
+  )
 
 (provide 'init-appearance)
 

@@ -27,17 +27,34 @@
   (setq writeroom-width 120)
   )
 
-(use-package woman
-  :ensure nil
-  :config
-  (setq woman-fill-frame t)
-  )
-
 (use-package recentf
   :ensure nil
   :config
   (setq recentf-max-saved-items 300)
   (recentf-mode))
+
+;; =========================
+;; Misc user functions
+;; =========================
+
+(defun rb-jump-to-init-file ()
+  "Open init.el in the current window."
+  (interactive)
+  (find-file user-init-file)
+  )
+
+(defun rb-byte-recompile ()
+  "Byte recompile all init files."
+  (interactive)
+  (byte-recompile-file user-init-file 0)
+  (byte-recompile-directory (expand-file-name "lisp" user-emacs-directory) 0)
+  )
+
+(define-prefix-command 'rb-user-keymap)
+(global-set-key (kbd "C-c 8") 'rb-user-keymap)
+(bind-key (kbd "i") 'rb-jump-to-init-file 'rb-user-keymap)
+(bind-key (kbd "c") #'rb-byte-recompile 'rb-user-keymap)
+
 
 
 (provide 'init-utils)
