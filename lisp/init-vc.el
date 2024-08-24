@@ -22,6 +22,11 @@
 ;; Git config file editing
 (use-package git-modes)
 
+(use-package smerge-mode
+  :ensure nil
+  :config
+  (setq smerge-command-prefix "\C-cv"))
+
 (provide 'init-vc)
 
 ;;; init-vc.el ends here
