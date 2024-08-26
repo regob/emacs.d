@@ -144,9 +144,11 @@
                              ((org-agenda-overriding-header "Project next tasks (backlog)")))
                   (tags-todo "-CANCELLED-INPROGRESS/TODO"
                              ((org-agenda-overriding-header "Standalone tasks (backlog)")
-                              (org-agenda-skip-function 'rb/skip-project-tasks)))
+                              (org-agenda-skip-function 'rb/skip-project-tasks)
+                              (org-agenda-skip-function 'rb/skip-schedule-deadline)))
                   (tags-todo "-CANCELLED/HOLD|WAITING|DELEGATED"
-                             ((org-agenda-overriding-header "Waiting tasks"))))
+                             ((org-agenda-overriding-header "Waiting tasks")
+                              )))
                  )
                 nil)))
 
@@ -175,11 +177,35 @@
           (is-a-task (member (nth 2 (org-heading-components)) org-todo-keywords-1)))
       (save-excursion
         (while (and (not is-subproject) (org-up-heading-safe))
-          (when (eq (nth 2 (org-heading-components)) "PROJ")
+          (when (string-equal (nth 2 (org-heading-components)) "PROJ")
             (setq is-subproject t))))
       (and is-a-task is-subproject)))
+
+  (defun rb/task-scheduled-or-deadline-p ()
+    "Is this task scheduled or has deadline?"
+    (let* ((scheduled-string (org-entry-get (point) "SCHEDULED"))
+           (deadline-string (org-entry-get (point) "DEADLINE"))
+           (recur-pattern "^.*\\(\\+\\+\\|\\.\\+\\).*$")
+           (has-recurrent-schedule (and
+                                    (stringp scheduled-string)
+                                    (string-match-p recur-pattern scheduled-string)))
+           (has-recurrent-deadline (and
+                                    (stringp deadline-string)
+                                    (string-match-p recur-pattern deadline-string))))
+      (if (or has-recurrent-deadline has-recurrent-schedule)
+          t
+        nil))
+    )
+
+  (defun rb/skip-schedule-deadline ()
+    "Skip scheduled or deadline tasks in agenda view."
+    (let* ((subtree-end (save-excursion (org-end-of-subtree t))))
+      (if (rb/task-scheduled-or-deadline-p)
+          subtree-end
+        nil)))
   
   (defun rb/skip-project-tasks ()
+    "Skip tasks which are under a project heading (PROJ)"
     (save-restriction
       (widen)
       (let* ((subtree-end (save-excursion (org-end-of-subtree t))))
