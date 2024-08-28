@@ -24,7 +24,7 @@
 
 (use-package smerge-mode
   :ensure nil
-  :config
+  :init
   (setq smerge-command-prefix "\C-cv"))
 
 (provide 'init-vc)
