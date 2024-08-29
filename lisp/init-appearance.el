@@ -20,8 +20,8 @@
       inhibit-startup-message t         ; Hide the startup message
       )
 
-;; Show column numbers
 (column-number-mode)
+(global-hl-line-mode)
 
 ;; start in full screen
 (push '(fullscreen . maximized) default-frame-alist)
