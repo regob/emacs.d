@@ -30,3 +30,6 @@ LICENSE
 # github ci
 !.github
 !.github/**/*
+
+# ignore all flycheck files
+flycheck*.el

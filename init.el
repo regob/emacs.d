@@ -64,6 +64,9 @@
   (setq elpaca-use-package-by-default t)
   )
 
+(add-hook 'elpaca-after-init-hook #'(lambda () (message "Elpaca after init hook running ...")))
+(advice-add 'elpaca-after-init-hook :after #'(lambda (&rest r) (message "Elpaca after-init-hook finished!")) )
+
 ;; ====================================
 ;; General setup
 ;; ====================================
@@ -72,7 +75,7 @@
 
 ;; save customizations to custom.el, if exists (which is git-ignored) instead of init.el
 (setq custom-file (locate-user-emacs-file "custom.el"))
-(add-hook 'elpaca-after-init-hook (lambda () (load custom-file t)))
+(add-hook 'elpaca-after-init-hook #'(lambda () (load custom-file t)))
 
 ;; Set autosave directory
 (setq backup-directory-alist `(("." . "~/.emacs_saves")))

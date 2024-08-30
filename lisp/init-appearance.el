@@ -5,6 +5,7 @@
 (setq custom-safe-themes t)
 
 (use-package gruvbox-theme
+  :ensure (:source "MELPA" :files ("*.el"))
   :init
   (add-hook 'elpaca-after-init-hook #'(lambda () (load-theme 'gruvbox t)))
   )
@@ -95,6 +96,7 @@
 (global-set-key [remap goto-line] 'rb-goto-line-with-feedback)
 
 (use-package anzu
+  :ensure (:host github :repo "emacsorphanage/anzu")
   :config
   (setq anzu-mode-lighter "")
   (global-anzu-mode)
