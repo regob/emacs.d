@@ -26,3 +26,6 @@ custom.el
 # keep some necessary files
 README.org
 LICENSE
+
+# ignore all flycheck files
+flycheck*.el

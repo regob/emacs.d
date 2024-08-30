@@ -19,6 +19,7 @@
   )
 
 (use-package highlight-quoted
+  :ensure (:host github :repo "Fanael/highlight-quoted" :branch "master")
   :init
   (add-hook 'emacs-lisp-mode-hook 'highlight-quoted-mode)
   )
