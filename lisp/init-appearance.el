@@ -93,6 +93,11 @@
   (global-anzu-mode)
   )
 
+(use-package breadcrumb
+  :config
+  (breadcrumb-mode)
+  )
+
 (provide 'init-appearance)
 
 ;;; init-appearance.el ends here
