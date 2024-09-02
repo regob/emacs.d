@@ -1,6 +1,24 @@
 * My emacs config
 
-My crappy emacs config, that somehow works.
+The following is a collection of references I find useful for configuration.
+
+** Elpaca
+
+- [[https://www.youtube.com/watch?v=5Ud-TE3iIQY][Elpaca: Async Emacs Package Manager]]
+- [[https://github.com/progfolio/elpaca/blob/master/doc/manual.md][Elpaca manual]]
+
+** Org-mode
+
+- [[https://doc.norang.ca/org-mode.html][Organize your life in plain text (most comprehensive org setup)]]
+- [[https://github.com/rougier/emacs-gtd][Rougier's GTD setup]]
+
+
+
+** Bash
+
+- [[https://www.youtube.com/watch?v=LTC6SP7R1hA][Bash IDE setup (shows the basics and multiple options)]]
+
+** Python
 
 * References
 
