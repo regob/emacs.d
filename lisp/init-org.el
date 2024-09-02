@@ -33,6 +33,7 @@
   (setq org-export-coding-system 'utf-8
         org-confirm-babel-evaluate nil
         org-startup-truncated nil
+        org-imenu-depth 3
         )
   
   ;; unbind some conflicting keys
@@ -47,12 +48,26 @@
 
   (defvar rb/org-refile-extra-list (list)
     "List of projects containing org files. Used for setting refiling targets")
-
-  ;; Targets include this file and any file contributing to the agenda - up to 3 levels deep
-  (setq org-refile-targets
-        '((nil :maxlevel . 3)
-          (org-agenda-files :maxlevel . 3)))
   
+  (defcustom rb/org-refile-depth 2
+    "Depth of headings to appear as refiling targets in org-mode files."
+    :type 'integer
+    :group 'rb-group)
+  
+  (defun rb/init-refile-targets (depth)
+    "Set org-refile-targets until a given depth."
+    ;; Targets include this file and any file contributing to the agenda - up to n depth
+    (setq org-refile-targets
+          `((nil :maxlevel . ,depth)
+            (org-agenda-files :maxlevel . ,depth)))
+    )
+
+  ;; Initialize org-refile-targets, and recompute when the depth changes
+  (rb/init-refile-targets rb/org-refile-depth)
+  (add-variable-watcher 'rb/org-refile-depth
+                        (lambda (_ newval op _) (when (eq op 'set)
+                                                  (rb/init-refile-targets newval))))
+
   ;; Save buffers after refiling
   (advice-add 'org-refile :after (lambda (&rest _) (org-save-all-org-buffers)))
 
@@ -60,9 +75,9 @@
     "Refile with extra targets included besides agenda files."
     (interactive)
     (let ((org-refile-targets
-           (quote ((nil :maxlevel . 3)
-                   (org-agenda-files :maxlevel . 3)
-                   (rb/org-refile-extra-list :maxlevel . 3)))))
+           (backquote ((nil :maxlevel . ,rb/org-refile-depth)
+                       (org-agenda-files :maxlevel . ,rb/org-refile-depth)
+                       (rb/org-refile-extra-list :maxlevel . ,rb/org-refile-depth)))))
       (org-refile))
     )
 
