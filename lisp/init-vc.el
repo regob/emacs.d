@@ -7,7 +7,10 @@
 (use-package transient
   :ensure (:source "MELPA")
   )
-
+;; Magit requires seq>=2.24
+(use-package seq
+  :ensure (:source "MELPA")
+  )
 
 
 ;; Git changes highlighted on the fringe
