@@ -31,8 +31,10 @@ jobs:
   startup_windows:
     runs-on: windows-latest
     steps:
+    - name: Disable choco progress
+      run: choco feature disable -n=showDownloadProgress
     - name: Install emacs
-      run: choco --no-progress install emacs
+      run: choco install emacs
     - name: Check emacs version
       run: emacs --version
     - uses: actions/checkout@v4
