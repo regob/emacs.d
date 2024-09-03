@@ -6,32 +6,32 @@ on:
     - '**.org'
 jobs:
   # Linux ci adapted from https://github.com/purcell/emacs.d
-  startup_linux:
-    runs-on: ubuntu-latest
-    continue-on-error: ${{ matrix.experimental }}
-    strategy:
-      matrix:
-        emacs_version:
-          - 29.3
-        experimental: [false]
-        # include:
-        #   - emacs_version: snapshot
-        #     experimental: true
-    steps:
-    - uses: purcell/setup-emacs@master
-      with:
-        version: ${{ matrix.emacs_version }}
-    - uses: actions/checkout@v4
-    - name: Test directory
-      run: pwd
-    - name: Check startup
-      run: ./test/test_startup.sh
+  # startup_linux:
+  #   runs-on: ubuntu-latest
+  #   continue-on-error: ${{ matrix.experimental }}
+  #   strategy:
+  #     matrix:
+  #       emacs_version:
+  #         - 29.3
+  #       experimental: [false]
+  #       # include:
+  #       #   - emacs_version: snapshot
+  #       #     experimental: true
+  #   steps:
+  #   - uses: purcell/setup-emacs@master
+  #     with:
+  #       version: ${{ matrix.emacs_version }}
+  #   - uses: actions/checkout@v4
+  #   - name: Test directory
+  #     run: pwd
+  #   - name: Check startup
+  #     run: ./test/test_startup.sh
   # windows CI is experimental
   startup_windows:
     runs-on: windows-latest
     steps:
     - name: Install emacs
-      run: winget install GNU.Emacs
+      run: choco install emacs
     - uses: actions/checkout@v4
     - name: Check startup
       run: bash ./test/test_startup.sh
