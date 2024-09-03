@@ -22,5 +22,7 @@ jobs:
       with:
         version: ${{ matrix.emacs_version }}
     - uses: actions/checkout@v4
+    - name: Test directory
+      run: pwd
     - name: Check startup
-      run: ./test/test-startup.sh
+      run: ./test/test_startup.sh
