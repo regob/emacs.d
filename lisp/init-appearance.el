@@ -11,23 +11,17 @@
 
 ;; Remove toolbars, menu and scrollbars
 (menu-bar-mode -1)
-(toggle-scroll-bar -1)
 (tool-bar-mode -1)
-(scroll-bar-mode -1)
 
 (setq visible-bell t                    ; Flash when bell would be emitted
-      frame-inhibit-implied-resize t    ; Keep frame size
       inhibit-startup-message t         ; Hide the startup message
       )
 
 (column-number-mode)
 (global-hl-line-mode)
 
-;; start in full screen
-(push '(fullscreen . maximized) default-frame-alist)
 
-
-;; if gui do something in whatver type of emacs instance we are using
+;; if gui do something in whatever type of emacs instance we are using
 ;; adapted from https://www.reddit.com/r/emacs/comments/pc189c/comment/hafl5os/
 (defun rb-apply-if-gui (&rest action)
   "Do specified ACTION if we're in a gui regardless of daemon or not."
@@ -39,6 +33,19 @@
                     ))
     (if (display-graphic-p)
         (apply action))))
+
+;; ----------------------------------------------------------------------------
+;; Frame specific setup (only in graphical environments)
+;; ----------------------------------------------------------------------------
+
+(defun rb-frame-settings ()
+  (scroll-bar-mode -1)
+  ;; start in full screen
+  (push '(fullscreen . maximized) default-frame-alist)
+  (setq frame-inhibit-implied-resize t)    ; Keep frame size
+  )
+
+(rb-apply-if-gui 'rb-frame-settings)
 
 ;; ----------------------------------------------------------------------------
 ;; Font config
