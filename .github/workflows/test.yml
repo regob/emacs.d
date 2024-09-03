@@ -26,3 +26,12 @@ jobs:
       run: pwd
     - name: Check startup
       run: ./test/test_startup.sh
+  # windows CI is experimental
+  startup_windows:
+    runs-on: windows-latest
+    steps:
+    - name: Install emacs
+      run: winget install GNU.Emacs
+    - uses: actions/checkout@v4
+    - name: Check startup
+      run: bash ./test/test_startup.sh
