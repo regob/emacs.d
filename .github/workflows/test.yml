@@ -32,7 +32,7 @@ jobs:
     runs-on: windows-latest
     steps:
     - name: Install emacs
-      run: choco install emacs
+      run: choco --no-progress install emacs
     - name: Check emacs version
       run: emacs --version
     - uses: actions/checkout@v4
