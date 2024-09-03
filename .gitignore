@@ -26,3 +26,7 @@ custom.el
 # keep some necessary files
 README.org
 LICENSE
+
+# github ci
+!.github
+!.github/**/*
