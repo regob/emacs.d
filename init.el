@@ -100,12 +100,6 @@
 ;; Global development setup
 ;; =========================
 
-;; enable flycheck globally
-(use-package flycheck
-  :config
-  (add-hook 'prog-mode-hook 'flycheck-mode)
-  )
-
 (use-package projectile
   :config
   (add-hook 'prog-mode-hook #'(lambda () (projectile-mode +1)))
@@ -178,6 +172,7 @@
 (require 'init-help nil nil)
 (require 'init-utils nil nil)
 (require 'init-consult nil nil)
+(require 'init-flycheck nil nil)
 
 ;; try corfu instead of company
 ;; (require 'init-company nil nil)

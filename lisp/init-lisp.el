@@ -23,6 +23,9 @@
   (add-hook 'emacs-lisp-mode-hook 'highlight-quoted-mode)
   )
 
+;; A quick way to jump to the definition of a function given its key binding
+(global-set-key (kbd "C-h K") 'find-function-on-key)
+
 (provide 'init-lisp)
 
 ;;; init-lisp.el ends here

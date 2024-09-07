@@ -21,6 +21,10 @@
   (setq woman-fill-frame t)
   )
 
+(use-package eldoc
+  :ensure nil
+  :config
+  (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly))
 
 (provide 'init-help)
 
