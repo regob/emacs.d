@@ -27,12 +27,6 @@
   (setq writeroom-width 120)
   )
 
-(use-package recentf
-  :ensure nil
-  :config
-  (setq recentf-max-saved-items 300)
-  (recentf-mode))
-
 ;; =========================
 ;; Misc user functions
 ;; =========================

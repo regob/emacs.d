@@ -4,22 +4,22 @@
 
 
 
-
-
 (use-package session
-  ;; :init
-  ;; (add-hook 'elpaca-after-init-hook 'session-initialize)
-  
   :ensure t
   :config
   (session-initialize)
   (setq session-save-file (locate-user-emacs-file ".session"))
   (setq session-name-disable-regexp "\\(?:\\`'/tmp\\|\\.git/[A-Z_]+\\'\\)")
   (setq session-save-file-coding-system 'utf-8)
-  (add-hook 'delete-frame-functions 'session-save-session)
+  (add-hook 'delete-frame-functions (lambda (_) (session-save-session)))
   )
 
-
+(use-package recentf
+  :ensure nil
+  :config
+  (setq recentf-max-saved-items 300)
+  (recentf-mode)
+  (add-hook 'delete-frame-functions (lambda (_) (recentf-save-list))))
 
 
 (provide 'init-sessions)
