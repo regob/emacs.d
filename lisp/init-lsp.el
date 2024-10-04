@@ -9,6 +9,7 @@
   (setq lsp-enable-symbol-highlighting nil)
   (setq lsp-enable-on-type-formatting nil)
   (setq lsp-keymap-prefix "C-c l")
+  (require 'lsp-pyright)
   )
 
 (use-package lsp-ui
