@@ -17,6 +17,7 @@
   (:map global-map ("C-c l" . 'org-store-link))
   (:map global-map ("C-c c" . 'org-capture))
   (:map global-map ("C-c a" . 'org-agenda))
+  (:map global-map ("<f12>" . 'org-agenda))
 
   :config
   (push 'org-habit org-modules)
@@ -96,7 +97,7 @@
         `(("t" "todo" entry (file "") ; "" => `org-default-notes-file'
            "* TODO %?\n%U\n" :clock-resume t)
           ("m" "meeting" entry (file "")
-           "* MEETING Call %<%m-%d %H:%M> :MEETING:\n%U\n%?" :clock-resume t)
+           "* MEETING Call %<%m-%d> :MEETING:\n%U\n%?" :clock-resume t)
           ("r" "respond" entry (file "")
            "* NEXT Respond to %?\n%U\n" :clock-resume t)
           ("n" "note" entry (file "")
@@ -234,6 +235,13 @@
   (define-key rb-org-global-prefix-map (kbd "i") 'org-clock-in)
   (define-key rb-org-global-prefix-map (kbd "o") 'org-clock-out)
   (define-key global-map (kbd "C-c o") rb-org-global-prefix-map)
+
+  ;; ----------------------------------------------------------------------------
+  ;; Misc settings
+  ;; ----------------------------------------------------------------------------
+
+  ;; save all org buffers at xx:59 every hour
+  (run-at-time "00:59" 3600 'org-save-all-org-buffers)
   )
 
 (use-package anki-editor
