@@ -99,6 +99,15 @@
   (global-set-key (kbd "C-;") 'avy-goto-char-timer)
   )
 
+;; ----------------------------------------------------------------------------
+;; Some "global" keymaps
+;; ----------------------------------------------------------------------------
+
+(define-prefix-command 'rb/lispy-keymap)
+(global-set-key (kbd "C-c e") 'rb/lispy-keymap)
+(bind-key (kbd "r") 'eval-region 'rb/lispy-keymap)
+(bind-key (kbd "b") 'eval-buffer 'rb/lispy-keymap)
+
 ;; =========================
 ;; Global development setup
 ;; =========================
