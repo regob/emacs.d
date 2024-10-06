@@ -26,6 +26,19 @@
   :config
   (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly))
 
+;; ----------------------------------------------------------------------------
+;; Casual suite - transient interfaces to commands
+;; ----------------------------------------------------------------------------
+
+(use-package casual-calc
+  :ensure (:source "MELPA")
+  :bind (:map
+         calc-mode-map
+         ("C-c t" . 'casual-calc-tmenu)
+         :map
+         calc-alg-map
+         ("C-c t" . 'casual-calc-tmenu)))
+
 (provide 'init-help)
 
 ;;; init-help.el ends here
