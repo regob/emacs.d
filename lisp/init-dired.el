@@ -8,7 +8,10 @@
   :commands (dired-sidebar-toggle-sidebar))
 
 (use-package dired
-  :ensure nil)
+  :ensure nil
+  :config
+  (setq dired-dwim-target t)
+  (put 'dired-find-alternate-file 'disabled nil))
 
 
 (provide 'init-dired)
