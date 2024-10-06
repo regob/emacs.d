@@ -10,6 +10,8 @@
   (setq lsp-enable-on-type-formatting nil)
   (setq lsp-keymap-prefix "C-c l")
   (require 'lsp-pyright)
+  (setq lsp-headerline-breadcrumb-enable nil)
+  (setq lsp-completion-enable t)
   )
 
 (use-package lsp-ui
