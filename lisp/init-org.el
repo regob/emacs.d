@@ -14,7 +14,6 @@
 (use-package org
   :bind
   (:map org-mode-map ("C-c C-x t" . 'org-table-create))
-  (:map global-map ("C-c l" . 'org-store-link))
   (:map global-map ("C-c c" . 'org-capture))
   (:map global-map ("C-c a" . 'org-agenda))
   (:map global-map ("<f12>" . 'org-agenda))
@@ -42,6 +41,8 @@
 
   (defvar rb-org-global-prefix-map (make-sparse-keymap)
     "A keymap for handy global access to org helpers, particularly clocking.")
+
+  (bind-key "l" 'org-store-link 'rb-org-global-prefix-map)
 
   ;; ----------------------------------------------------------------------------
   ;; Org refile
@@ -246,7 +247,7 @@
         )
 
   (define-key rb-org-global-prefix-map (kbd "j") 'org-clock-goto)
-  (define-key rb-org-global-prefix-map (kbd "l") 'org-clock-in-last)
+  (define-key rb-org-global-prefix-map (kbd "b") 'org-clock-in-last)
   (define-key rb-org-global-prefix-map (kbd "i") 'org-clock-in)
   (define-key rb-org-global-prefix-map (kbd "o") 'org-clock-out)
   (define-key global-map (kbd "C-c o") rb-org-global-prefix-map)
