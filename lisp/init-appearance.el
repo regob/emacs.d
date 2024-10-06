@@ -5,7 +5,7 @@
 (setq custom-safe-themes t)
 
 (use-package gruvbox-theme
-  :ensure (:source "MELPA" :files ("*.el"))
+  :ensure (:files ("*.el") :autoloads nil)
   :init
   (add-hook 'elpaca-after-init-hook #'(lambda () (load-theme 'gruvbox t)))
   )
