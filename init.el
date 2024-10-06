@@ -91,7 +91,9 @@
 (remove-hook 'text-mode-hook 'turn-on-auto-fill)
 
 
+;; ibuffer
 (global-set-key (kbd "C-x C-b") #'ibuffer)
+(keymap-unset ibuffer-mode-map "M-o" t)
 
 (use-package avy
   :config
