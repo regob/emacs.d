@@ -159,6 +159,10 @@
   (envrc-global-mode)
   )
 
+(use-package so-long
+  :ensure nil
+  :config
+  (global-so-long-mode))
 
 (use-package ess)
 (use-package markdown-mode)
