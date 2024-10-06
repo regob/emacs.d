@@ -88,6 +88,18 @@
    (python-mode . electric-indent-local-mode)
    (cc-mode . electric-indent-local-mode)))
 
+;; ----------------------------------------------------------------------------
+;; Undo tree
+;; ----------------------------------------------------------------------------
+
+(use-package undo-tree
+  :ensure (:source "MELPA")
+  :config
+  (global-undo-tree-mode)
+  (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
+  )
+
+
 
 (provide 'init-editing-utils)
 
