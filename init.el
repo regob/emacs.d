@@ -158,6 +158,7 @@
 (require 'init-tex nil nil)
 (require 'init-sh nil nil)
 (require 'init-python nil nil)
+(require 'init-kotlin nil nil)
 (require 'init-lisp nil nil)
 (require 'init-cc nil nil)
 (require 'init-web nil nil)
