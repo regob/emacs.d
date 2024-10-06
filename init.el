@@ -129,12 +129,6 @@
   (add-hook 'LaTeX-mode-hook 'rainbow-delimiters-mode)
   )
 
-(use-package aggressive-indent
-  :hook
-  ((css-mode . aggressive-indent-mode))
-  ((emacs-lisp-mode . aggressive-indent-mode))
-  )
-
 (use-package yasnippet
   :config
   ;; (add-to-list 'load-path
@@ -171,6 +165,7 @@
 (require 'init-powershell nil nil)
 
 (require 'init-editing-utils nil nil)
+(require 'init-smartparens nil nil)
 (require 'init-dired nil nil)
 (require 'init-help nil nil)
 (require 'init-utils nil nil)

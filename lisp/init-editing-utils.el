@@ -35,18 +35,6 @@
 (electric-pair-mode -1)
 (electric-indent-mode -1) ; TODO: still gets turned on in cc-mode
 
-;; Automatic parenthesis handling
-(use-package smartparens
-  :config
-  (require 'smartparens-config)
-  :hook
-  (
-   (css-mode . smartparens-mode)
-   (prog-mode . smartparens-mode)
-   (org-mode . smartparens-mode)
-   (ielm . smartparens-mode))
-  )
-
 (use-package multiple-cursors
   :defer nil
   :config
@@ -81,6 +69,24 @@
 (bind-key (kbd "q") #'kbd-macro-query 'rb-macro-keymap)
 (bind-key (kbd "r") #'call-last-kbd-macro 'rb-macro-keymap)
 (bind-key (kbd "m") #'edit-last-kbd-macro 'rb-macro-keymap)
+
+;; ----------------------------------------------------------------------------
+;; Indentation
+;; ----------------------------------------------------------------------------
+
+
+(use-package aggressive-indent
+  :hook
+  ((css-mode . aggressive-indent-mode))
+  ((emacs-lisp-mode . aggressive-indent-mode))
+  )
+
+(use-package electric
+  :ensure nil
+  :hook
+  ((kotlin-mode . electric-indent-local-mode)
+   (python-mode . electric-indent-local-mode)
+   (cc-mode . electric-indent-local-mode)))
 
 
 (provide 'init-editing-utils)
