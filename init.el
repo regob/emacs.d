@@ -177,23 +177,23 @@
 (require 'init-web nil nil)
 (require 'init-org nil nil)
 (require 'init-powershell nil nil)
+(require 'init-shell nil nil)
 
+(require 'init-lsp nil nil)
+(require 'init-completion nil nil)
 (require 'init-editing-utils nil nil)
 (require 'init-smartparens nil nil)
-(require 'init-dired nil nil)
-(require 'init-help nil nil)
-(require 'init-utils nil nil)
-(require 'init-consult nil nil)
 (require 'init-flycheck nil nil)
 
-;; try corfu instead of company
-;; (require 'init-company nil nil)
-(require 'init-completion nil nil)
+(require 'init-dired nil nil)
+(require 'init-help nil nil)
+(require 'init-consult nil nil)
 (require 'init-vc nil nil)
 (require 'init-appearance nil nil)
 (require 'init-windows nil nil)
 (require 'init-sessions nil nil)
 (require 'init-minibuffer nil nil)
+(require 'init-utils nil nil)
 
 ;; =========================
 ;; Trailer
