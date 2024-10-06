@@ -24,8 +24,8 @@
 
 (use-package writeroom-mode
   :ensure (:source "MELPA")
-  :init
-  (setq writeroom-width 120)
+  :custom
+  (writeroom-width 120)
   )
 
 ;; =========================
