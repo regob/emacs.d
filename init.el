@@ -138,16 +138,6 @@
   (add-hook 'LaTeX-mode-hook 'rainbow-delimiters-mode)
   )
 
-(use-package yasnippet
-  :config
-  ;; (add-to-list 'load-path
-  ;;              "~/.emacs.d/plugins/yasnippet-radical-snippets")
-  ;; (require 'yasnippet-radical-snippets)
-  ;; (yasnippet-radical-snippets-initialize)
-  (yas-global-mode 1)
-  )
-
-(use-package yasnippet-snippets)
 
 (use-package dumb-jump
   :config

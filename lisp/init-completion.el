@@ -52,6 +52,20 @@
         )
   )
 
+;; Extra completion-at-point functions
+(use-package cape
+  :ensure (:source "MELPA"))
+
+
+(use-package yasnippet
+  :config
+  (yas-global-mode 1)
+  (add-to-list 'hippie-expand-try-functions-list 'yas-hippie-try-expand)
+  )
+
+(use-package yasnippet-snippets)
+
+
 (provide 'init-completion)
 
 ;;; init-completion.el ends here
