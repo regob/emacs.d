@@ -39,6 +39,13 @@
          calc-alg-map
          ("C-c t" . 'casual-calc-tmenu)))
 
+(use-package casual-ibuffer
+  :ensure (:source "MELPA")
+  :bind (:map
+	 ibuffer-mode-map
+	 ("C-c t" . 'casual-ibuffer-tmenu))
+  )
+
 (provide 'init-help)
 
 ;;; init-help.el ends here

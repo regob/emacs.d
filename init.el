@@ -90,11 +90,6 @@
 ;; turn off auto fill 
 (remove-hook 'text-mode-hook 'turn-on-auto-fill)
 
-
-;; ibuffer
-(global-set-key (kbd "C-x C-b") #'ibuffer)
-(keymap-unset ibuffer-mode-map "M-o" t)
-
 (use-package avy
   :config
   (global-set-key (kbd "C-'") 'avy-goto-char-2)
@@ -178,6 +173,7 @@
 (require 'init-flycheck nil nil)
 
 (require 'init-dired nil nil)
+(require 'init-ibuffer nil nil)
 (require 'init-help nil nil)
 (require 'init-consult nil nil)
 (require 'init-vc nil nil)
