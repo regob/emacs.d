@@ -2,6 +2,10 @@
 ;;; Commentary:
 ;;; Code:
 
+;; dependency of dap-mode and treemacs
+(use-package hydra
+  :ensure (:source "MELPA")
+  )
 
 (use-package calendar
   :ensure nil
