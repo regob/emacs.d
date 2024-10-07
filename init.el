@@ -152,8 +152,6 @@
   (global-so-long-mode))
 
 (use-package ess)
-(use-package markdown-mode)
-(use-package csv-mode)
 
 (require 'init-tex nil nil)
 (require 'init-sh nil nil)
@@ -163,6 +161,7 @@
 (require 'init-cc nil nil)
 (require 'init-web nil nil)
 (require 'init-org nil nil)
+(require 'init-markup nil nil)
 (require 'init-powershell nil nil)
 (require 'init-shell nil nil)
 
@@ -182,6 +181,8 @@
 (require 'init-sessions nil nil)
 (require 'init-minibuffer nil nil)
 (require 'init-utils nil nil)
+
+(elpaca-process-queues)
 
 ;; =========================
 ;; Trailer
