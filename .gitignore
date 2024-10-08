@@ -4,6 +4,8 @@
 # except the .el files in the lisp/ directory
 !lisp
 !lisp/*.el
+!lisp/lib
+!lisp/lib/*.el
 
 # keep init files
 !init.el

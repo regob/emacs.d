@@ -65,6 +65,7 @@
   )
 
 (add-hook 'elpaca-after-init-hook #'(lambda () (message "Elpaca after init hook running ...")))
+(add-hook 'elpaca-post-queue-hook #'(lambda () (message "Elpaca post queue hook running ...")))
 (advice-add 'elpaca-after-init-hook :after #'(lambda (&rest r) (message "Elpaca after-init-hook finished!")) )
 
 ;; ====================================
@@ -182,7 +183,27 @@
 (require 'init-minibuffer nil nil)
 (require 'init-utils nil nil)
 
-(elpaca-process-queues)
+;; ----------------------------------------------------------------------------
+;; Load private libraries
+;; ----------------------------------------------------------------------------
+
+;; adapted from https://stackoverflow.com/a/21767679/11579038
+(defun rb/load-all-in-directory (dir)
+  "`load' all elisp libraries in directory DIR which are not already loaded."
+  (interactive "D")
+  (let* ((libraries-loaded (mapcar #'file-name-sans-extension
+                                   (delq nil (mapcar #'car load-history))))
+         (num-libs (length libraries-loaded)))
+    (dolist (file (directory-files dir t ".+\\.elc?$"))
+      (let ((library (file-name-sans-extension file)))
+        (unless (member library libraries-loaded)
+          (load library nil t)
+          (push library libraries-loaded))))
+    (message "%d private library file(s) loaded from %s"
+             (- (length libraries-loaded) num-libs)
+             dir)))
+
+(rb/load-all-in-directory (expand-file-name "lib" (expand-file-name "lisp" user-emacs-directory)))
 
 ;; =========================
 ;; Trailer
@@ -190,6 +211,5 @@
 
 ;; Allow users to provide an optional "init-local" containing personal settings
 (require 'init-local nil t)
-
 
 ;;; init.el ends here
