@@ -3,6 +3,7 @@
 ;;; Code:
 
 (use-package smartparens
+  :diminish
   :hook
   ((css-mode . smartparens-mode)
    (prog-mode . smartparens-mode)

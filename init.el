@@ -69,6 +69,15 @@
 (advice-add 'elpaca-after-init-hook :after #'(lambda (&rest r) (message "Elpaca after-init-hook finished!")) )
 
 ;; ====================================
+;; Packages required for use-package
+;; ====================================
+
+(use-package diminish
+  :ensure (:source "MELPA"))
+
+(elpaca-wait)
+
+;; ====================================
 ;; General setup
 ;; ====================================
 
@@ -182,6 +191,8 @@
 (require 'init-sessions nil nil)
 (require 'init-minibuffer nil nil)
 (require 'init-utils nil nil)
+
+(elpaca-wait)
 
 ;; ----------------------------------------------------------------------------
 ;; Load private libraries

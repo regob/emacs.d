@@ -58,6 +58,7 @@
 
 
 (use-package yasnippet
+  :diminish yas-minor-mode
   :config
   (yas-global-mode 1)
   (add-to-list 'hippie-expand-try-functions-list 'yas-hippie-try-expand)

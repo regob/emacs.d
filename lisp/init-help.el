@@ -4,6 +4,7 @@
 
 ;; Show transient key suggestions when typing a key chord
 (use-package which-key
+  :diminish which-key-mode
   :ensure t
   :config
   (which-key-mode))
@@ -22,6 +23,7 @@
   )
 
 (use-package eldoc
+  :diminish
   :ensure nil
   :config
   (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly))

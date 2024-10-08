@@ -95,6 +95,11 @@
     (display-line-numbers-mode -1)))
 (global-set-key [remap goto-line] 'rb-goto-line-with-feedback)
 
+;; ----------------------------------------------------------------------------
+;; Small utilities for changing modeline/fringe/etc
+;; ----------------------------------------------------------------------------
+
+
 (use-package anzu
   :ensure (:host github :repo "emacsorphanage/anzu")
   :config

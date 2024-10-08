@@ -6,14 +6,18 @@
 (setq-default indent-tabs-mode  nil)
 (setq-default tab-width 4)
 
-;; modes for navigating super_words and CamelCase words
-(setq global-superword-mode t)
-;; (setq global-subword-mode t)
+;; mode for navigating super_words
+(use-package subword
+  :ensure nil
+  :diminish superword-mode
+  :config
+  (customize-set-variable 'global-superword-mode t)
+  )
+
 
 ;; visual line mode enabled, without word wrapping
 (setq visual-line-mode t)
 (setq word-wrap nil)
-
 
 ;;; Some settings taken from better-defaults
 
@@ -33,7 +37,7 @@
       )
 
 (electric-pair-mode -1)
-(electric-indent-mode -1) ; TODO: still gets turned on in cc-mode
+(electric-indent-mode -1)
 
 (use-package multiple-cursors
   :defer nil
@@ -76,6 +80,7 @@
 
 
 (use-package aggressive-indent
+  :diminish
   :hook
   ((css-mode . aggressive-indent-mode))
   ((emacs-lisp-mode . aggressive-indent-mode))
@@ -93,6 +98,7 @@
 ;; ----------------------------------------------------------------------------
 
 (use-package undo-tree
+  :diminish undo-tree-mode
   :ensure (:source "MELPA")
   :config
   (global-undo-tree-mode)
