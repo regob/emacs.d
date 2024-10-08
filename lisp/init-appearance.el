@@ -103,6 +103,7 @@
   )
 
 (use-package breadcrumb
+  :ensure (:source "ELPA")
   :config
   (breadcrumb-mode)
   )
