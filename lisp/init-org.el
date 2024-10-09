@@ -103,7 +103,8 @@
           ("MEETING" . ?m)
           ("NOTE" . ?n)
           ("CANCELLED" . ?c)
-          ("REFILE" . ?r)))
+          ("REFILE" . ?r)
+          ("CARD" . ?a)))
 
   ;; Following configs adapted from:
   ;; https://github.com/purcell/emacs.d/blob/master/lisp/init-org.el
@@ -118,6 +119,8 @@
            "* NEXT Respond to %?\n%U\n" :clock-resume t)
           ("n" "note" entry (file "")
            "* %? :NOTE:\n%U\n" :clock-resume t)
+          ("c" "card" entry (here)
+           "%? :CARD:\n" :clock-resume t)
           )
         )
 
@@ -147,6 +150,9 @@
         (quote (("N" "Notes" tags "NOTE"
                  ((org-agenda-overriding-header "Notes")
                   (org-tags-match-list-sublevels t)))
+                ("C" "Cards" tags "CARD"
+                 ((org-agenda-overriding-header "Cards")
+                  (org-tags-match-list-sublevels t)))
                 (" " "Agenda"
                  ((agenda ""
                           ((org-agenda-span 'day)))
@@ -167,7 +173,7 @@
                              ((org-agenda-overriding-header "Waiting tasks")
                               )))
                  )
-                nil)))
+                )))
 
   (setq org-todo-state-tags-triggers
         (quote (("CANCELLED" ("CANCELLED" . t) ("INPROGRESS"))
@@ -258,10 +264,18 @@
 
   ;; save all org buffers at xx:59 every hour
   (run-at-time "00:59" 3600 'org-save-all-org-buffers)
+
+  (keymap-set rb-org-global-prefix-map "c" 'org-cut-subtree)
   )
 
 (use-package anki-editor
   :ensure (:host github :repo "anki-editor/anki-editor" :branch "master")
+  :config
+  (define-prefix-command 'rb-anki-keymap)
+  (keymap-set rb-anki-keymap "p" #'anki-editor-push-note-at-point)
+  (keymap-set rb-anki-keymap "d" #'anki-editor-delete-note-at-point)
+  (keymap-set rb-anki-keymap "s" #'anki-editor-sync-collection)
+  (keymap-set rb-org-global-prefix-map "a" rb-anki-keymap)
   )
 
 (provide 'init-org)
