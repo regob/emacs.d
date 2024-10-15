@@ -276,6 +276,10 @@
   (keymap-set rb-anki-keymap "d" #'anki-editor-delete-note-at-point)
   (keymap-set rb-anki-keymap "s" #'anki-editor-sync-collection)
   (keymap-set rb-org-global-prefix-map "a" rb-anki-keymap)
+  ;; ignore some tags used in org agenda
+  (setq anki-editor-ignored-org-tags
+        (append '("INPROGRESS" "MEETING" "NOTE" "CANCELLED" "REFILE" "CARD")
+                anki-editor-ignored-org-tags))
   )
 
 (provide 'init-org)
