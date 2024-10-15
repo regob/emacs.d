@@ -44,9 +44,20 @@
 (use-package casual-ibuffer
   :ensure (:source "MELPA")
   :bind (:map
-	 ibuffer-mode-map
-	 ("C-c t" . 'casual-ibuffer-tmenu))
+	     ibuffer-mode-map
+	     ("C-c t" . 'casual-ibuffer-tmenu))
   )
+
+;; ----------------------------------------------------------------------------
+;; Dictionary
+;; ----------------------------------------------------------------------------
+
+(use-package dictionary
+  :ensure nil
+  :custom
+  (dictionary-use-single-buffer t)
+  :config
+  (bind-key (kbd "d") #'dictionary-lookup-definition 'rb-user-keymap))
 
 (provide 'init-help)
 

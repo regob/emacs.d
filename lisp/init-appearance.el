@@ -52,7 +52,19 @@
 ;; Font config
 ;; ----------------------------------------------------------------------------
 
-(defun rb-init-font ()
+
+(defun rb--init-general-font (font-name &rest args)
+  "Initialize FONT-NAME for many general faces.
+Also pass ARGS to `set-face-attribute' calls."
+  (dolist (face '(default dictionary-word-definition-face))
+    (apply 'set-face-attribute
+           face
+           nil
+           :family font-name
+           args
+           )))
+
+(defun rb/init-font ()
   "Initialize display font from a list of options."
   (interactive)
   
@@ -60,17 +72,14 @@
   ;; https://emacsredux.com/blog/2021/12/22/check-if-a-font-is-available-with-emacs-lisp/
   (cond
    ((member "Source Code Pro" (font-family-list))
-    (set-face-attribute 'default nil
-                        :family "Source Code Pro"
-                        :height 95))
+    (rb--init-general-font "Source Code Pro"
+                           :height 95))
    ((member "Consolas" (font-family-list))
-    (set-face-attribute 'default nil
-                        :family "Consolas"
-                        :height 100))
+    (rb--init-general-font "Consolas"
+                           :height 100))
    ((member "DejaVu Sans Mono" (font-family-list))
-    (set-face-attribute 'default nil
-                        :family "DejaVu Sans Mono"
-                        :height 100))
+    (rb--init-general-font "DejaVu Sans Mono"
+                           :height 100))
    (t
     (warn "Default fonts are not installed. Make sure to install one or select another one!"))
    )
@@ -79,7 +88,7 @@
   )
 
 ;; Initialize fonts if running with a GUI
-(rb-apply-if-gui 'rb-init-font)
+(rb-apply-if-gui 'rb/init-font)
 
 
 
