@@ -94,18 +94,6 @@
 ;; always ask before killing emacs (does not hold for emacsclient though)
 (setq confirm-kill-emacs 'yes-or-no-p)
 
-;; Set cat as pager, as less does not work well in eshell
-(setenv "PAGER" "cat")
-
-;; turn off auto fill 
-(remove-hook 'text-mode-hook 'turn-on-auto-fill)
-
-(use-package avy
-  :config
-  (global-set-key (kbd "C-'") 'avy-goto-char-2)
-  (global-set-key (kbd "C-;") 'avy-goto-char-timer)
-  )
-
 ;; ----------------------------------------------------------------------------
 ;; Some "global" keymaps
 ;; ----------------------------------------------------------------------------
@@ -115,45 +103,28 @@
 (bind-key (kbd "r") 'eval-region 'rb/lispy-keymap)
 (bind-key (kbd "b") 'eval-buffer 'rb/lispy-keymap)
 
+(define-prefix-command 'rb-user-keymap)
+(global-set-key (kbd "C-c 8") 'rb-user-keymap)
+
 ;; =========================
 ;; Global development setup
 ;; =========================
 
 (use-package projectile
-  :config
-  (add-hook 'prog-mode-hook #'(lambda () (projectile-mode +1)))
+  :diminish projectile-mode
   :bind-keymap
-  ("C-c p" . 'projectile-command-map)
+  ("C-c p" . projectile-command-map)
   :custom
   (add-to-list 'projectile-globally-ignored-directories ".venv")
   (add-to-list 'projectile-globally-ignored-directories ".direnv")
-  )
-
-(use-package rainbow-delimiters
   :config
-  (set-face-foreground 'rainbow-delimiters-depth-1-face "#c66") ; red
-  (set-face-foreground 'rainbow-delimiters-depth-2-face "#6c6") ; green
-  (set-face-foreground 'rainbow-delimiters-depth-3-face "#69f") ; blue
-  (set-face-foreground 'rainbow-delimiters-depth-4-face "#cc6") ; yellow
-  (set-face-foreground 'rainbow-delimiters-depth-5-face "#6cc") ; cyan
-  (set-face-foreground 'rainbow-delimiters-depth-6-face "#c6c") ; magenta
-  (set-face-foreground 'rainbow-delimiters-depth-7-face "#ccc") ; light gray
-  (set-face-foreground 'rainbow-delimiters-depth-8-face "#999") ; medium gray
-  (set-face-foreground 'rainbow-delimiters-depth-9-face "#666") ; dark gray
-  ;; turn on rainbow delims in all programming languages and LaTeX
-  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-  (add-hook 'LaTeX-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'prog-mode-hook #'(lambda () (projectile-mode +1)))
   )
 
 
 (use-package dumb-jump
   :config
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
-  )
-
-(use-package envrc
-  :config
-  (envrc-global-mode)
   )
 
 (use-package so-long

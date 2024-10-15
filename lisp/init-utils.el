@@ -32,6 +32,16 @@
   (writeroom-width 120)
   )
 
+;; ----------------------------------------------------------------------------
+;; Jumping in buffer (avy)
+;; ----------------------------------------------------------------------------
+
+(use-package avy
+  :config
+  (global-set-key (kbd "C-'") 'avy-goto-char-2)
+  (global-set-key (kbd "C-;") 'avy-goto-char-timer)
+  )
+
 ;; =========================
 ;; Misc user functions
 ;; =========================
@@ -57,12 +67,11 @@
     )
   )
 
-(define-prefix-command 'rb-user-keymap)
-(global-set-key (kbd "C-c 8") 'rb-user-keymap)
 (bind-key (kbd "i") 'rb/jump-to-init-file 'rb-user-keymap)
 (bind-key (kbd "c") #'rb/byte-recompile 'rb-user-keymap)
 (bind-key (kbd "u") #'browse-url-at-point 'rb-user-keymap)
 (bind-key (kbd "g") #'rb/search-google 'rb-user-keymap)
+(bind-key (kbd "s") #'scratch-buffer 'rb-user-keymap)
 
 
 

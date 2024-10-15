@@ -6,6 +6,10 @@
 (setq-default indent-tabs-mode  nil)
 (setq-default tab-width 4)
 
+;; turn off auto fill 
+(remove-hook 'text-mode-hook 'turn-on-auto-fill)
+
+
 ;; mode for navigating super_words
 (use-package subword
   :ensure nil

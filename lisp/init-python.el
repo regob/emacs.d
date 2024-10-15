@@ -18,7 +18,6 @@
 
   :commands python-mode
   :interpreter ("python3" . python-mode)
-  ;;(python-environment-virtualenv (quote ("python3.8" "-m" "venv")))
   )
 
 

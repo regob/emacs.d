@@ -122,6 +122,26 @@ Also pass ARGS to `set-face-attribute' calls."
   (breadcrumb-mode)
   )
 
+;; ----------------------------------------------------------------------------
+;; Rainbow delims
+;; ----------------------------------------------------------------------------
+
+(use-package rainbow-delimiters
+  :config
+  (set-face-foreground 'rainbow-delimiters-depth-1-face "#c66") ; red
+  (set-face-foreground 'rainbow-delimiters-depth-2-face "#6c6") ; green
+  (set-face-foreground 'rainbow-delimiters-depth-3-face "#69f") ; blue
+  (set-face-foreground 'rainbow-delimiters-depth-4-face "#cc6") ; yellow
+  (set-face-foreground 'rainbow-delimiters-depth-5-face "#6cc") ; cyan
+  (set-face-foreground 'rainbow-delimiters-depth-6-face "#c6c") ; magenta
+  (set-face-foreground 'rainbow-delimiters-depth-7-face "#ccc") ; light gray
+  (set-face-foreground 'rainbow-delimiters-depth-8-face "#999") ; medium gray
+  (set-face-foreground 'rainbow-delimiters-depth-9-face "#666") ; dark gray
+  ;; turn on rainbow delims in all programming languages and LaTeX
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'LaTeX-mode-hook 'rainbow-delimiters-mode)
+  )
+
 (provide 'init-appearance)
 
 ;;; init-appearance.el ends here
