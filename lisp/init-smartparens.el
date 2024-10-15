@@ -8,7 +8,8 @@
   ((css-mode . smartparens-mode)
    (prog-mode . smartparens-mode)
    (org-mode . smartparens-mode)
-   (ielm . smartparens-mode))
+   (ielm . smartparens-mode)
+   (inferior-python-mode . smartparens-mode))
 
   :bind
   (("C-M-f" . sp-forward-sexp)
