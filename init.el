@@ -110,17 +110,6 @@
 ;; Global development setup
 ;; =========================
 
-(use-package projectile
-  :diminish projectile-mode
-  :bind-keymap
-  ("C-c p" . projectile-command-map)
-  :custom
-  (add-to-list 'projectile-globally-ignored-directories ".venv")
-  (add-to-list 'projectile-globally-ignored-directories ".direnv")
-  :config
-  (add-hook 'prog-mode-hook #'(lambda () (projectile-mode +1)))
-  )
-
 
 (use-package dumb-jump
   :config
@@ -151,6 +140,7 @@
 (require 'init-editing-utils nil nil)
 (require 'init-smartparens nil nil)
 (require 'init-flycheck nil nil)
+(require 'init-project nil nil)
 
 (require 'init-dired nil nil)
 (require 'init-ibuffer nil nil)
