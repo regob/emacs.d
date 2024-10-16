@@ -8,11 +8,15 @@
   :custom
   (lsp-enable-symbol-highlighting nil)
   (lsp-enable-on-type-formatting nil)
-  (lsp-keymap-prefix "C-c l")
   (lsp-headerline-breadcrumb-enable nil)
+  (lsp-keymap-prefix "C-c l")
   (lsp-completion-enable t)
+  (lsp-use-plists t)
   :config
   (require 'lsp-pyright)
+  (keymap-set lsp-mode-map "C-c l" lsp-command-map)
+  ;; show lsp keymap names when using which key
+  (lsp-enable-which-key-integration t)
   )
 
 (use-package lsp-ui

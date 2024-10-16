@@ -94,6 +94,11 @@
 ;; always ask before killing emacs (does not hold for emacsclient though)
 (setq confirm-kill-emacs 'yes-or-no-p)
 
+;; some performance settings (partly for lsp-mode)
+;; https://emacs-lsp.github.io/lsp-mode/page/performance/
+(setq gc-cons-threshold 100000000)
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+
 ;; ----------------------------------------------------------------------------
 ;; Some "global" keymaps
 ;; ----------------------------------------------------------------------------
