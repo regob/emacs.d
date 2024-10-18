@@ -36,6 +36,9 @@
   :hook ((flycheck-mode . rb-flycheck-prefer-eldoc))
   :config
   (add-hook 'prog-mode-hook 'flycheck-mode)
+  :custom
+  (flycheck-idle-change-delay 2)
+  (flycheck-idle-buffer-switch-delay 1)
   )
 
 (provide 'init-flycheck)
