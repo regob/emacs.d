@@ -1,4 +1,4 @@
-* My emacs config
+* Emacs config
 
 The following is a collection of references I find useful for configuration.
 
@@ -7,20 +7,49 @@ The following is a collection of references I find useful for configuration.
 - [[https://www.youtube.com/watch?v=5Ud-TE3iIQY][Elpaca: Async Emacs Package Manager]]
 - [[https://github.com/progfolio/elpaca/blob/master/doc/manual.md][Elpaca manual]]
 
-** Org-mode
+
+** Programming/markup languages
+
+*** Org-mode
 
 - [[https://doc.norang.ca/org-mode.html][Organize your life in plain text (most comprehensive org setup)]]
 - [[https://github.com/rougier/emacs-gtd][Rougier's GTD setup]]
 
-
-
-** Bash
+*** Bash
 
 - [[https://www.youtube.com/watch?v=LTC6SP7R1hA][Bash IDE setup (shows the basics and multiple options)]]
 
-** Python
+*** Python
+
+I use [[https://github.com/astral-sh/uv][uv]] for:
+- venv management
+- package management 
+- managing python version
+- managing global tools like pyright, pytest, ruff with ~uv tool~
+
+There is a ~.envrc~ file for each project to set the virtualenv with
+~direnv~ from the commandline and ~envrc-mode~ in emacs. That file
+mostly just activates the venv by calling ~source .venv/bin/activate~.
+This solves venv and python version handling in emacs also.
+
+References:
+- [[https://slinkp.com/python-emacs-lsp-20231229.html][Modernizing my Python development setup in Emacs]]
+
+*** Markdown
+
+- [[https://jblevins.org/projects/markdown-mode/][Markdown mode docs]]
+
+*** LaTeX
+
+- [[https://www.youtube.com/watch?v=u44X_th6_oY][Emacs latex previews everywhere (maybe in the future)]]
+
+** LSP
+
+- [[https://emacs-lsp.github.io/lsp-mode/][lsp-mode docs]]
 
 * References
+
+Lots of code adapted from:
 
 - [[https://github.com/purcell/emacs.d][Purcell's emacs.d]]
 - [[https://www.masteringemacs.org/][Mastering Emacs]]
