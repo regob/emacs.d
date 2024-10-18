@@ -256,7 +256,27 @@
   (define-key rb-org-global-prefix-map (kbd "b") 'org-clock-in-last)
   (define-key rb-org-global-prefix-map (kbd "i") 'org-clock-in)
   (define-key rb-org-global-prefix-map (kbd "o") 'org-clock-out)
-  (define-key global-map (kbd "C-c o") rb-org-global-prefix-map)
+
+
+  (defun rb/org-start-pomodoro-work ()
+    "Start an org pomodoro timer for working (25 minutes)."
+    (interactive)
+    (org-timer-set-timer 25))
+
+  (defun rb/org-start-pomodoro-rest ()
+    "Start an org pomodoro timer for resting (5 minutes)."
+    (interactive)
+    (org-timer-set-timer 5))
+
+  (defvar rb-org-pomodoro-keymap (make-sparse-keymap)
+    "Keymap for org pomodoro commands.")
+
+  (keymap-set rb-org-pomodoro-keymap "w" 'rb/org-start-pomodoro-work)
+  (keymap-set rb-org-pomodoro-keymap "r" 'rb/org-start-pomodoro-rest)
+  (keymap-set rb-org-pomodoro-keymap "c" 'org-timer-stop)
+  
+  (keymap-set global-map "C-c o" rb-org-global-prefix-map)
+  (keymap-set rb-org-global-prefix-map "p" rb-org-pomodoro-keymap)
 
   ;; ----------------------------------------------------------------------------
   ;; Misc settings
