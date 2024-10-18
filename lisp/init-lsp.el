@@ -13,7 +13,6 @@
   (lsp-completion-enable t)
   (lsp-use-plists t)
   :config
-  (require 'lsp-pyright)
   (keymap-set lsp-mode-map "C-c l" lsp-command-map)
   ;; show lsp keymap names when using which key
   (lsp-enable-which-key-integration t)
@@ -35,6 +34,10 @@
   (require 'dap-python)
   )
 
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-pyright))))
 
 (provide 'init-lsp)
 
