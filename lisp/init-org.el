@@ -153,6 +153,8 @@
                 ("C" "Cards" tags "CARD"
                  ((org-agenda-overriding-header "Cards")
                   (org-tags-match-list-sublevels t)))
+                ("U" "Unsynced cards" tags "CARD-ANKI_NOTE_ID={.+}"
+                 ((org-tags-match-list-sublevels t)))
                 (" " "Agenda"
                  ((agenda ""
                           ((org-agenda-span 'day)))
