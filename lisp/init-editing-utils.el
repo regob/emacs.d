@@ -40,9 +40,6 @@
       require-final-newline t
       )
 
-(electric-pair-mode -1)
-(electric-indent-mode -1)
-
 (use-package multiple-cursors
   :defer nil
   :config
@@ -95,7 +92,13 @@
   :hook
   ((kotlin-mode . electric-indent-local-mode)
    (python-mode . electric-indent-local-mode)
-   (cc-mode . electric-indent-local-mode)))
+   (cc-mode . electric-indent-local-mode)
+   (sh-mode . electric-indent-local-mode)
+   (yaml-mode . electric-indent-local-mode)
+   (js-json-mode . electric-indent-local-mode))
+  :config
+  (electric-indent-mode -1)
+  (electric-pair-mode -1))
 
 ;; ----------------------------------------------------------------------------
 ;; Undo tree
