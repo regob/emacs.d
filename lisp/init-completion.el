@@ -8,7 +8,9 @@
   (corfu-auto t)                 ;; Enable auto completion
   (corfu-quit-no-match 'separator)
   (corfu-auto-delay 0.3)
-
+  (corfu-left-margin-width 1.0)
+  (corfu-right-margin-width 1.0)
+  (corfu-bar-width 0.5)
   :init
   ;; Recommended: Enable Corfu globally.  This is recommended since Dabbrev can
   ;; be used globally (M-/).  See also the customization variable
