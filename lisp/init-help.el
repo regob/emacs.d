@@ -59,6 +59,17 @@
   :config
   (bind-key (kbd "d") #'dictionary-lookup-definition 'rb-user-keymap))
 
+;; ----------------------------------------------------------------------------
+;; GPTel - LLM interface for emacs
+;; ----------------------------------------------------------------------------
+
+(use-package gptel
+  :ensure (:source "MELPA")
+  :config
+  (setq gptel-api-key (lambda () (getenv "OPENAI_API_KEY")))
+  (setq gptel-model "gpt-4o-mini")
+  )
+
 (provide 'init-help)
 
 ;;; init-help.el ends here
