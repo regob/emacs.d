@@ -16,9 +16,10 @@
    ("C-M-b" . sp-backward-sexp)
    ("C-M-SPC" . sp-mark-sexp)
    ("M-(" . sp-wrap-round)
-   :map rb/lispy-keymap
+   :map rb-lispy-keymap
    ("DEL" . sp-backward-kill-word)
    ("u" . sp-unwrap-sexp)
+   ("t" . sp-transpose-sexp)
    )
   :config
   (require 'smartparens-config)

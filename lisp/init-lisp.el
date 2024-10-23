@@ -8,6 +8,14 @@
   (setq sentence-end-double-space nil)
   )
 
+;; Emacs lisp Regression Testing
+(use-package ert
+  :ensure nil
+  :config
+  (bind-key "e r" 'ert 'rb-lispy-keymap)
+  (bind-key "e d" 'ert-delete-all-tests 'rb-lispy-keymap)
+  (bind-key "e k" 'ert-kill-all-test-buffers 'rb-lispy-keymap))
+
 (use-package slime
   :config
   (setq inferior-lisp-program "sbcl")

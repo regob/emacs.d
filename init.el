@@ -99,14 +99,18 @@
 (setq gc-cons-threshold 100000000)
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
 
+;; remove scratch message
+(setq initial-scratch-message "")
+
 ;; ----------------------------------------------------------------------------
 ;; Some "global" keymaps
 ;; ----------------------------------------------------------------------------
 
-(define-prefix-command 'rb/lispy-keymap)
-(global-set-key (kbd "C-c e") 'rb/lispy-keymap)
-(bind-key (kbd "r") 'eval-region 'rb/lispy-keymap)
-(bind-key (kbd "b") 'eval-buffer 'rb/lispy-keymap)
+(define-prefix-command 'rb-lispy-keymap)
+(global-set-key (kbd "C-c e") 'rb-lispy-keymap)
+(bind-key (kbd "r") 'eval-region 'rb-lispy-keymap)
+(bind-key (kbd "b") 'eval-buffer 'rb-lispy-keymap)
+(bind-key (kbd "t") 'transpose-sexps 'rb-lispy-keymap)
 
 (define-prefix-command 'rb-user-keymap)
 (global-set-key (kbd "C-c 8") 'rb-user-keymap)
