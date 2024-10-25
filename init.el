@@ -77,6 +77,19 @@
 
 (elpaca-wait)
 
+;; ----------------------------------------------------------------------------
+;; Update some builtin packages
+;; ----------------------------------------------------------------------------
+
+(use-package transient
+  :ensure (:source "MELPA")
+  )
+
+;; Magit requires seq>=2.24
+;; (use-package seq
+;;   :ensure (:source "GNU-devel ELPA")
+;;   )
+
 ;; ====================================
 ;; General setup
 ;; ====================================
@@ -115,9 +128,9 @@
 (define-prefix-command 'rb-user-keymap)
 (global-set-key (kbd "C-c 8") 'rb-user-keymap)
 
-;; =========================
-;; Global development setup
-;; =========================
+;; ----------------------------------------------------------------------------
+;; Initialize all packages 
+;; ----------------------------------------------------------------------------
 
 
 (use-package dumb-jump

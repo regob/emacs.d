@@ -50,7 +50,7 @@
   )
 
 (use-package lsp-pyright
-  :ensure t
+  :ensure (:source "MELPA")
   :hook (python-mode . (lambda ()
                          (require 'lsp-pyright))))
 

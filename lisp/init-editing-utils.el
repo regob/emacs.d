@@ -82,6 +82,7 @@
 
 (use-package aggressive-indent
   :diminish
+  :ensure (:source "MELPA")
   :hook
   ((css-mode . aggressive-indent-mode))
   ((emacs-lisp-mode . aggressive-indent-mode))

@@ -17,6 +17,7 @@
   (bind-key "e k" 'ert-kill-all-test-buffers 'rb-lispy-keymap))
 
 (use-package slime
+  :ensure (:source "MELPA")
   :config
   (setq inferior-lisp-program "sbcl")
   (defun override-slime-del-key ()

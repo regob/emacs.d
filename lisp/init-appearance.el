@@ -127,6 +127,7 @@ Also pass ARGS to `set-face-attribute' calls."
 ;; ----------------------------------------------------------------------------
 
 (use-package rainbow-delimiters
+  :ensure (:source "MELPA")
   :config
   (set-face-foreground 'rainbow-delimiters-depth-1-face "#c66") ; red
   (set-face-foreground 'rainbow-delimiters-depth-2-face "#6c6") ; green

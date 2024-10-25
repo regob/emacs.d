@@ -5,7 +5,7 @@
 
 
 (use-package session
-  :ensure t
+  :ensure (:source "MELPA")
   :config
   (session-initialize)
   (setq session-save-file (locate-user-emacs-file ".session"))
