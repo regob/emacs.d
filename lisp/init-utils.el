@@ -67,11 +67,19 @@
     )
   )
 
+(defun rb/copy-buffer-filename ()
+  "Kill the file name opened in currnet buffer or directory (in Dired)."
+  (interactive)
+  (if (eq major-mode 'dired-mode)
+      (kill-new (file-truename default-directory))
+    (kill-new (file-truename buffer-file-name))))
+
 (bind-key (kbd "i") 'rb/jump-to-init-file 'rb-user-keymap)
 (bind-key (kbd "c") #'rb/byte-recompile 'rb-user-keymap)
 (bind-key (kbd "u") #'browse-url-at-point 'rb-user-keymap)
 (bind-key (kbd "g") #'rb/search-google 'rb-user-keymap)
 (bind-key (kbd "s") #'scratch-buffer 'rb-user-keymap)
+(bind-key (kbd "p") #'rb/copy-buffer-filename 'rb-user-keymap)
 
 
 
