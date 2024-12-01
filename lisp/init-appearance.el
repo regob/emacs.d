@@ -88,9 +88,7 @@ Also pass ARGS to `set-face-attribute' calls."
   )
 
 ;; Initialize fonts if running with a GUI
-(rb-apply-if-gui 'rb/init-font)
-
-
+(add-hook 'elpaca-after-init-hook #'(lambda () (rb-apply-if-gui 'rb/init-font)))
 
 ;; Enable line numbers only when executing goto-line
 ;; from http://whattheemacsd.com/
