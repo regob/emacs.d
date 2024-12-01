@@ -157,11 +157,12 @@
 (require 'init-powershell nil nil)
 (require 'init-shell nil nil)
 
-(require 'init-lsp nil nil)
+;; (require 'init-lsp nil nil)
+(require 'init-eglot nil nil)
 (require 'init-completion nil nil)
 (require 'init-editing-utils nil nil)
 (require 'init-smartparens nil nil)
-(require 'init-flycheck nil nil)
+;; (require 'init-flycheck nil nil)
 (require 'init-project nil nil)
 
 (require 'init-dired nil nil)

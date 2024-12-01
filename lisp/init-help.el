@@ -27,7 +27,8 @@
   :diminish
   :ensure nil
   :config
-  (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly))
+  ;; (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
+  (setq eldoc-echo-area-prefer-doc-buffer t))
 
 ;; ----------------------------------------------------------------------------
 ;; Casual suite - transient interfaces to commands

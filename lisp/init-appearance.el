@@ -149,6 +149,7 @@ Also pass ARGS to `set-face-attribute' calls."
   :custom
   (highlight-indent-guides-method 'character)
   (highlight-indent-guides-responsive 'top)
+  (highlight-indent-guides-auto-enabled nil)
   :config
   (set-face-foreground 'highlight-indent-guides-character-face "#344")
   (set-face-foreground 'highlight-indent-guides-top-character-face "#aaa")
