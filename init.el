@@ -85,7 +85,7 @@
   :ensure (:source "MELPA")
   )
 
-;; Magit requires seq>=2.24
+;; Magit requires seq>=2.24, but it's built-in, elpaca rule to be added
 ;; (use-package seq
 ;;   :ensure (:source "GNU-devel ELPA")
 ;;   )
