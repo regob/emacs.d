@@ -7,6 +7,10 @@
   :ensure (:source "MELPA")
   )
 
+;; ----------------------------------------------------------------------------
+;; Calendar
+;; ----------------------------------------------------------------------------
+
 (use-package calendar
   :ensure nil
   :init
@@ -25,6 +29,21 @@
           'font-lock-face 'calendar-iso-week-face))
   )
 
+;; ----------------------------------------------------------------------------
+;; Calculator mode
+;; ----------------------------------------------------------------------------
+
+(use-package calc
+  :ensure nil
+  )
+
+(use-package calc-alg
+  :ensure nil)
+
+;; ----------------------------------------------------------------------------
+;; Writeroom-mode (similar to "zen-mode" in other editors)
+;; ----------------------------------------------------------------------------
+
 
 (use-package writeroom-mode
   :ensure (:source "MELPA")
@@ -37,6 +56,7 @@
 ;; ----------------------------------------------------------------------------
 
 (use-package avy
+  :ensure (:source "MELPA")
   :config
   (global-set-key (kbd "C-'") 'avy-goto-char-2)
   (global-set-key (kbd "C-;") 'avy-goto-char-timer)

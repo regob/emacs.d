@@ -22,6 +22,7 @@
   (setq woman-fill-frame t)
   )
 
+;; Neat documentation features
 (use-package eldoc
   :diminish
   :ensure nil
@@ -32,20 +33,23 @@
 ;; Casual suite - transient interfaces to commands
 ;; ----------------------------------------------------------------------------
 
-(use-package casual-calc
+(use-package casual
   :ensure (:source "MELPA")
-  :bind (:map
-         calc-mode-map
-         ("C-c t" . 'casual-calc-tmenu)
-         :map
-         calc-alg-map
-         ("C-c t" . 'casual-calc-tmenu)))
-
-(use-package casual-ibuffer
-  :ensure (:source "MELPA")
-  :bind (:map
-	     ibuffer-mode-map
-	     ("C-c t" . 'casual-ibuffer-tmenu))
+  :config
+  (with-eval-after-load "calc-alg"
+    (keymap-set calc-alg-map "C-c t" #'casual-calc-tmenu))
+  (with-eval-after-load "calc"
+    (keymap-set calc-mode-map "C-c t" #'casual-calc-tmenu))
+  (with-eval-after-load "calendar"
+    (keymap-set calendar-mode-map "C-c t" #'casual-calendar))
+  (with-eval-after-load "dired"
+    (keymap-set dired-mode-map "C-c t" #'casual-dired-tmenu))  
+  (with-eval-after-load "ibuffer"
+    (keymap-set ibuffer-mode-map "C-c t" #'casual-ibuffer-tmenu))
+  (with-eval-after-load "re-builder"
+    (progn
+      (keymap-set reb-mode-map "C-c t" #'casual-re-builder-tmenu)
+      (keymap-set reb-lisp-mode-map "C-c t" #'casual-re-builder-tmenu)))  
   )
 
 ;; ----------------------------------------------------------------------------
