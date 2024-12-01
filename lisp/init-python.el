@@ -9,7 +9,6 @@
   :config
   (setq python-shell-interpreter "python3")
   (setq python-shell-interpreter-args "-i")
-  (add-hook 'python-mode-hook #'electric-indent-local-mode)
 
   ;; set compile command with current file name
   (add-hook 'python-mode-hook #'(lambda ()
