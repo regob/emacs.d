@@ -15,6 +15,11 @@
   (lsp-keymap-prefix "C-c l")
   (lsp-completion-enable t)
   (lsp-use-plists t)
+  ;; only show signature in echo area when requested
+  (lsp-signature-auto-activate nil)
+  :bind
+  (:map lsp-command-map
+        ("s" . lsp-signature-activate))
   :config
   (keymap-set lsp-mode-map "C-c l" lsp-command-map)
   ;; show lsp keymap names when using which key
