@@ -121,6 +121,25 @@ Also pass ARGS to `set-face-attribute' calls."
   )
 
 ;; ----------------------------------------------------------------------------
+;; Indentation guides 
+;; ----------------------------------------------------------------------------
+
+(use-package highlight-indent-guides
+  :ensure (:source "MELPA")
+  :diminish
+  :hook
+  ((prog-mode . highlight-indent-guides-mode)
+   (yaml-mode . highlight-indent-guides-mode)
+   (js-json-mode . highlight-indent-guides-mode))
+  :custom
+  (highlight-indent-guides-method 'character)
+  (highlight-indent-guides-responsive 'top)
+  :config
+  (set-face-foreground 'highlight-indent-guides-character-face "#344")
+  (set-face-foreground 'highlight-indent-guides-top-character-face "#aaa")
+  )
+
+;; ----------------------------------------------------------------------------
 ;; Rainbow delims
 ;; ----------------------------------------------------------------------------
 
