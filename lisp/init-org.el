@@ -111,7 +111,7 @@
   ;; and https://doc.norang.ca/org-mode.html
 
   (setq org-capture-templates
-        `(("t" "todo" entry (file "") ; "" => `org-default-notes-file'
+        `(("t" "" entry (file "") ; "" => `org-default-notes-file'
            "* TODO %?\n%U\n" :clock-resume t)
           ("m" "meeting" entry (file "")
            "* MEETING Call %<%m-%d> :MEETING:\n%U\n%?" :clock-resume t)
@@ -129,7 +129,7 @@
         (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!/!)")
                 (sequence "PROJ(p)" "|" "DONE(d!/!)")
                 (sequence "|" "MEETING(m)" "(q)") ; the empty keyword (q) is for removing todo tags
-                (sequence "WAITING(w@/!)" "DELEGATED(e!)" "HOLD(h)" "|" "CANCELLED(c@/!)"))
+                (sequence "WAITING(w@/!)" "DELEGATED(e!)" "HOLD(h)" "SOMEDAY(s)" "|" "CANCELLED(c@/!)"))
                ))
 
   ;; Compact the block agenda view
@@ -173,6 +173,9 @@
                               (org-agenda-skip-function 'rb/skip-schedule-deadline)))
                   (tags-todo "-CANCELLED/HOLD|WAITING|DELEGATED"
                              ((org-agenda-overriding-header "Waiting tasks")
+                              ))
+                  (tags-todo "-CANCELLED/SOMEDAY"
+                             ((org-agenda-overriding-header "Someday backlog")
                               )))
                  )
                 )))
@@ -181,6 +184,7 @@
         (quote (("CANCELLED" ("CANCELLED" . t) ("INPROGRESS"))
                 ("WAITING" ("INPROGRESS"))
                 ("HOLD" ("INPROGRESS"))
+                ("SOMEDAY" ("INPROGRESS"))
                 (done ("INPROGRESS") ("HOLD"))
                 ("TODO" ("CANCELLED"))
                 ("NEXT" ("CANCELLED"))
