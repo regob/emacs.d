@@ -62,9 +62,21 @@
   (global-set-key (kbd "C-;") 'avy-goto-char-timer)
   )
 
-;; =========================
+;; ----------------------------------------------------------------------------
+;; Searching
+;; ----------------------------------------------------------------------------
+
+;; Rg works best for me (deadgrep is another option)
+(use-package rg
+  :ensure (:source "MELPA")
+  :config
+  (rg-enable-menu)
+  )
+
+;; ----------------------------------------------------------------------------
 ;; Misc user functions
-;; =========================
+;; ----------------------------------------------------------------------------
+
 
 (defun rb/jump-to-init-file ()
   "Open init.el in the current window."

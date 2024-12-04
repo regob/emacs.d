@@ -2,13 +2,28 @@
 ;;; Commentary:
 ;;; Code:
 
+;; ----------------------------------------------------------------------------
+;; Theme setup
+;; ----------------------------------------------------------------------------
+
 (setq custom-safe-themes t)
 
 (use-package gruvbox-theme
   :ensure (:files ("*.el") :autoloads nil)
   :init
   (add-hook 'elpaca-after-init-hook #'(lambda () (load-theme 'gruvbox t)))
+  :config
+  ;; Modify some faces I don't like in the gruvbox theme
+  (custom-set-faces
+   ;; matches are too bright by default (gray on blue)
+   '(match ((t (:background "#554444" :foreground "#999999")))))
   )
+
+
+;; ----------------------------------------------------------------------------
+;; Improve some visuals
+;; ----------------------------------------------------------------------------
+
 
 ;; Remove toolbars, menu and scrollbars
 (menu-bar-mode -1)
