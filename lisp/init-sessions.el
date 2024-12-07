@@ -9,6 +9,7 @@
   (setq session-save-file (locate-user-emacs-file ".session"))
   (setq session-name-disable-regexp "\\(?:\\`'/tmp\\|\\.git/[A-Z_]+\\'\\)")
   (setq session-save-file-coding-system 'utf-8)
+  (add-to-list 'session-globals-exclude 'kill-ring)
   (add-hook 'delete-frame-functions (lambda (_) (session-save-session)))
   )
 
