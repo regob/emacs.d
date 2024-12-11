@@ -20,6 +20,10 @@
   :ensure (:source "ELPA")
   )
 
+
+(use-package sql
+  :ensure nil)
+
 (provide 'init-markup)
 
 ;;; init-markup.el ends here

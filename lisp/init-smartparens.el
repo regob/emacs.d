@@ -9,6 +9,8 @@
    (prog-mode . smartparens-mode)
    (org-mode . smartparens-mode)
    (ielm . smartparens-mode)
+   (yaml-mode . smartparens-mode)
+   (js-json-mode . smartparens-mode)
    (inferior-python-mode . smartparens-mode))
 
   :bind

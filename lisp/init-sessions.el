@@ -2,8 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-
-
 (use-package session
   :ensure (:source "MELPA")
   :config
@@ -17,7 +15,7 @@
 (use-package recentf
   :ensure nil
   :config
-  (setq recentf-max-saved-items 300)
+  (setq recentf-max-saved-items 1000)
   (recentf-mode)
   (add-hook 'delete-frame-functions (lambda (_) (recentf-save-list))))
 
