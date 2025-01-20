@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: pyright_ignore
+# key: pig
+# --
+# pyright: ignore$0
