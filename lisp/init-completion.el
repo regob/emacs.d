@@ -2,6 +2,9 @@
 ;;; Commentary:
 ;;; Code:
 
+;; TODO: fix desync issue with eglot
+;; https://github.com/joaotavora/eglot/discussions/1127#discussioncomment-8017640
+
 (use-package corfu
   :custom                               
   (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
@@ -55,9 +58,7 @@
   )
 
 ;; Extra completion-at-point functions
-(use-package cape
-  :ensure (:source "MELPA"))
-
+;; cape removed to fix eglot sync issue?
 
 (use-package yasnippet
   :diminish yas-minor-mode
