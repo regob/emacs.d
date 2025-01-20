@@ -27,6 +27,8 @@
          #2=(:diagnosticSeverityOverrides
              (:reportUnknownParameterType
               :json-false
+              :reportMissingTypeArgument
+              :json-false
               :reportMissingParameterType
               :json-false
               :reportUnknownVariableType
@@ -43,12 +45,24 @@
               :json-false
               )
              :inlayHints
-             (:callArgumentNames :json-false
-                                 :functionReturnTypes :json-false
-                                 :variableTypes :json-false
-                                 :genericTypes :json-false)))
+             (:callArgumentNames
+              :json-false
+              :functionReturnTypes
+              t
+              :variableTypes
+              :json-false
+              :genericTypes
+              :json-false)))
      :basedpyright.analysis #2#
      ))
+
+  ;; https://www.reddit.com/r/emacs/comments/10yzhmn/flymake_just_works_with_ruff/
+  (add-hook 'eglot-managed-mode-hook
+            (lambda () (cond ((derived-mode-p 'python-base-mode)
+                              (add-hook 'flymake-diagnostic-functions 'python-flymake nil t))
+                             ;; if not adding diagnostic functions to other modes just use an if
+                             ;; ...
+                             (t nil))))
   )
 
 (provide 'init-eglot)

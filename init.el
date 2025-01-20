@@ -145,6 +145,30 @@
 
 (use-package ess)
 
+(require 'init-utils nil nil)
+(require 'init-appearance nil nil)
+(require 'init-windows nil nil)
+
+(require 'init-minibuffer nil nil)
+(require 'init-dired nil nil)
+(require 'init-ibuffer nil nil)
+(require 'init-help nil nil)
+(require 'init-consult nil nil)
+(require 'init-vc nil nil)
+(require 'init-sessions nil nil)
+(require 'init-project nil nil)
+
+;; General editor functionality
+(require 'init-eglot nil nil)
+(require 'init-completion nil nil)
+(require 'init-editing-utils nil nil)
+(require 'init-smartparens nil nil)
+(require 'init-format-all nil nil)
+(require 'init-flymake nil nil)
+
+(elpaca-wait)
+
+;; language modes
 (require 'init-tex nil nil)
 (require 'init-sh nil nil)
 (require 'init-python nil nil)
@@ -156,25 +180,6 @@
 (require 'init-markup nil nil)
 (require 'init-powershell nil nil)
 (require 'init-shell nil nil)
-
-;; (require 'init-lsp nil nil)
-(require 'init-eglot nil nil)
-(require 'init-completion nil nil)
-(require 'init-editing-utils nil nil)
-(require 'init-smartparens nil nil)
-;; (require 'init-flycheck nil nil)
-(require 'init-project nil nil)
-
-(require 'init-dired nil nil)
-(require 'init-ibuffer nil nil)
-(require 'init-help nil nil)
-(require 'init-consult nil nil)
-(require 'init-vc nil nil)
-(require 'init-appearance nil nil)
-(require 'init-windows nil nil)
-(require 'init-sessions nil nil)
-(require 'init-minibuffer nil nil)
-(require 'init-utils nil nil)
 
 (elpaca-wait)
 
