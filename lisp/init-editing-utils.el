@@ -6,7 +6,10 @@
 (setq-default indent-tabs-mode  nil)
 (setq-default tab-width 4)
 
-;; turn off auto fill 
+;; show trailing whitespaces
+(setq-default show-trailing-whitespace t)
+
+;; turn off auto fill
 (remove-hook 'text-mode-hook 'turn-on-auto-fill)
 
 
@@ -100,6 +103,16 @@
   :config
   (electric-indent-mode -1)
   (electric-pair-mode -1))
+
+;; ----------------------------------------------------------------------------
+;; Whitespace cleanup
+;; ----------------------------------------------------------------------------
+
+(use-package whitespace-cleanup-mode
+  :diminish
+  :ensure (:source "MELPA")
+  :hook ((prog-mode . whitespace-cleanup-mode)
+         (conf-mode . whitespace-cleanup-mode)))
 
 ;; ----------------------------------------------------------------------------
 ;; Undo tree
