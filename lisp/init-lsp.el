@@ -5,7 +5,7 @@
 (use-package lsp-mode
   :hook
   (((python-mode c-mode c++-mode) . lsp))
-  ;; Fix unfiltered list of completions in corfu 
+  ;; Fix unfiltered list of completions in corfu
   ;; https://github.com/emacs-lsp/lsp-mode/issues/2970
   ((lsp-mode . (lambda () (setq completion-category-defaults nil))))
   :custom

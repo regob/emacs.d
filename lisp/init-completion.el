@@ -6,7 +6,7 @@
 ;; https://github.com/joaotavora/eglot/discussions/1127#discussioncomment-8017640
 
 (use-package corfu
-  :custom                               
+  :custom
   (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
   (corfu-auto t)                 ;; Enable auto completion
   (corfu-quit-no-match 'separator)
@@ -19,7 +19,7 @@
   ;; be used globally (M-/).  See also the customization variable
   ;; `global-corfu-modes' to exclude certain modes.
   (global-corfu-mode)
-  
+
   :custom
   ;; disable popup in eshell mode
   (add-hook 'eshell-mode-hook

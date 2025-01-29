@@ -8,7 +8,7 @@
   ;; Prettify flycheck echo messages and make them integrated into eldoc
   ;; without this, flycheck message overwrites the eldoc help in the echo area
   ;; https://www.masteringemacs.org/article/seamlessly-merge-multiple-documentation-sources-eldoc
-  
+
   (defun rb-flycheck-eldoc (callback &rest _ignored)
     "Print flycheck messages at point by calling CALLBACK."
     (when-let ((flycheck-errors (and flycheck-mode (flycheck-overlay-errors-at (point)))))

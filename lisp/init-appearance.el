@@ -82,7 +82,7 @@ Also pass ARGS to `set-face-attribute' calls."
 (defun rb/init-font ()
   "Initialize display font from a list of options."
   (interactive)
-  
+
   ;; Select font installed in the order of priority
   ;; https://emacsredux.com/blog/2021/12/22/check-if-a-font-is-available-with-emacs-lisp/
   (cond
@@ -136,7 +136,7 @@ Also pass ARGS to `set-face-attribute' calls."
   )
 
 ;; ----------------------------------------------------------------------------
-;; Indentation guides 
+;; Indentation guides
 ;; ----------------------------------------------------------------------------
 
 (use-package highlight-indent-guides

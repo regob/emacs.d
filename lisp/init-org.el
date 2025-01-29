@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;; Org config with a basic GTD and agenda setup, and anki integration
 ;; for flashcards.
-;; 
+;;
 ;; Configure the following in init-local.el:
 ;; `org-agenda-files': directories containing the org notes.
 ;; `org-default-notes-file': Default file for org capture notes.  This file
@@ -29,13 +29,13 @@
      (shell . t)
      (sql . t)))
 
-  
+
   (setq org-export-coding-system 'utf-8
         org-confirm-babel-evaluate nil
         org-startup-truncated nil
         org-imenu-depth 3
         )
-  
+
   ;; unbind some conflicting keys
   (unbind-key "C-'"  'org-mode-map)
 
@@ -50,12 +50,12 @@
 
   (defvar rb/org-refile-extra-list (list)
     "List of projects containing org files. Used for setting refiling targets")
-  
+
   (defcustom rb/org-refile-depth 2
     "Depth of headings to appear as refiling targets in org-mode files."
     :type 'integer
     :group 'rb-group)
-  
+
   (defun rb/init-refile-targets (depth)
     "Set org-refile-targets until a given depth."
     ;; Targets include this file and any file contributing to the agenda - up to n depth
@@ -232,7 +232,7 @@
       (if (rb/task-scheduled-or-deadline-p)
           subtree-end
         nil)))
-  
+
   (defun rb/skip-project-tasks ()
     "Skip tasks which are under a project heading (PROJ)"
     (save-restriction
@@ -247,7 +247,7 @@
           subtree-end)
          (t
           nil)))))
-  
+
 
 
   ;; ----------------------------------------------------------------------------
@@ -280,7 +280,7 @@
   (keymap-set rb-org-pomodoro-keymap "w" 'rb/org-start-pomodoro-work)
   (keymap-set rb-org-pomodoro-keymap "r" 'rb/org-start-pomodoro-rest)
   (keymap-set rb-org-pomodoro-keymap "c" 'org-timer-stop)
-  
+
   (keymap-set global-map "C-c o" rb-org-global-prefix-map)
   (keymap-set rb-org-global-prefix-map "p" rb-org-pomodoro-keymap)
 

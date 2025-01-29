@@ -20,7 +20,7 @@
 ;;   (company-dabbrev-ignore-case nil)
 ;;   (company-dabbrev-downcase nil)
 ;;   (company-show-numbers nil)
-  
+
 ;;   :config
 ;;   (bind-keys :map company-active-map
 ;;              ("TAB" . company-complete))

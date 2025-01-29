@@ -85,13 +85,13 @@
   (with-eval-after-load "calendar"
     (keymap-set calendar-mode-map "C-c t" #'casual-calendar))
   (with-eval-after-load "dired"
-    (keymap-set dired-mode-map "C-c t" #'casual-dired-tmenu))  
+    (keymap-set dired-mode-map "C-c t" #'casual-dired-tmenu))
   (with-eval-after-load "ibuffer"
     (keymap-set ibuffer-mode-map "C-c t" #'casual-ibuffer-tmenu))
   (with-eval-after-load "re-builder"
     (progn
       (keymap-set reb-mode-map "C-c t" #'casual-re-builder-tmenu)
-      (keymap-set reb-lisp-mode-map "C-c t" #'casual-re-builder-tmenu)))  
+      (keymap-set reb-lisp-mode-map "C-c t" #'casual-re-builder-tmenu)))
   )
 
 ;; ----------------------------------------------------------------------------
