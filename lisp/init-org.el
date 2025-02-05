@@ -85,6 +85,9 @@
 
   (bind-key (kbd "w") #'rb/org-refile-extra 'rb-org-global-prefix-map)
   (setq org-refile-allow-creating-parent-nodes 'confirm)
+  (setq org-refile-use-outline-path t)
+  (setq org-outline-path-complete-in-steps nil)
+
 
   ;; ----------------------------------------------------------------------------
   ;; org todo and agenda setup
