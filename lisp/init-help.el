@@ -115,6 +115,7 @@
   (setq gptel-api-key (lambda () (getenv "OPENAI_API_KEY")))
   (setq gptel-model "gpt-4o-mini")
   (setq gptel-default-mode 'markdown-mode)
+  (bind-key (kbd "C-c RET") 'gptel-send global-map)
   )
 
 (provide 'init-help)
