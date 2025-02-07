@@ -43,6 +43,10 @@
       require-final-newline t
       )
 
+;; bind C-x C-d to duplicate-line, since
+;; I don't use list-directory that much
+(global-set-key (kbd "C-x C-d") 'duplicate-line)
+
 (use-package multiple-cursors
   :defer nil
   :config
