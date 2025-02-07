@@ -11,6 +11,9 @@
   (global-set-key (kbd "C-x o") 'other-window)
   ;; Make "M-o" prompt for a target window when there are more than 2
   (global-set-key (kbd "M-o") 'switch-window)
+  ;; Ctrl+tab similarly as in browsers/vscode
+  (global-set-key (kbd "C-<tab>") 'next-buffer)
+  (global-set-key (kbd "C-<iso-lefttab>") 'previous-buffer)
   )
 
 (provide 'init-windows)
