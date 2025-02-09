@@ -114,7 +114,7 @@
   ;; and https://doc.norang.ca/org-mode.html
 
   (setq org-capture-templates
-        `(("t" "" entry (file "") ; "" => `org-default-notes-file'
+        `(("t" "todo" entry (file "") ; "" => `org-default-notes-file'
            "* TODO %?\n%U\n" :clock-resume t)
           ("m" "meeting" entry (file "")
            "* MEETING Call %<%m-%d> :MEETING:\n%U\n%?" :clock-resume t)
