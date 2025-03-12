@@ -17,6 +17,9 @@
       ("pyright-langserver" "--stdio")
       "pylsp" "pyls" "jedi-language-server" "ruff-lsp")))
 
+  ;; don't spam the echo area
+  (setq eglot-report-progress nil)
+
   ;; configure some basedpyright settings (https://github.com/joaotavora/eglot/issues/1464)
   (setq-default
    eglot-workspace-configuration
