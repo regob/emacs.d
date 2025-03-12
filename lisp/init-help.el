@@ -86,6 +86,8 @@
     (keymap-set calendar-mode-map "C-c t" #'casual-calendar))
   (with-eval-after-load "dired"
     (keymap-set dired-mode-map "C-c t" #'casual-dired-tmenu))
+  (with-eval-after-load "info"
+    (keymap-set Info-mode-map "C-c t" #'casual-info-tmenu))
   (with-eval-after-load "ibuffer"
     (keymap-set ibuffer-mode-map "C-c t" #'casual-ibuffer-tmenu))
   (with-eval-after-load "re-builder"
