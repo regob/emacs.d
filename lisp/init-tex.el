@@ -10,6 +10,9 @@
   ;; maybe configure LaTeX-indent-environment-list (removed)
   )
 
+(use-package auctex
+  :ensure (:source "MELPA"))
+
 
 (provide 'init-tex)
 
