@@ -12,6 +12,7 @@
 
 
 (use-package org
+  :ensure nil
   :bind
   (:map org-mode-map ("C-c C-x t" . 'org-table-create))
   (:map global-map ("C-c c" . 'org-capture))
