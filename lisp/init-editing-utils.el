@@ -18,7 +18,7 @@
   :ensure nil
   :diminish superword-mode
   :config
-  (customize-set-variable 'global-superword-mode t)
+  (customize-set-variable 'global-subword-mode t)
   )
 
 
