@@ -11,10 +11,9 @@ The following is a collection of references I find useful for configuration.
 ** Programming/markup languages
 
 *** Org-mode
-
 - [[https://doc.norang.ca/org-mode.html][Organize your life in plain text (most comprehensive org setup)]]
 - [[https://github.com/rougier/emacs-gtd][Rougier's GTD setup]]
-
+- [[https://github.com/daviwil/dotfiles/blob/359ce71a36686e7737f9986fa12fcdf8ac3b7f11/.emacs.d/modules/dw-workflow.el#L71][daviwil's modern-looking org config]]
 *** Bash
 
 - [[https://www.youtube.com/watch?v=LTC6SP7R1hA][Bash IDE setup (shows the basics and multiple options)]]
