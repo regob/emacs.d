@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: card
+# key: card
+# --
+`(org-insert-heading)` ${1:title} :CARD:

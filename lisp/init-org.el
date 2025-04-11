@@ -127,8 +127,6 @@
            "* NEXT Respond to %?\n%U\n" :clock-resume t)
           ("n" "note" entry (file "")
            "* %? :NOTE:\n%U\n" :clock-resume t)
-          ("c" "card" entry (here)
-           "%? :CARD:\n" :clock-resume t)
           )
         )
 

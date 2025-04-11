@@ -65,7 +65,9 @@
   :config
   (yas-global-mode 1)
   (add-to-list 'hippie-expand-try-functions-list 'yas-hippie-try-expand)
-  )
+  ;; mutable backquote used in org card template
+  (require 'warnings)
+  (add-to-list 'warning-suppress-types '(yasnippet backquote-change)))
 
 (use-package yasnippet-snippets)
 
