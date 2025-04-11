@@ -33,6 +33,7 @@ This solves venv and python version handling in emacs also.
 
 References:
 - [[https://slinkp.com/python-emacs-lsp-20231229.html][Modernizing my Python development setup in Emacs]]
+- [[https://www.youtube.com/watch?v=SbTzIt6rISg][Python config for Emacs 29]]
 
 *** Markdown
 
@@ -42,9 +43,21 @@ References:
 
 - [[https://www.youtube.com/watch?v=u44X_th6_oY][Emacs latex previews everywhere (maybe in the future)]]
 
-** LSP
+** +LSP+ (I use eglot currently)
 
 - [[https://emacs-lsp.github.io/lsp-mode/][lsp-mode docs]]
+- [[https://www.youtube.com/live/E-NAM9U5JYE?si=gUhYG3qCv5gl1vBf][Build your own IDE with lsp-mode]]
+
+** Eglot
+
+** Utilities
+
+- gptel :: LLM integration
+  [[https://www.youtube.com/watch?v=bsRnh_brggM][Every LLM in Emacs]]
+- session.el :: Save variables/some history for future sessions
+- so-long :: Avoid hang up on minified files with long lines
+- format-all :: Code formatter integration (e.g. python ruff)
+- smartparens :: For editing balanced parens. 
 
 * References
 
