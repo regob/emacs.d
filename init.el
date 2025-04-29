@@ -128,6 +128,9 @@
 (define-prefix-command 'rb-user-keymap)
 (global-set-key (kbd "C-c 8") 'rb-user-keymap)
 
+(define-prefix-command 'rb-help-keymap)
+(global-set-key (kbd "C-c 7") 'rb-help-keymap)
+
 ;; ----------------------------------------------------------------------------
 ;; Initialize all packages
 ;; ----------------------------------------------------------------------------

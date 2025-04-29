@@ -20,6 +20,7 @@
   :ensure nil
   :config
   (setq woman-fill-frame t)
+  (bind-key "w" 'woman 'rb-help-keymap)
   )
 
 ;; Neat documentation features
@@ -115,9 +116,10 @@
   :ensure (:source "MELPA")
   :config
   (setq gptel-api-key (lambda () (getenv "OPENAI_API_KEY")))
-  (setq gptel-model "gpt-4o-mini")
+  (setq gptel-model 'gpt-4.1-nano)
   (setq gptel-default-mode 'markdown-mode)
   (bind-key (kbd "C-c RET") 'gptel-send global-map)
+  (bind-key (kbd "g") 'gptel-menu rb-help-keymap)
   )
 
 (provide 'init-help)
