@@ -3,13 +3,9 @@
 The following is a collection of references I find useful for configuration.
 
 ** Elpaca
-
 - [[https://www.youtube.com/watch?v=5Ud-TE3iIQY][Elpaca: Async Emacs Package Manager]]
 - [[https://github.com/progfolio/elpaca/blob/master/doc/manual.md][Elpaca manual]]
-
-
 ** Programming/markup languages
-
 *** Org-mode
 - [[https://doc.norang.ca/org-mode.html][Organize your life in plain text (most comprehensive org setup)]]
 - [[https://github.com/rougier/emacs-gtd][Rougier's GTD setup]]
@@ -40,28 +36,25 @@ References:
 - [[https://jblevins.org/projects/markdown-mode/][Markdown mode docs]]
 
 *** LaTeX
-
+- [[https://abode.karthinks.com/org-latex-preview/][Org-latex previews]]
 - [[https://www.youtube.com/watch?v=u44X_th6_oY][Emacs latex previews everywhere (maybe in the future)]]
-
 ** +LSP+ (I use eglot currently)
-
 - [[https://emacs-lsp.github.io/lsp-mode/][lsp-mode docs]]
 - [[https://www.youtube.com/live/E-NAM9U5JYE?si=gUhYG3qCv5gl1vBf][Build your own IDE with lsp-mode]]
-
 ** Eglot
-
+- [[https://andreyor.st/posts/2023-09-09-migrating-from-lsp-mode-to-eglot/][Migrating from LSP to Eglot]]
+** Minibuffer 
+- vertico :: Vertical autocomplete mode in minibuffer.
+- consult :: Interactively looking up things in the minibuffer.
+- marginalia :: Type and documentation info in minibuffer suggestions.
 ** Utilities
-
 - gptel :: LLM integration
-  [[https://www.youtube.com/watch?v=bsRnh_brggM][Every LLM in Emacs]]
+  + [[https://www.youtube.com/watch?v=bsRnh_brggM][Every LLM in Emacs]]
 - session.el :: Save variables/some history for future sessions
 - so-long :: Avoid hang up on minified files with long lines
 - format-all :: Code formatter integration (e.g. python ruff)
 - smartparens :: For editing balanced parens. 
-
 * References
-
 Lots of code adapted from:
-
 - [[https://github.com/purcell/emacs.d][Purcell's emacs.d]]
 - [[https://www.masteringemacs.org/][Mastering Emacs]]

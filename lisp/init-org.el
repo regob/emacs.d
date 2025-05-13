@@ -11,7 +11,9 @@
 
 
 (use-package org
-  :ensure nil
+  ;; use dev version with latex preview mode
+  :ensure `(org :repo "https://code.tecosaur.net/tec/org-mode.git/"
+                :branch "dev")
   :bind
   (:map org-mode-map ("C-c C-x t" . 'org-table-create))
   (:map global-map ("C-c c" . 'org-capture))
@@ -290,6 +292,13 @@
   (keymap-set global-map "C-c o" rb-org-global-prefix-map)
   (keymap-set rb-org-global-prefix-map "p" rb-org-pomodoro-keymap)
 
+
+  ;; ----------------------------------------------------------------------------
+  ;; Org latex
+  ;; ----------------------------------------------------------------------------
+
+  (add-hook 'org-mode-hook 'org-latex-preview-auto-mode)
+
   ;; ----------------------------------------------------------------------------
   ;; Misc settings
   ;; ----------------------------------------------------------------------------
@@ -298,6 +307,7 @@
   (run-at-time "00:59" 3600 'org-save-all-org-buffers)
 
   (keymap-set rb-org-global-prefix-map "c" 'org-cut-subtree)
+
   )
 
 ;; ----------------------------------------------------------------------------
