@@ -298,6 +298,8 @@
   ;; ----------------------------------------------------------------------------
 
   (add-hook 'org-mode-hook 'org-latex-preview-auto-mode)
+  (setq org-startup-with-latex-preview t)
+  (setq org-startup-with-link-previews t)
 
   ;; ----------------------------------------------------------------------------
   ;; Misc settings

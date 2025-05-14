@@ -54,6 +54,8 @@ References:
 - so-long :: Avoid hang up on minified files with long lines
 - format-all :: Code formatter integration (e.g. python ruff)
 - smartparens :: For editing balanced parens. 
+* Fun
+- [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Antinews.html][Emacs Antinews]]
 * References
 Lots of code adapted from:
 - [[https://github.com/purcell/emacs.d][Purcell's emacs.d]]
