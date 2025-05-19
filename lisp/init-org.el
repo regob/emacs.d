@@ -11,9 +11,7 @@
 
 
 (use-package org
-  ;; use dev version with latex preview mode
-  :ensure `(org :repo "https://code.tecosaur.net/tec/org-mode.git/"
-                :branch "dev")
+  :ensure nil
   :bind
   (:map org-mode-map ("C-c C-x t" . 'org-table-create))
   (:map global-map ("C-c c" . 'org-capture))
@@ -297,8 +295,7 @@
   ;; Org latex
   ;; ----------------------------------------------------------------------------
 
-  (add-hook 'org-mode-hook 'org-latex-preview-auto-mode)
-  (setq org-startup-with-latex-preview t)
+  (setq org-startup-with-latex-preview nil)
   (setq org-startup-with-link-previews t)
 
   ;; ----------------------------------------------------------------------------
