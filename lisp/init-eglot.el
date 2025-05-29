@@ -14,6 +14,7 @@
     eglot-server-programs)
    (eglot-alternatives
     '(("basedpyright-langserver" "--stdio")
+      ("ty" "server")
       ("pyright-langserver" "--stdio")
       "pylsp" "pyls" "jedi-language-server" "ruff-lsp")))
 
