@@ -22,6 +22,12 @@
   )
 
 
+;; Embark - actions on things in minibuffer and at point
+(use-package embark
+  :config
+  (global-set-key (kbd "C-.") 'embark-act))
+
+
 (provide 'init-minibuffer)
 
 ;;; init-minibuffer.el ends here
