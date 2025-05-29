@@ -22,6 +22,7 @@
    ("DEL" . sp-backward-kill-word)
    ("u" . sp-unwrap-sexp)
    ("t" . sp-transpose-sexp)
+   ("s" . sp-slurp-hybrid-sexp)
    )
   :config
   (require 'smartparens-config)
