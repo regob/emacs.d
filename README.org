@@ -1,7 +1,5 @@
 * Emacs config
-
 The following is a collection of references I find useful for configuration.
-
 ** Elpaca
 - [[https://www.youtube.com/watch?v=5Ud-TE3iIQY][Elpaca: Async Emacs Package Manager]]
 - [[https://github.com/progfolio/elpaca/blob/master/doc/manual.md][Elpaca manual]]
@@ -11,11 +9,8 @@ The following is a collection of references I find useful for configuration.
 - [[https://github.com/rougier/emacs-gtd][Rougier's GTD setup]]
 - [[https://github.com/daviwil/dotfiles/blob/359ce71a36686e7737f9986fa12fcdf8ac3b7f11/.emacs.d/modules/dw-workflow.el#L71][daviwil's modern-looking org config]]
 *** Bash
-
 - [[https://www.youtube.com/watch?v=LTC6SP7R1hA][Bash IDE setup (shows the basics and multiple options)]]
-
 *** Python
-
 I use [[https://github.com/astral-sh/uv][uv]] for:
 - venv management
 - package management 
@@ -30,11 +25,8 @@ This solves venv and python version handling in emacs also.
 References:
 - [[https://slinkp.com/python-emacs-lsp-20231229.html][Modernizing my Python development setup in Emacs]]
 - [[https://www.youtube.com/watch?v=SbTzIt6rISg][Python config for Emacs 29]]
-
 *** Markdown
-
 - [[https://jblevins.org/projects/markdown-mode/][Markdown mode docs]]
-
 *** LaTeX
 - [[https://abode.karthinks.com/org-latex-preview/][Org-latex previews]]
 - [[https://www.youtube.com/watch?v=u44X_th6_oY][Emacs latex previews everywhere (maybe in the future)]]
@@ -47,6 +39,10 @@ References:
 - vertico :: Vertical autocomplete mode in minibuffer.
 - consult :: Interactively looking up things in the minibuffer.
 - marginalia :: Type and documentation info in minibuffer suggestions.
+- avy :: Movement and actions on visible screen
+  + [[https://karthinks.com/software/avy-can-do-anything/][Avy can do anything]]
+- embark :: Actions on filtering candidates, or near point in buffer
+  + [[https://github.com/oantolin/embark][Embark github]]
 ** Utilities
 - gptel :: LLM integration
   + [[https://www.youtube.com/watch?v=bsRnh_brggM][Every LLM in Emacs]]
