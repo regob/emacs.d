@@ -120,6 +120,7 @@
   (setq gptel-default-mode 'markdown-mode)
   (bind-key (kbd "C-c RET") 'gptel-send global-map)
   (bind-key (kbd "g") 'gptel-menu rb-help-keymap)
+  (bind-key (kbd "c") 'gptel rb-help-keymap)
   )
 
 (provide 'init-help)
