@@ -73,6 +73,19 @@
   (rg-enable-menu)
   )
 
+
+;; ----------------------------------------------------------------------------
+;; TRAMP - remote file editing
+;; ----------------------------------------------------------------------------
+
+(use-package tramp
+  :ensure nil
+  :config
+  ;; set higher in-band copy limit, as it is faster
+  ;; https://coredumped.dev/2025/06/18/making-tramp-go-brrrr./
+  (setq tramp-copy-size-limit (* 1024 1024)))
+
+
 ;; ----------------------------------------------------------------------------
 ;; Misc user functions
 ;; ----------------------------------------------------------------------------
