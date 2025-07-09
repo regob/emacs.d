@@ -23,6 +23,13 @@
   (bind-key "w" 'woman 'rb-help-keymap)
   )
 
+;; Read manpages with man
+(use-package man
+  :ensure nil
+  :config
+  (bind-key "m" 'man 'rb-help-keymap)
+  )
+
 ;; Neat documentation features
 (use-package eldoc
   :diminish
