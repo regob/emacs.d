@@ -41,6 +41,8 @@ minibuffer, even without explicitly focusing it."
     (keyboard-quit)))
 (global-set-key [remap keyboard-quit] #'rb-keyboard-quit)
 
+(use-package embark-consult)
+
 
 (provide 'init-minibuffer)
 
