@@ -20,6 +20,7 @@
 
   :config
   (push 'org-habit org-modules)
+  (push 'org-protocol org-modules)
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((R . t)
@@ -47,7 +48,9 @@
   (defvar rb-org-global-prefix-map (make-sparse-keymap)
     "A keymap for handy global access to org helpers, particularly clocking.")
 
-  (bind-key "l" 'org-store-link 'rb-org-global-prefix-map)
+  ;; insert link saved by e.g. org-protocol
+  (bind-key "l" 'org-insert-link 'rb-org-global-prefix-map)
+  (bind-key "s" 'org-store-link 'rb-org-global-prefix-map)
 
   ;; ----------------------------------------------------------------------------
   ;; Org refile
