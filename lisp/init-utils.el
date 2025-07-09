@@ -123,7 +123,7 @@
 (defun rb/open-file-link-at-point ()
   "Opens a file link like 'file.py:line:col' at point."
   (interactive)
-  (let* ((str (thing-at-point 'sentence))
+  (let* ((str (thing-at-point 'filename))
          (parts (split-string str ":"))
          (file (car parts))
          (line (cadr parts))
