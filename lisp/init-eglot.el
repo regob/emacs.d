@@ -6,7 +6,8 @@
   :ensure nil
   :hook
   (((python-mode)
-    . eglot-ensure))
+    . eglot-ensure)
+   (sh-mode . eglot-ensure))
   :config
   (setcdr
    (assoc
