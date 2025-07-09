@@ -106,13 +106,47 @@
       (kill-new (file-truename default-directory))
     (kill-new (file-truename buffer-file-name))))
 
-(bind-key (kbd "i") 'rb/jump-to-init-file 'rb-user-keymap)
+
+(defun rb/open-file-link-at-point ()
+  "Opens a file link like 'file.py:line:col' at point."
+  (interactive)
+  (let* ((str (thing-at-point 'sentence))
+         (parts (split-string str ":"))
+         (file (car parts))
+         (line (cadr parts))
+         (col (caddr parts))
+         (found-file nil))
+    ;; Check if file exists, and try to expand it under project if not
+    (cond
+     ((null file)
+      (message "No file path found at point."))
+     ((file-exists-p file)
+      (setq found-file file))
+     ((project-current) ; Check if we are in a project
+      (let* ((project-root (nth 2 (project-current)))
+             (potential-file-path (expand-file-name file project-root)))
+        (if (file-exists-p potential-file-path)
+            (setq found-file potential-file-path)
+          (message "File '%s' not found directly or relative to project '%s'."
+                   file project-root))))
+     (t
+      (message "File '%s' not found." original-file)))
+    ;; Move to the file/line/column
+    (when found-file
+      (find-file found-file)
+      (when line
+        (goto-line (string-to-number line)))
+      (when col
+        ;; Move to column, if needed. (1- because columns are 0-indexed in Emacs Lisp)
+        (goto-char (+ (point-at-bol) (1- (string-to-number col))))))))
+
+(bind-key (kbd "i") #'rb/jump-to-init-file 'rb-user-keymap)
 (bind-key (kbd "c") #'rb/byte-recompile 'rb-user-keymap)
 (bind-key (kbd "u") #'browse-url-at-point 'rb-user-keymap)
 (bind-key (kbd "g") #'rb/search-google 'rb-user-keymap)
 (bind-key (kbd "s") #'scratch-buffer 'rb-user-keymap)
 (bind-key (kbd "p") #'rb/copy-buffer-filename 'rb-user-keymap)
-
+(bind-key (kbd "f") #'rb/open-file-link-at-point 'rb-user-keymap)
 
 
 (provide 'init-utils)
