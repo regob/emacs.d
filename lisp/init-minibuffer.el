@@ -42,7 +42,13 @@ minibuffer, even without explicitly focusing it."
 (global-set-key [remap keyboard-quit] #'rb-keyboard-quit)
 
 (use-package embark-consult
-  :ensure (:source "MELPA"))
+  :ensure (
+           :source "MELPA"
+           :files ("embark-consult.el")
+           :repo "oantolin/embark"
+           :fetcher github)
+  :after embark
+  )
 
 
 (provide 'init-minibuffer)
