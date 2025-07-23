@@ -10,8 +10,6 @@
   (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard
                                             "c++17")))
   (add-hook 'c-mode-common-hook (lambda () (c-toggle-hungry-state 1)))
-  (add-hook 'c-mode-common-hook 'smartparens-mode)
-  ;; (add-hook 'c-mode-common-hook #'aggressive-indent-mode)
   )
 
 (provide 'init-cc)

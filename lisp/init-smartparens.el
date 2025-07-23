@@ -5,13 +5,14 @@
 (use-package smartparens
   :diminish
   :hook
-  ((css-mode . smartparens-mode)
-   (prog-mode . smartparens-mode)
-   (org-mode . smartparens-mode)
+  ((prog-mode . smartparens-mode)
+   (inferior-python-mode . smartparens-mode)
    (ielm . smartparens-mode)
-   (yaml-mode . smartparens-mode)
+   (css-mode . smartparens-mode)
+   (org-mode . smartparens-mode)
    (js-json-mode . smartparens-mode)
-   (inferior-python-mode . smartparens-mode))
+   (yaml-mode . smartparens-mode)
+   (markdown-mode . smartparens-mode))
 
   :bind
   (("C-M-f" . sp-forward-sexp)
