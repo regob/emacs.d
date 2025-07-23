@@ -11,6 +11,10 @@
 
 (use-package markdown-mode
   :ensure (:source "MELPA")
+  :bind (:map
+         markdown-mode-map
+         ("M-<up>" . markdown-move-up)
+         ("M-<down>" . markdown-move-down))
   :config
   (setq markdown-command "pandoc")
   :custom-face
