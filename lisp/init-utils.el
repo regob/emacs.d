@@ -66,6 +66,14 @@
 ;; Searching
 ;; ----------------------------------------------------------------------------
 
+(use-package wgrep
+  :ensure (:source "MELPA")
+  :custom
+  ;; Consistent with occur's editing shortcut
+  (keymap-set grep-mode-map (kbd "e") 'wgrep-change-to-wgrep-mode)
+  )
+
+
 ;; Rg works best for me (deadgrep is another option)
 (use-package rg
   :ensure (:source "MELPA")
