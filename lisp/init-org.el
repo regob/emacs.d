@@ -144,16 +144,6 @@
   ;; Compact the block agenda view
   (setq org-agenda-compact-blocks t)
 
-  (setq org-agenda-custom-commands
-        (quote (("h" "Agenda and Home-related tasks"
-                 ((agenda "")
-                  (tags-todo "home")
-                  (tags "garden")))
-                ("o" "Agenda and Office-related tasks"
-                 ((agenda "")
-                  (tags-todo "work")
-                  (tags "office"))))))
-
   ;; Custom agenda command definitions
   (setq org-agenda-custom-commands
         (quote (("N" "Notes" tags "NOTE"
