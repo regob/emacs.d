@@ -2,12 +2,9 @@
 ;;; Commentary:
 ;;; Code:
 
-;; disable package.el in favor of elpaca
+;; disable package.el
 (setq package-enable-at-startup nil)
-
-;; use plists in lsp for performance
-;; https://emacs-lsp.github.io/lsp-mode/page/performance/#use-plists-for-deserialization
-(setenv "LSP_USE_PLISTS" "true")
+(setq package-archives nil)
 
 ;; do not load site-lisp
 (setq load-path

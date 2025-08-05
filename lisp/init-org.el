@@ -21,15 +21,6 @@
   :config
   (push 'org-habit org-modules)
   (push 'org-protocol org-modules)
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((R . t)
-     (emacs-lisp . t)
-     (plantuml . t)
-     (python . t)
-     (shell . t)
-     (sql . t)))
-
 
   (setq org-export-coding-system 'utf-8
         org-confirm-babel-evaluate nil
@@ -143,16 +134,6 @@
 
   ;; Compact the block agenda view
   (setq org-agenda-compact-blocks t)
-
-  (setq org-agenda-custom-commands
-        (quote (("h" "Agenda and Home-related tasks"
-                 ((agenda "")
-                  (tags-todo "home")
-                  (tags "garden")))
-                ("o" "Agenda and Office-related tasks"
-                 ((agenda "")
-                  (tags-todo "work")
-                  (tags "office"))))))
 
   ;; Custom agenda command definitions
   (setq org-agenda-custom-commands
@@ -309,37 +290,11 @@
   (run-at-time "00:59" 3600 'org-save-all-org-buffers)
 
   (keymap-set rb-org-global-prefix-map "c" 'org-cut-subtree)
-
   )
 
 ;; ----------------------------------------------------------------------------
 ;; Anki editor integration
 ;; ----------------------------------------------------------------------------
-
-
-(defun rb/org-insert-anki-card ()
-  "Insert a card after the current heading in Org mode."
-  (interactive)
-  (org-end-of-subtree)  ;; Move to the end of the current heading section
-  (org-insert-heading-after-current)  ;; Equivalent to C-u M-RET
-  (save-excursion
-    (insert " :CARD:"))  ;; Replace with your template
-  (org-show-entry))
-
-(use-package anki-editor
-  :ensure (:host github :repo "anki-editor/anki-editor" :branch "master")
-  :config
-  (define-prefix-command 'rb-anki-keymap)
-  (keymap-set rb-anki-keymap "p" #'anki-editor-push-note-at-point)
-  (keymap-set rb-anki-keymap "d" #'anki-editor-delete-note-at-point)
-  (keymap-set rb-anki-keymap "s" #'anki-editor-sync-collection)
-  (keymap-set rb-anki-keymap "i" #'rb/org-insert-anki-card)
-  (keymap-set rb-org-global-prefix-map "a" rb-anki-keymap)
-  ;; ignore some tags used in org agenda
-  (setq anki-editor-ignored-org-tags
-        (append '("INPROGRESS" "MEETING" "NOTE" "CANCELLED" "REFILE" "CARD")
-                anki-editor-ignored-org-tags))
-  )
 
 
 (provide 'init-org)

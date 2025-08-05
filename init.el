@@ -12,84 +12,6 @@
 ;; always load .el if newer than .elc
 (setq load-prefer-newer t)
 
-;; Example Elpaca configuration -*- lexical-binding: t; -*-
-(defvar elpaca-installer-version 0.11)
-(defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
-(defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
-(defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
-(defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
-                              :ref nil :depth 1 :inherit ignore
-                              :files (:defaults "elpaca-test.el" (:exclude "extensions"))
-                              :build (:not elpaca--activate-package)))
-(let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
-       (build (expand-file-name "elpaca/" elpaca-builds-directory))
-       (order (cdr elpaca-order))
-       (default-directory repo))
-  (add-to-list 'load-path (if (file-exists-p build) build repo))
-  (unless (file-exists-p repo)
-    (make-directory repo t)
-    (when (<= emacs-major-version 28) (require 'subr-x))
-    (condition-case-unless-debug err
-        (if-let* ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
-                  ((zerop (apply #'call-process `("git" nil ,buffer t "clone"
-                                                  ,@(when-let* ((depth (plist-get order :depth)))
-                                                      (list (format "--depth=%d" depth) "--no-single-branch"))
-                                                  ,(plist-get order :repo) ,repo))))
-                  ((zerop (call-process "git" nil buffer t "checkout"
-                                        (or (plist-get order :ref) "--"))))
-                  (emacs (concat invocation-directory invocation-name))
-                  ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
-                                        "--eval" "(byte-recompile-directory \".\" 0 'force)")))
-                  ((require 'elpaca))
-                  ((elpaca-generate-autoloads "elpaca" repo)))
-            (progn (message "%s" (buffer-string)) (kill-buffer buffer))
-          (error "%s" (with-current-buffer buffer (buffer-string))))
-      ((error) (warn "%s" err) (delete-directory repo 'recursive))))
-  (unless (require 'elpaca-autoloads nil t)
-    (require 'elpaca)
-    (elpaca-generate-autoloads "elpaca" repo)
-    (let ((load-source-file-function nil)) (load "./elpaca-autoloads"))))
-(add-hook 'after-init-hook #'elpaca-process-queues)
-(elpaca `(,@elpaca-order))
-
-;; Should enable no-symlink mode on Windows
-(if (eq system-type 'windows-nt)
-    (elpaca-no-symlink-mode))
-
-;; Install use-package support
-(elpaca elpaca-use-package
-  ;; Enable use-package :ensure support for Elpaca.
-  (elpaca-use-package-mode)
-  ;; Assume :ensure t unless otherwise specified.
-  (setq elpaca-use-package-by-default t)
-  )
-
-(add-hook 'elpaca-after-init-hook #'(lambda () (message "Elpaca after init hook running ...")))
-(add-hook 'elpaca-post-queue-hook #'(lambda () (message "Elpaca post queue hook running ...")))
-(advice-add 'elpaca-after-init-hook :after #'(lambda (&rest r) (message "Elpaca after-init-hook finished!")) )
-
-;; ====================================
-;; Packages required for use-package
-;; ====================================
-
-(use-package diminish
-  :ensure (:source "MELPA"))
-
-(elpaca-wait)
-
-;; ----------------------------------------------------------------------------
-;; Update some builtin packages
-;; ----------------------------------------------------------------------------
-
-(use-package transient
-  :ensure (:source "MELPA")
-  )
-
-;; Magit requires seq>=2.24, but it's built-in, elpaca rule to be added
-;; (use-package seq
-;;   :ensure (:source "GNU-devel ELPA")
-;;   )
-
 ;; ====================================
 ;; General setup
 ;; ====================================
@@ -98,7 +20,6 @@
 
 ;; save customizations to custom.el, if exists (which is git-ignored) instead of init.el
 (setq custom-file (locate-user-emacs-file "custom.el"))
-(add-hook 'elpaca-after-init-hook #'(lambda () (load custom-file t)))
 
 ;; Set autosave directory
 (setq backup-directory-alist `(("." . "~/.emacs_saves")))
@@ -130,61 +51,6 @@
 
 (define-prefix-command 'rb-help-keymap)
 (global-set-key (kbd "C-c 7") 'rb-help-keymap)
-
-;; ----------------------------------------------------------------------------
-;; Initialize all packages
-;; ----------------------------------------------------------------------------
-
-
-(use-package dumb-jump
-  :config
-  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
-  )
-
-(use-package so-long
-  :ensure nil
-  :config
-  (global-so-long-mode))
-
-(use-package ess)
-
-(require 'init-utils nil nil)
-(require 'init-appearance nil nil)
-(require 'init-windows nil nil)
-
-(require 'init-minibuffer nil nil)
-(require 'init-dired nil nil)
-(require 'init-ibuffer nil nil)
-(require 'init-help nil nil)
-(require 'init-consult nil nil)
-(require 'init-vc nil nil)
-(require 'init-sessions nil nil)
-(require 'init-project nil nil)
-
-;; General editor functionality
-(require 'init-eglot nil nil)
-(require 'init-completion nil nil)
-(require 'init-editing-utils nil nil)
-(require 'init-smartparens nil nil)
-(require 'init-format-all nil nil)
-(require 'init-flymake nil nil)
-
-(elpaca-wait)
-
-;; language modes
-(require 'init-tex nil nil)
-(require 'init-sh nil nil)
-(require 'init-python nil nil)
-(require 'init-kotlin nil nil)
-(require 'init-lisp nil nil)
-(require 'init-cc nil nil)
-(require 'init-web nil nil)
-(require 'init-org nil nil)
-(require 'init-markup nil nil)
-(require 'init-powershell nil nil)
-(require 'init-shell nil nil)
-
-(elpaca-wait)
 
 ;; ----------------------------------------------------------------------------
 ;; Load private libraries
