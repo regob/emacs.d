@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# name: anki_hdr
-# key: anki_hdr
-# group : definitions
-# --
-
-#+PROPERTY: ANKI_TAGS ${1:emacs}
-#+PROPERTY: ANKI_DECK ${2:dump}

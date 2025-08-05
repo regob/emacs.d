@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: venv
-# key: venv
-# --
-
-source .venv/bin/activate
