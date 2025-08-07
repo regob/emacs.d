@@ -10,7 +10,7 @@
 
 (use-package catppuccin-theme
   :init
-  (add-hook 'after-init-hook #'(lambda () (load-theme 'catppuccin t t))))
+  (add-hook 'after-init-hook #'(lambda () (load-theme 'catppuccin t nil))))
 
 ;; ----------------------------------------------------------------------------
 ;; Improve some visuals

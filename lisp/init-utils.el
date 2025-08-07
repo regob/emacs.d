@@ -48,10 +48,7 @@
   )
 
 
-;; Rg works best for me (deadgrep is another option)
 (use-package rg
-  :ensure t
-  :pin nongnu
   :config
   (rg-enable-menu)
   )

@@ -6,8 +6,8 @@
 (use-package vertico
   :ensure t
   :pin gnu
-  :config
-  (vertico-mode)
+  :init
+  (add-hook 'after-init-hook 'vertico-mode)
   )
 
 ;; Enable rich annotations using the Marginalia package
@@ -21,8 +21,8 @@
               ("M-A" . marginalia-cycle)
               )
 
-  :config
-  (marginalia-mode)
+  :init
+  (add-hook 'after-init-hook 'marginalia-mode)
   )
 
 
@@ -47,6 +47,9 @@ minibuffer, even without explicitly focusing it."
     (keyboard-quit)))
 (global-set-key [remap keyboard-quit] #'rb-keyboard-quit)
 
+(use-package embark-consult
+  :ensure t
+  :pin gnu)
 
 (provide 'init-minibuffer)
 
