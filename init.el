@@ -9,6 +9,13 @@
 ;; Pre-config local settings, for setting paths, etc needed for setup.
 (require 'init-local-pre nil t)
 
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+(package-initialize)
+
+(unless package-archive-contents
+  (package-refresh-contents))
+
 ;; always load .el if newer than .elc
 (setq load-prefer-newer t)
 
@@ -18,8 +25,8 @@
 
 ;; Setup load path for libraries
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-;; (let ((default-directory (expand-file-name "lisp/external" user-emacs-directory)))
-;;   (normal-top-level-add-subdirs-to-load-path))
+(let ((default-directory (expand-file-name "lisp/external" user-emacs-directory)))
+  (normal-top-level-add-subdirs-to-load-path))
 
 ;; save customizations to custom.el, if exists (which is git-ignored) instead of init.el
 (setq custom-file (locate-user-emacs-file "custom.el"))
@@ -61,21 +68,21 @@
 
 (require 'init-appearance nil nil)
 (require 'init-completion nil nil)
-;; (require 'init-consult nil nil)
-;; (require 'init-dired nil nil)
-;; (require 'init-editing-utils nil nil)
-;; (require 'init-eglot nil nil)
-;; (require 'init-flymake nil nil)
-;; (require 'init-help nil nil)
-;; (require 'init-ibuffer nil nil)
-;; (require 'init-lisp nil nil)
-;; (require 'init-minibuffer nil nil)
-;; (require 'init-org nil nil)
-;; (require 'init-project nil nil)
-;; (require 'init-python nil nil)
-;; (require 'init-sessions nil nil)
-;; (require 'init-sh nil nil)
-;; (require 'init-utils nil nil)
+(require 'init-consult nil nil)
+(require 'init-dired nil nil)
+(require 'init-editing-utils nil nil)
+(require 'init-eglot nil nil)
+(require 'init-flymake nil nil)
+(require 'init-help nil nil)
+(require 'init-ibuffer nil nil)
+(require 'init-lisp nil nil)
+(require 'init-minibuffer nil nil)
+(require 'init-org nil nil)
+(require 'init-project nil nil)
+(require 'init-python nil nil)
+(require 'init-sessions nil nil)
+(require 'init-sh nil nil)
+(require 'init-utils nil nil)
 (require 'init-vc nil nil)
 
 ;; ----------------------------------------------------------------------------

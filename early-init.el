@@ -2,11 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-;; disable package.el
-(setq package-enable-at-startup nil)
-(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
-
 
 ;; do not load site-lisp
 ;; (setq load-path
