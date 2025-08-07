@@ -4,13 +4,20 @@
 
 ;; disable package.el
 (setq package-enable-at-startup nil)
-(setq package-archives nil)
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+
 
 ;; do not load site-lisp
-(setq load-path
-      (seq-filter
-       (lambda (pth) (not (string-match "/usr/share/emacs/site-lisp.*" pth)))
-       load-path))
+;; (setq load-path
+;;       (seq-filter
+;;        (lambda (pth) (and
+;;                       (not (string-match "/usr/share/emacs/.*site-lisp.*" pth))
+;;                       (not (string-match "/usr/share/emacs/.*lisp.*" pth))))
+;;        load-path))
+
+;; (add-to-list 'load-path (expand-file-name "lisp/external" user-emacs-directory))
+
 
 
 (provide 'early-init)
