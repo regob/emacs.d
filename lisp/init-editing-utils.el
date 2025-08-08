@@ -5,6 +5,7 @@
 ;; indent with spaces
 (setq-default indent-tabs-mode  nil)
 (setq-default tab-width 4)
+(setq-default fill-column 120)
 
 ;; show trailing whitespaces
 (setq-default show-trailing-whitespace t)
@@ -83,7 +84,12 @@
    (cc-mode . electric-indent-local-mode)
    (sh-mode . electric-indent-local-mode)
    (yaml-mode . electric-indent-local-mode)
-   (js-json-mode . electric-indent-local-mode))
+   (js-json-mode . electric-indent-local-mode)
+   (emacs-lisp-mode . electric-indent-local-mode)
+
+   (python-mode . electric-pair-local-mode)
+   (emacs-lisp-mode . electric-pair-local-mode)
+   )
   :config
   (electric-indent-mode -1)
   (electric-pair-mode -1))
