@@ -83,6 +83,7 @@
 (require 'init-eglot nil nil)
 (require 'init-flymake nil nil)
 (require 'init-help nil nil)
+(require 'init-html nil nil)
 (require 'init-ibuffer nil nil)
 (require 'init-lisp nil nil)
 (require 'init-minibuffer nil nil)
