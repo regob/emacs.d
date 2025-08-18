@@ -63,6 +63,15 @@
 (global-set-key (kbd "C-c 7") 'rb-help-keymap)
 
 ;; ----------------------------------------------------------------------------
+;; Misc
+;; ----------------------------------------------------------------------------
+
+(global-set-key (kbd "M-o") 'other-window)
+;; Ctrl+tab similarly as in browsers/vscode
+(global-set-key (kbd "C-<tab>") 'next-buffer)
+(global-set-key (kbd "C-<iso-lefttab>") 'previous-buffer)
+
+;; ----------------------------------------------------------------------------
 ;; Load libraries
 ;; ----------------------------------------------------------------------------
 
