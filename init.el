@@ -87,6 +87,7 @@
 (require 'init-ibuffer nil nil)
 (require 'init-lisp nil nil)
 (require 'init-minibuffer nil nil)
+(require 'init-markup nil nil)
 (require 'init-org nil nil)
 (require 'init-project nil nil)
 (require 'init-python nil nil)
