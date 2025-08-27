@@ -89,6 +89,7 @@
 
    (python-mode . electric-pair-local-mode)
    (emacs-lisp-mode . electric-pair-local-mode)
+   (sh-mode . electric-pair-local-mode)   
    )
   :config
   (electric-indent-mode -1)
