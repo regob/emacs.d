@@ -2,6 +2,13 @@
 ;;; Commentary:
 ;;; Code:
 
+(use-package savehist
+  :ensure nil
+  :config
+  (setq savehist-additional-variables
+        '(project--list)))
+
+
 (use-package recentf
   :ensure nil
   :config
