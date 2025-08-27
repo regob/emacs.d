@@ -47,6 +47,22 @@
   (keymap-global-set "M-/" 'hippie-expand)
   )
 
+(use-package yasnippet
+  :ensure t
+  :pin gnu
+  :config
+  (yas-global-mode 1)
+  (add-to-list 'hippie-expand-try-functions-list 'yas-hippie-try-expand)
+  ;; mutable backquote used in org card template
+  (require 'warnings)
+  (add-to-list 'warning-suppress-types '(yasnippet backquote-change)))
+
+
+(use-package yasnippet-snippets
+  :ensure t
+  :pin nongnu)
+
+
 ;; Use the `orderless' completion style for space separated orderless completion
 (use-package orderless
   :ensure t
