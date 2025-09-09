@@ -47,6 +47,17 @@
 ;; I don't use list-directory that much
 (global-set-key (kbd "C-x C-d") 'duplicate-line)
 
+(use-package multiple-cursors
+  :ensure t
+  :pin nongnu
+  :defer nil
+  :config
+  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+  )
+
 ;; Enable auto-revert-mode
 (global-auto-revert-mode t)
 
