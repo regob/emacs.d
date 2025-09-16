@@ -2,13 +2,11 @@
 ;;; Commentary:
 ;; Experimental setup for eglot
 ;;; Code:
+
 (use-package eglot
   :ensure nil
-  :hook
-  (((python-mode)
-    . eglot-ensure)
-   (sh-mode . eglot-ensure))
   :config
+  (bind-key "e" 'eglot 'rb-help-keymap)
   (setcdr
    (assoc
     '(python-mode python-ts-mode)
@@ -68,6 +66,7 @@
                              ;; if not adding diagnostic functions to other modes just use an if
                              ;; ...
                              (t nil))))
+
   )
 
 (provide 'init-eglot)
