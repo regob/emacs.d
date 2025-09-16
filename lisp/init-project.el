@@ -2,16 +2,27 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package projectile
+
+(defun rb/project-ripgrep ()
+  "Run ripgrep on a project"
+  (interactive)
+  (when (fboundp 'project-root)
+      (consult-ripgrep (project-root (project-current t)) "")))
+
+(defun rb/project-magit ()
+  "Open magit status for the project"
+  (interactive)
+  (when (fboundp 'project-root)
+      (magit-status (project-root (project-current t)))))
+
+(use-package project
   :ensure nil
-  :diminish projectile-mode
-  :bind-keymap
-  ("C-c p" . projectile-command-map)
-  :custom
-  (add-to-list 'projectile-globally-ignored-directories ".venv")
-  (add-to-list 'projectile-globally-ignored-directories ".direnv")
   :config
-  (add-hook 'prog-mode-hook #'(lambda () (projectile-mode +1)))
+  ;; Add extra commands to project dispatch
+  (keymap-set project-prefix-map "r" #'rb/project-ripgrep)
+  (add-to-list 'project-switch-commands '(rb/project-ripgrep "Ripgrep") t)
+  (keymap-set project-prefix-map "m" #'rb/project-magit)
+  (add-to-list 'project-switch-commands '(rb/project-magit "Magit") t)
   )
 
 (use-package compile
