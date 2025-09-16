@@ -85,7 +85,7 @@
 (bind-key (kbd "m") #'edit-last-kbd-macro 'rb-macro-keymap)
 
 ;; ----------------------------------------------------------------------------
-;; Indentation
+;; Indentation / parens
 ;; ----------------------------------------------------------------------------
 
 (use-package electric
@@ -100,11 +100,21 @@
 
    (python-mode . electric-pair-local-mode)
    (emacs-lisp-mode . electric-pair-local-mode)
-   (sh-mode . electric-pair-local-mode)   
+   (sh-mode . electric-pair-local-mode)
    )
   :config
   (electric-indent-mode -1)
   (electric-pair-mode -1))
+
+
+(defun rb-insert-parens-around-sexp (arg)
+  "Wrap the next ARG sexps in parentheses.
+  If no ARG is given, wrap 1 sexp by default (instead of 0 in `insert-parentheses')."
+  (interactive "P")
+  (insert-parentheses (prefix-numeric-value (or arg 1))))
+
+(global-set-key (kbd "M-(") #'rb-insert-parens-around-sexp)
+
 
 ;; ----------------------------------------------------------------------------
 ;; Grabbing lines
