@@ -64,12 +64,13 @@
   "Initialize FONT-NAME for many general faces.
 Also pass ARGS to `set-face-attribute' calls."
   (dolist (face '(default dictionary-word-definition-face))
-    (apply 'set-face-attribute
+    (when (facep face)
+      (apply 'set-face-attribute
            face
            nil
            :family font-name
            args
-           )))
+           ))))
 
 (defun rb/init-font ()
   "Initialize display font from a list of options."
