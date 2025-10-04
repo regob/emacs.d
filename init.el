@@ -2,15 +2,76 @@
 ;;; Commentary:
 ;;; Code:
 
-;; ====================================
-;; Initialize package manager and paths
-;; ====================================
+
+;; ----------------------------------------------------------------------------
+;; Set up load paths
+;; ----------------------------------------------------------------------------
+
+;; Setup load path for libraries
+;; (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(let ((default-directory (expand-file-name "lisp" user-emacs-directory)))
+  (normal-top-level-add-subdirs-to-load-path))
+
+;; save customizations to custom.el, if exists (which is git-ignored) instead of init.el
+(setq custom-file (locate-user-emacs-file "custom.el"))
+
+
+;; ----------------------------------------------------------------------------
+;; Set up local machine config
+;; ----------------------------------------------------------------------------
+
+(defvar rb/host-type
+  "Either 'home or 'work depending on host.")
+
+(defvar rb/use-treesit
+  "Use tree-sitter or not")
+
+(defmacro when-home (&rest body)
+  "Evaluate BODY only when `rb/host-type` is 'home."
+  (declare (indent 1))
+  `(when (eq rb/host-type 'home)
+     ,@body))
+
+(defmacro when-work (&rest body)
+  "Evaluate BODY only when `rb/host-type` is 'work."
+  `(when (eq rb/host-type 'work)
+     ,@body))
+
+(defmacro when-treesit (&rest body)
+  "Evaluate BODY only when `rb/host-type` is 'work."
+  `(when (eq rb/host-type 'work)
+     ,@body))
+
+(defmacro if-treesit (body-true &rest body-false)
+  "Evaluate BODY only when `rb/host-type` is 'home."
+  (declare (indent 1))
+  `(if rb/use-treesit
+       ,body-true
+     (progn ,@body-false)))
+
 
 ;; Pre-config local settings, for setting paths, etc needed for setup.
-(require 'init-local-pre nil t)
+(require 'init-local-pre nil nil)
+
+
+
+;; Verify that mandatory host-type is set up by now
+(unless (and (boundp 'rb/host-type)
+             (memq rb/host-type '(home work)))
+  (error "Invalid or undefined `rb/host-type`: %S (expected 'home or 'work)"
+         rb/host-type))
+
+;; ----------------------------------------------------------------------------
+;; Initialize package archives and package manager
+;; ----------------------------------------------------------------------------
+
 
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+
+(when-home
+    (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t))
+
 (package-initialize)
 
 (unless package-archive-contents
@@ -23,14 +84,6 @@
 ;; General setup
 ;; ====================================
 
-;; Setup load path for libraries
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-(let ((default-directory (expand-file-name "lisp/external" user-emacs-directory)))
-  (normal-top-level-add-subdirs-to-load-path))
-
-;; save customizations to custom.el, if exists (which is git-ignored) instead of init.el
-(setq custom-file (locate-user-emacs-file "custom.el"))
-
 ;; Set autosave directory
 (setq backup-directory-alist `(("." . "~/.emacs_saves")))
 (setq backup-by-copying t)
@@ -40,7 +93,7 @@
 
 ;; some performance settings (partly for lsp-mode)
 ;; https://emacs-lsp.github.io/lsp-mode/page/performance/
-(setq gc-cons-threshold 100000000)
+;; (setq gc-cons-threshold 100000000)
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
 
 ;; remove scratch message
@@ -50,29 +103,10 @@
 ;; Some "global" keymaps
 ;; ----------------------------------------------------------------------------
 
-(define-prefix-command 'rb-lispy-keymap)
-(global-set-key (kbd "C-c e") 'rb-lispy-keymap)
-(bind-key (kbd "r") 'eval-region 'rb-lispy-keymap)
-(bind-key (kbd "b") 'eval-buffer 'rb-lispy-keymap)
-(bind-key (kbd "t") 'transpose-sexps 'rb-lispy-keymap)
-
-(define-prefix-command 'rb-user-keymap)
-(global-set-key (kbd "C-c 8") 'rb-user-keymap)
-
-(define-prefix-command 'rb-help-keymap)
-(global-set-key (kbd "C-c 7") 'rb-help-keymap)
+(require 'init-keys nil nil)
 
 ;; ----------------------------------------------------------------------------
-;; Misc
-;; ----------------------------------------------------------------------------
-
-(global-set-key (kbd "M-o") 'other-window)
-;; Ctrl+tab similarly as in browsers/vscode
-(global-set-key (kbd "C-<tab>") 'next-buffer)
-(global-set-key (kbd "C-<iso-lefttab>") 'previous-buffer)
-
-;; ----------------------------------------------------------------------------
-;; Load libraries
+;; Init general modules
 ;; ----------------------------------------------------------------------------
 
 (require 'init-appearance nil nil)
@@ -83,18 +117,22 @@
 (require 'init-eglot nil nil)
 (require 'init-flymake nil nil)
 (require 'init-help nil nil)
-(require 'init-html nil nil)
 (require 'init-ibuffer nil nil)
-(require 'init-lisp nil nil)
 (require 'init-minibuffer nil nil)
-(require 'init-markup nil nil)
-(require 'init-org nil nil)
 (require 'init-project nil nil)
-(require 'init-python nil nil)
 (require 'init-sessions nil nil)
-(require 'init-sh nil nil)
 (require 'init-utils nil nil)
 (require 'init-vc nil nil)
+
+;; Language modes
+(require 'init-html nil nil)
+(require 'init-json nil nil)
+(require 'init-lisp nil nil)
+(require 'init-markdown nil nil)
+(require 'init-org nil nil)
+(require 'init-python nil nil)
+(require 'init-sh nil nil)
+(require 'init-yaml nil nil)
 
 ;; ----------------------------------------------------------------------------
 ;; Load private libraries
