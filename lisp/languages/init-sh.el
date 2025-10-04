@@ -8,13 +8,10 @@
   (setq sh-basic-offset 4)
   )
 
-(if-treesit
-    (use-package bash-ts-mode
-      :ensure nil
-      :init
-      (add-to-list 'auto-mode-alist '("\\.bash\\'" . bash-ts-mode))
-      (add-to-list 'auto-mode-alist '("\\.sh\\'" . bash-ts-mode))
-      ))
+(when-treesit
+ (add-to-list 'auto-mode-alist '("\\.bash\\'" . bash-ts-mode))
+ (add-to-list 'auto-mode-alist '("\\.sh\\'" . bash-ts-mode))
+ )
 
 (provide 'init-sh)
 

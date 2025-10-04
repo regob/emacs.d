@@ -8,7 +8,7 @@
 ;; ----------------------------------------------------------------------------
 
 ;; Setup load path for libraries
-;; (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (let ((default-directory (expand-file-name "lisp" user-emacs-directory)))
   (normal-top-level-add-subdirs-to-load-path))
 
@@ -20,10 +20,10 @@
 ;; Set up local machine config
 ;; ----------------------------------------------------------------------------
 
-(defvar rb/host-type
+(defvar rb/host-type nil
   "Either 'home or 'work depending on host.")
 
-(defvar rb/use-treesit
+(defvar rb/use-treesit t
   "Use tree-sitter or not")
 
 (defmacro when-home (&rest body)
@@ -38,12 +38,12 @@
      ,@body))
 
 (defmacro when-treesit (&rest body)
-  "Evaluate BODY only when `rb/host-type` is 'work."
-  `(when (eq rb/host-type 'work)
+  "Evaluate BODY only when rb/use-treesit is t."
+  `(when rb/use-treesit
      ,@body))
 
 (defmacro if-treesit (body-true &rest body-false)
-  "Evaluate BODY only when `rb/host-type` is 'home."
+  "Evaluate BODY-TRUE or BODY-FALSE depending on rb/use-treesit."
   (declare (indent 1))
   `(if rb/use-treesit
        ,body-true
@@ -124,8 +124,14 @@
 (require 'init-utils nil nil)
 (require 'init-vc nil nil)
 
+(when-treesit
+ (require 'init-treesit nil nil))
+
 ;; Language modes
+(require 'init-dockerfile nil nil)
 (require 'init-html nil nil)
+(require 'init-java nil nil)
+(require 'init-javascript nil nil)
 (require 'init-json nil nil)
 (require 'init-lisp nil nil)
 (require 'init-markdown nil nil)
