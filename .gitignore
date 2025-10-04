@@ -27,8 +27,12 @@ custom.el
 !snippets/*/*
 
 # keep some necessary files
-README.org
-LICENSE
+!README.org
+!LICENSE
+
+# keep tree-sitter grammars
+!tree-sitter
+!tree-sitter/*
 
 # github ci
 !.github

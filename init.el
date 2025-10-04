@@ -132,6 +132,7 @@
 (require 'init-org nil nil)
 (require 'init-python nil nil)
 (require 'init-sh nil nil)
+(require 'init-typescript nil nil)
 (require 'init-yaml nil nil)
 
 ;; ----------------------------------------------------------------------------
