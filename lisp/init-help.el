@@ -151,8 +151,8 @@ make a of the mistakes with brief explanations."))
                                                                     (display-buffer rb-buf)))))
       :stream nil
       :system "You are a large language model living in Emacs and a helpful assistant.
-Please check the following text for errors, and if you see mistakes make
-a list of the mistakes with brief explanations. Make sure to output only a single list of issues and their explanations, and IGNORE typographical or grammatical errors!")
+Please check the following knowledge base snippet for errors, and if you see mistakes make
+a list of the mistakes with brief explanations and suggestion for improvement. Only focus on the correctness of the content and IGNORE grammatical and punctuational errors, or tags like :CARD:, since they are part of the markup language (org)! Make sure to output only a single list of issues and their explanations!")
     )
   nil)
 
