@@ -30,9 +30,9 @@ custom.el
 !README.org
 !LICENSE
 
-# keep tree-sitter grammars
-!tree-sitter
-!tree-sitter/*
+# don't keep tree-sitter grammars
+# !tree-sitter
+# !tree-sitter/*
 
 # github ci
 !.github
