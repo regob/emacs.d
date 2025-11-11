@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 # Adapted from https://github.com/purcell/emacs.d/blob/master/test-startup.sh
 
 echo "Attempting startup..."
