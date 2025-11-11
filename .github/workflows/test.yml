@@ -12,19 +12,21 @@ jobs:
     strategy:
       matrix:
         emacs_version:
-          - 29.3
-          - 30.1
+          - 30.2
         experimental: [false]
-        # include:
-        #   - emacs_version: snapshot
-        #     experimental: true
+        host:
+          - home
+          - work
     steps:
     - uses: purcell/setup-emacs@master
       with:
         version: ${{ matrix.emacs_version }}
     - uses: actions/checkout@v4
-    - name: Test directory
+    - name: Show test directory
       run: pwd
+    - name: Init
+      run: |
+        printf "(setq rb/host-type '${{matrix.host}})\n(provide 'init-local-pre)\n" > ./lisp/init-local-pre.el
     - name: Check startup
       run: ./test/test_startup.sh
   # windows CI is experimental and uses the Emacs version packaged 
