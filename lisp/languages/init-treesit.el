@@ -8,6 +8,7 @@
       '((bash "https://github.com/tree-sitter/tree-sitter-bash")
         (cmake "https://github.com/uyha/tree-sitter-cmake")
         (css "https://github.com/tree-sitter/tree-sitter-css")
+        (dockerfile "https://github.com/camdencheek/tree-sitter-dockerfile" "main" "src")
         (elisp "https://github.com/Wilfred/tree-sitter-elisp")
         (go "https://github.com/tree-sitter/tree-sitter-go")
         (html "https://github.com/tree-sitter/tree-sitter-html")
@@ -20,6 +21,21 @@
         (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
         (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
         (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
+
+
+(defvar rb-treesit-grammars-enabled
+  '(bash dockerfile javascript json python tsx typescript yaml)
+  "Language ids pointing to `treesit-language-source-alist` for which treesit grammar is enabled."
+  )
+
+(defun rb/install-treesit-grammars ()
+  "Install all enabled treesit grammars."
+  (interactive)
+  (dolist (grammar rb-treesit-grammars-enabled)
+    (message "Installing treesit grammar for %s ..." grammar)
+    (treesit-install-language-grammar grammar))
+  )
+
 
 
 (provide 'init-treesit)
