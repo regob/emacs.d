@@ -13,4 +13,4 @@
 
 (provide 'init-html)
 
-;;; init-sh.el ends here
+;;; init-html.el ends here

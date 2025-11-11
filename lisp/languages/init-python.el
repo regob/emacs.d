@@ -16,22 +16,26 @@
   )
 
 (if-treesit
-    (use-package python
-      :ensure nil
-      :commands python-ts-mode
-      :interpreter ("python3" . python-ts-mode)
-      :mode ("\\.py\\'" . python-ts-mode)
-      :config
-      (rb--python-setup)
-      )
-  (use-package python
-    :ensure nil
-    :commands python-mode
-    :interpreter ("python3" . python-mode)
-    :mode ("\\.py\\'" . python-mode)
-    :config
-    (rb--python-setup)
-    )
+ (use-package python
+   :ensure nil
+   :commands python-ts-mode
+   :interpreter ("python3" . python-ts-mode)
+   :mode ("\\.py\\'" . python-ts-mode)
+   :config
+   (rb--python-setup)
+   )
+ (use-package python
+   :ensure nil
+   :commands python-mode
+   :interpreter ("python3" . python-mode)
+   :mode ("\\.py\\'" . python-mode)
+   :config
+   (rb--python-setup)
+   )
+ )
+
+(use-package cython-mode
+  :ensure nil
   )
 
 

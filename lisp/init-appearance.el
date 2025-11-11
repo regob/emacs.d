@@ -1,4 +1,4 @@
-;;; init-appearance.el --- summary -*- lexical-binding: t -*-
+;;; init-appearance.el --- Theme and GUI setup -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -8,9 +8,26 @@
 
 (setq custom-safe-themes t)
 
-(use-package catppuccin-theme
-  :init
-  (add-hook 'after-init-hook #'(lambda () (load-theme 'catppuccin t nil))))
+(when-work
+ (use-package catppuccin-theme
+   :init
+   (add-hook 'after-init-hook #'(lambda () (load-theme 'catppuccin t nil)))))
+
+(when-home
+ (use-package gruvbox-theme
+   :ensure t
+   :pin melpa
+   :init
+   (add-hook 'after-init-hook #'(lambda () (load-theme 'gruvbox t)))
+   :config
+   ;; Modify some faces I don't like in the gruvbox theme
+   (custom-set-faces
+    ;; matches are too bright by default (gray on blue)
+    '(match ((t (:background "#554444" :foreground "#999999")))))
+   )
+ )
+
+
 
 ;; ----------------------------------------------------------------------------
 ;; Improve some visuals
@@ -110,6 +127,25 @@ Also pass ARGS to `set-face-attribute' calls."
     (display-line-numbers-mode -1)))
 (global-set-key [remap goto-line] 'rb-goto-line-with-feedback)
 
+;; ----------------------------------------------------------------------------
+;; Small utilities for changing modeline/fringe/etc
+;; ----------------------------------------------------------------------------
+
+(when-home
+    (use-package anzu
+      :ensure t
+      :vc (:url "https://github.com/emacsorphanage/anzu" :branch "master")
+      :config
+      (setq anzu-mode-lighter "")
+      (global-anzu-mode)
+      ))
+
+(use-package breadcrumb
+  :ensure t
+  :pin gnu
+  :config
+  (breadcrumb-mode)
+  )
 
 (provide 'init-appearance)
 

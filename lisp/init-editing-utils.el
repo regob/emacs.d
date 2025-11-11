@@ -88,6 +88,16 @@
 ;; Indentation / parens
 ;; ----------------------------------------------------------------------------
 
+(when-home
+    (use-package aggressive-indent
+      :ensure t
+      :pin gnu
+      :diminish
+      :hook
+      ((css-mode . aggressive-indent-mode))
+      ((emacs-lisp-mode . aggressive-indent-mode))
+      ))
+
 (use-package electric
   :ensure nil
   :hook
@@ -106,7 +116,6 @@
   (electric-indent-mode -1)
   (electric-pair-mode -1))
 
-
 (defun rb-insert-parens-around-sexp (arg)
   "Wrap the next ARG sexps in parentheses.
   If no ARG is given, wrap 1 sexp by default (instead of 0 in `insert-parentheses')."
@@ -114,6 +123,29 @@
   (insert-parentheses (prefix-numeric-value (or arg 1))))
 
 (global-set-key (kbd "M-(") #'rb-insert-parens-around-sexp)
+
+;; ----------------------------------------------------------------------------
+;; Whitespace cleanup
+;; ----------------------------------------------------------------------------
+
+(when-home
+ (use-package whitespace-cleanup-mode
+   :ensure t
+   :pin melpa
+   :diminish
+   :hook ((prog-mode . whitespace-cleanup-mode)
+          (conf-mode . whitespace-cleanup-mode))))
+
+;; ----------------------------------------------------------------------------
+;; Undo tree
+;; ----------------------------------------------------------------------------
+
+;; vundo seems to be less intrusive, easier to use than undo-tree
+(when-home
+ (use-package vundo
+   :ensure t
+   :pin gnu
+   ))
 
 
 ;; ----------------------------------------------------------------------------

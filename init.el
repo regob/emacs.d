@@ -28,7 +28,6 @@
 
 (defmacro when-home (&rest body)
   "Evaluate BODY only when `rb/host-type` is 'home."
-  (declare (indent 1))
   `(when (eq rb/host-type 'home)
      ,@body))
 
@@ -121,6 +120,10 @@
 (require 'init-minibuffer nil nil)
 (require 'init-project nil nil)
 (require 'init-sessions nil nil)
+(use-package so-long
+  :ensure nil
+  :config
+  (global-so-long-mode))
 (require 'init-utils nil nil)
 (require 'init-vc nil nil)
 

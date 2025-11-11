@@ -80,6 +80,33 @@
   )
 
 ;; ----------------------------------------------------------------------------
+;; Casual suite - transient interfaces to commands
+;; ----------------------------------------------------------------------------
+
+(when-home
+    (use-package casual
+      :ensure t
+      :pin melpa
+      :config
+      (with-eval-after-load "calc-alg"
+        (keymap-set calc-alg-map "C-c t" #'casual-calc-tmenu))
+      (with-eval-after-load "calc"
+        (keymap-set calc-mode-map "C-c t" #'casual-calc-tmenu))
+      (with-eval-after-load "calendar"
+        (keymap-set calendar-mode-map "C-c t" #'casual-calendar))
+      (with-eval-after-load "dired"
+        (keymap-set dired-mode-map "C-c t" #'casual-dired-tmenu))
+      (with-eval-after-load "info"
+        (keymap-set Info-mode-map "C-c t" #'casual-info-tmenu))
+      (with-eval-after-load "ibuffer"
+        (keymap-set ibuffer-mode-map "C-c t" #'casual-ibuffer-tmenu))
+      (with-eval-after-load "re-builder"
+        (progn
+          (keymap-set reb-mode-map "C-c t" #'casual-re-builder-tmenu)
+          (keymap-set reb-lisp-mode-map "C-c t" #'casual-re-builder-tmenu)))
+      ))
+
+;; ----------------------------------------------------------------------------
 ;; Dictionary
 ;; ----------------------------------------------------------------------------
 

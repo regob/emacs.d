@@ -5,7 +5,14 @@
 ;; Git integration
 (use-package magit
   :ensure t
+  )
 
+;; Git changes highlighted on the fringe
+(use-package diff-hl
+  :ensure t
+  :pin gnu
+  :config
+  (add-hook 'elpaca-after-init-hook #'global-diff-hl-mode)
   )
 
 (use-package smerge-mode

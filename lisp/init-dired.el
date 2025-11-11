@@ -19,6 +19,13 @@
   (global-set-key (kbd "C-x 4 f") 'dired-x-find-file-other-window)
   )
 
+(when-home
+    (use-package dired-sidebar
+      :ensure t
+      :pin melpa
+      :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
+      :commands (dired-sidebar-toggle-sidebar)))
+
 (provide 'init-dired)
 
 ;;; init-dired.el ends here

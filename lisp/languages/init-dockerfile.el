@@ -2,10 +2,10 @@
 ;;; Commentary:
 ;;; Code:
 
-(if-treesit
-    (use-package dockerfile-ts-mode
-      :ensure nil
-      ))
+(when-treesit
+ (use-package dockerfile-ts-mode
+   :ensure nil
+   ))
 
 
 (provide 'init-dockerfile)

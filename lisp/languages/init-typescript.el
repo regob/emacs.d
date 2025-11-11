@@ -2,10 +2,10 @@
 ;;; Commentary:
 ;;; Code:
 
-(if-treesit
-    (use-package typescript-ts-mode
-      :ensure nil
-      ))
+(when-treesit
+ (use-package typescript-ts-mode
+   :ensure nil
+   ))
 
 
 (provide 'init-typescript)
