@@ -103,6 +103,7 @@
   :hook
   ((python-mode . electric-indent-local-mode)
    (cc-mode . electric-indent-local-mode)
+   (c++-mode . electric-indent-local-mode)
    (sh-mode . electric-indent-local-mode)
    (yaml-mode . electric-indent-local-mode)
    (js-json-mode . electric-indent-local-mode)
@@ -110,6 +111,8 @@
 
    (python-mode . electric-pair-local-mode)
    (emacs-lisp-mode . electric-pair-local-mode)
+   (cc-mode . electric-pair-local-mode)
+   (c++-mode . electric-pair-local-mode)
    (sh-mode . electric-pair-local-mode)
    )
   :config

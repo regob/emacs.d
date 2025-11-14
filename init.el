@@ -134,6 +134,7 @@
 (require 'init-dockerfile nil nil)
 (require 'init-html nil nil)
 (require 'init-java nil nil)
+(require 'init-cc nil nil)
 (require 'init-javascript nil nil)
 (require 'init-json nil nil)
 (require 'init-lisp nil nil)

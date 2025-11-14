@@ -8,6 +8,8 @@
       :init
       (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-ts-mode))
       (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-ts-mode))
+      (add-to-list 'auto-mode-alist '("\\.clang-format\\'" . yaml-ts-mode))
+      (add-to-list 'auto-mode-alist '("\\.clangd\\'" . yaml-ts-mode))
       ))
 
 
