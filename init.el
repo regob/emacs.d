@@ -79,25 +79,6 @@
 ;; always load .el if newer than .elc
 (setq load-prefer-newer t)
 
-;; ====================================
-;; General setup
-;; ====================================
-
-;; Set autosave directory
-(setq backup-directory-alist `(("." . "~/.emacs_saves")))
-(setq backup-by-copying t)
-
-;; always ask before killing emacs (does not hold for emacsclient though)
-(setq confirm-kill-emacs 'yes-or-no-p)
-
-;; some performance settings (partly for lsp-mode)
-;; https://emacs-lsp.github.io/lsp-mode/page/performance/
-;; (setq gc-cons-threshold 100000000)
-(setq read-process-output-max (* 1024 1024)) ;; 1mb
-
-;; remove scratch message
-(setq initial-scratch-message "")
-
 ;; ----------------------------------------------------------------------------
 ;; Some "global" keymaps
 ;; ----------------------------------------------------------------------------
@@ -107,6 +88,8 @@
 ;; ----------------------------------------------------------------------------
 ;; Init general modules
 ;; ----------------------------------------------------------------------------
+
+(require 'init-defaults nil nil)
 
 (require 'init-appearance nil nil)
 (require 'init-completion nil nil)
