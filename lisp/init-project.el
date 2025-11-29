@@ -7,13 +7,19 @@
   "Run ripgrep on a project"
   (interactive)
   (when (fboundp 'project-root)
-      (consult-ripgrep (project-root (project-current t)) "")))
+    (consult-ripgrep (project-root (project-current t)) "")))
+
+(defun rb/project-grep ()
+  "Run ripgrep on a project"
+  (interactive)
+  (when (fboundp 'project-root)
+    (consult-grep (project-root (project-current t)) "")))
 
 (defun rb/project-magit ()
   "Open magit status for the project"
   (interactive)
   (when (fboundp 'project-root)
-      (magit-status (project-root (project-current t)))))
+    (magit-status (project-root (project-current t)))))
 
 (use-package project
   :ensure nil
@@ -21,6 +27,9 @@
   ;; Add extra commands to project dispatch
   (keymap-set project-prefix-map "r" #'rb/project-ripgrep)
   (add-to-list 'project-switch-commands '(rb/project-ripgrep "Ripgrep") t)
+  (keymap-set project-prefix-map "g" #'rb/project-grep)
+  (setq project-switch-commands (remove '(project-find-regexp "Find regexp") project-switch-commands))
+  (add-to-list 'project-switch-commands '(rb/project-grep "Grep") t)
   (keymap-set project-prefix-map "m" #'rb/project-magit)
   (add-to-list 'project-switch-commands '(rb/project-magit "Magit") t)
   )
