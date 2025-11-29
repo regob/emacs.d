@@ -128,6 +128,10 @@
 (require 'init-typescript nil nil)
 (require 'init-yaml nil nil)
 
+;; some extras
+(when-home
+ (require 'init-gptel nil nil))
+
 ;; ----------------------------------------------------------------------------
 ;; Load private libraries
 ;; ----------------------------------------------------------------------------
