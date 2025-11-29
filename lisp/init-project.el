@@ -50,7 +50,9 @@
                           )
                         )
                       buffer)))
-  (add-hook 'compilation-finish-functions 'rb-bury-compile-buffer-if-successful))
+  ;; Currently disabled, not useful for most compilations (like cc mode)
+  ;; (add-hook 'compilation-finish-functions 'rb-bury-compile-buffer-if-successful)
+  )
 
 (provide 'init-project)
 

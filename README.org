@@ -28,6 +28,8 @@ References:
 - [[https://www.youtube.com/watch?v=SbTzIt6rISg][Python config for Emacs 29]]
 *** Markdown
 - [[https://jblevins.org/projects/markdown-mode/][Markdown mode docs]]
+*** C++
+- [[https://www.gnu.org/software/emacs/manual/html_node/efaq/Customizing-C-and-C_002b_002b-indentation.html][Customize c++ indentation]]
 *** LaTeX
 - [[https://abode.karthinks.com/org-latex-preview/][Org-latex previews]]
 - [[https://www.youtube.com/watch?v=u44X_th6_oY][Emacs latex previews everywhere (maybe in the future)]]
@@ -57,7 +59,10 @@ References:
   - [[https://coredumped.dev/2025/06/18/making-tramp-go-brrrr./][Making TRAMP go Brrrr…. • Core Dumped]]
 * Fun
 - [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Antinews.html][Emacs Antinews]]
-* References
+* Resources
 Lots of code adapted from:
 - [[https://github.com/purcell/emacs.d][Purcell's emacs.d]]
 - [[https://www.masteringemacs.org/][Mastering Emacs]]
+
+Useful configs:
+- https://blog.sumtypeofway.com/posts/emacs-config.html

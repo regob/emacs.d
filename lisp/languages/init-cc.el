@@ -10,7 +10,6 @@
   (setq c-default-offset 4)
   (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard
                                             "c++17")))
-  (add-hook 'c-mode-common-hook (lambda () (c-toggle-hungry-state 1)))
   )
 
 (provide 'init-cc)
