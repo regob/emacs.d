@@ -103,12 +103,9 @@
 (require 'init-minibuffer nil nil)
 (require 'init-project nil nil)
 (require 'init-sessions nil nil)
-(use-package so-long
-  :ensure nil
-  :config
-  (global-so-long-mode))
 (require 'init-utils nil nil)
 (require 'init-vc nil nil)
+(require 'init-shell nil nil)
 
 (when-treesit
  (require 'init-treesit nil nil))
@@ -131,6 +128,11 @@
 ;; some extras
 (when-home
  (require 'init-gptel nil nil))
+
+(use-package so-long
+  :ensure nil
+  :config
+  (global-so-long-mode))
 
 ;; ----------------------------------------------------------------------------
 ;; Load private libraries

@@ -58,18 +58,24 @@
   :ensure nil
   :hook
   ((python-mode . electric-indent-local-mode)
+   (python-ts-mode . electric-indent-local-mode)
    (cc-mode . electric-indent-local-mode)
    (c++-mode . electric-indent-local-mode)
    (sh-mode . electric-indent-local-mode)
+   (bash-ts-mode . electric-indent-local-mode)
    (yaml-mode . electric-indent-local-mode)
+   (yaml-ts-mode . electric-indent-local-mode)
    (js-json-mode . electric-indent-local-mode)
+   (json-ts-mode . electric-indent-local-mode)
    (emacs-lisp-mode . electric-indent-local-mode)
 
    (python-mode . electric-pair-local-mode)
+   (python-ts-mode . electric-pair-local-mode)
    (emacs-lisp-mode . electric-pair-local-mode)
    (cc-mode . electric-pair-local-mode)
    (c++-mode . electric-pair-local-mode)
    (sh-mode . electric-pair-local-mode)
+   (bash-ts-mode . electric-pair-local-mode)
    )
   :config
   (electric-indent-mode -1)
