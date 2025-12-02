@@ -68,6 +68,7 @@
    (js-json-mode . electric-indent-local-mode)
    (json-ts-mode . electric-indent-local-mode)
    (emacs-lisp-mode . electric-indent-local-mode)
+   (typescript-ts-mode . electric-indent-local-mode)
 
    (python-mode . electric-pair-local-mode)
    (python-ts-mode . electric-pair-local-mode)
@@ -76,6 +77,7 @@
    (c++-mode . electric-pair-local-mode)
    (sh-mode . electric-pair-local-mode)
    (bash-ts-mode . electric-pair-local-mode)
+   (typescript-ts-mode . electric-pair-local-mode)
    )
   :config
   (electric-indent-mode -1)
@@ -88,6 +90,18 @@
   (insert-parentheses (prefix-numeric-value (or arg 1))))
 
 (global-set-key (kbd "M-(") #'rb-insert-parens-around-sexp)
+
+;; ----------------------------------------------------------------------------
+;; Indent bars
+;; ----------------------------------------------------------------------------
+
+(use-package indent-bars
+  :ensure t
+  :pin gnu
+  :hook ((python-mode python-ts-mode yaml-ts-mode) . indent-bars-mode)
+  :config
+  )
+
 
 ;; ----------------------------------------------------------------------------
 ;; Whitespace cleanup
