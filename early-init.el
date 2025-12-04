@@ -3,11 +3,11 @@
 ;;; Code:
 
 
-;; do not load site-lisp
-;; (setq load-path
-;;       (seq-filter
-;;        (lambda (pth) (not (string-match "/usr/share/emacs/site-lisp.*" pth)))
-;;        load-path))
+;; do not load site-lisp (packages installed with system package manager)
+(setq load-path
+      (seq-filter
+       (lambda (pth) (not (string-match "^/usr/share/emacs/site-lisp.*" pth)))
+       load-path))
 
 (provide 'early-init)
 
