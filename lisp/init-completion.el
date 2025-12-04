@@ -20,13 +20,35 @@
   ;; `global-corfu-modes' to exclude certain modes.
   (global-corfu-mode)
 
-  :custom
+  :config
   ;; disable popup in eshell mode
   (add-hook 'eshell-mode-hook
             (lambda ()
               (setq-local corfu-auto nil)
-              (corfu-mode)))
+              (setq-local completion-styles '(basic))))
 
+  ;; Only useful in elisp, but it's global ... test if breaks anything?
+  ;; (corfu-echo-mode)
+
+  ;; corfu+eglot seems to be broken in python shell
+  ;; returning broken candidates __0_dummy_completion__, inserted by python-mode
+  (add-hook 'inferior-python-mode-hook
+            (lambda ()
+              (setq-local completion-styles '(basic))))
+
+  ;; Option to move completion to minibuffer when corfu is active
+  ;; https://github.com/minad/corfu#transfer-completion-to-the-minibuffer
+  (defun corfu-move-to-minibuffer ()
+    (interactive)
+    (pcase completion-in-region--data
+      (`(,beg ,end ,table ,pred ,extras)
+       (let ((completion-extra-properties extras)
+             completion-cycle-threshold completion-cycling)
+         (consult-completion-in-region beg end table pred)))))
+  (keymap-set corfu-map "M-m" #'corfu-move-to-minibuffer)
+  (add-to-list 'corfu-continue-commands #'corfu-move-to-minibuffer)
+
+  :custom
   ;; Disable indentation+completion using the TAB key.
   (tab-always-indent t)
 
@@ -38,6 +60,16 @@
   ;; mode.  Corfu commands are hidden, since they are not used via M-x. This
   ;; setting is useful beyond Corfu.
   (read-extended-command-predicate #'command-completion-default-include-p)
+  )
+
+;; Emacs 30 and newer: Disable Ispell completion function.
+;; Try `cape-dict' as an alternative.
+(setq text-mode-ispell-word-completion nil)
+
+;; New inline preview in emacs 30
+;; https://www.masteringemacs.org/article/whats-new-in-emacs-301
+(use-package completion-preview
+  :ensure nil
   )
 
 
