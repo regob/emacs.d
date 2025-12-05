@@ -5,6 +5,8 @@
 (when-treesit
  (use-package typescript-ts-mode
    :ensure nil
+   :init
+   (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
    ))
 
 

@@ -16,6 +16,11 @@
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
+(setq isearch-lazy-count t) ;; Show number of matches online
+;; keep highlights until new search, this is a bit disruptive sometimes, now turn it off
+;; (setq lazy-highlight-cleanup nil)
+
+
 (setq save-interprogram-paste-before-kill t
       mouse-yank-at-point t
       require-final-newline t

@@ -44,15 +44,14 @@
 ;; Indentation / parens
 ;; ----------------------------------------------------------------------------
 
-(when-home
-    (use-package aggressive-indent
-      :ensure t
-      :pin gnu
-      :diminish
-      :hook
-      ((css-mode . aggressive-indent-mode))
-      ((emacs-lisp-mode . aggressive-indent-mode))
-      ))
+(use-package aggressive-indent
+  :ensure t
+  :pin gnu
+  :diminish
+  :hook
+  ((css-mode . aggressive-indent-mode))
+  ((emacs-lisp-mode . aggressive-indent-mode))
+  )
 
 (use-package electric
   :ensure nil
