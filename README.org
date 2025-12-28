@@ -57,12 +57,20 @@ References:
 - smartparens :: For editing balanced parens.
 - TRAMP :: Remote editing (ssh, sudo).
   - [[https://coredumped.dev/2025/06/18/making-tramp-go-brrrr./][Making TRAMP go Brrrr…. • Core Dumped]]
-* Fun
-- [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Antinews.html][Emacs Antinews]]
-* Resources
-Lots of code adapted from:
-- [[https://github.com/purcell/emacs.d][Purcell's emacs.d]]
-- [[https://www.masteringemacs.org/][Mastering Emacs]]
+* Other resources
+General posts:
+- https://tilde.town/~ramin_hal9001/emacs-for-professionals/index.html
 
 Useful configs:
 - https://blog.sumtypeofway.com/posts/emacs-config.html
+- https://www.patrickdelliott.com/emacs.d/
+- https://github.com/daviwil/emacs-from-scratch
+- https://magitian.is-a.dev/posts/emacsconfig
+
+Fun:
+- [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Antinews.html][Emacs Antinews]]
+- [[https://www.emacswiki.org/emacs/WhyDoesElispSuck][Why Elisp sucks]]
+* References
+Lots of code adapted from:
+- [[https://github.com/purcell/emacs.d][Purcell's emacs.d]]
+- [[https://www.masteringemacs.org/][Mastering Emacs]]

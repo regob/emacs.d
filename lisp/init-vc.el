@@ -12,13 +12,14 @@
   :ensure t
   :pin gnu
   :config
-  (add-hook 'elpaca-after-init-hook #'global-diff-hl-mode)
+  (add-hook 'after-init-hook #'global-diff-hl-mode)
   )
 
 (use-package smerge-mode
   :ensure nil
-  :init
-  (setq smerge-command-prefix "\C-cv"))
+  :custom
+  (smerge-command-prefix "\C-cv")
+  )
 
 (provide 'init-vc)
 
