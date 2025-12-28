@@ -77,12 +77,12 @@
 
 ;; New inline preview in emacs 30
 ;; https://www.masteringemacs.org/article/whats-new-in-emacs-301
-(use-package completion-preview
-  :ensure nil
-  :hook
-  ;; conflicts with tab completion
-  ;; ((inferior-python-mode-hook . completion-preview-mode))
-  )
+;; (use-package completion-preview
+;;   :ensure nil
+;;   :hook
+;;   ;; conflicts with tab completion
+;;   ((inferior-python-mode-hook . completion-preview-mode))
+;;   )
 
 
 (use-package hippie-exp
