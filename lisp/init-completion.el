@@ -30,10 +30,19 @@
   ;; Only useful in elisp, but it's global ... test if breaks anything?
   ;; (corfu-echo-mode)
 
-  ;; corfu+eglot seems to be broken in python shell
+  ;; corfu seems to be broken in python shell
   ;; returning broken candidates __0_dummy_completion__, inserted by python-mode
   (add-hook 'inferior-python-mode-hook
             (lambda ()
+              (corfu-mode -1)
+              (setq-local corfu-auto nil)
+              (setq-local completion-styles '(basic))))
+
+  ;; python-completion-at-point also calls to shell when its running, which errors
+  (add-hook (if-treesit 'python-ts-mode-hook 'python-mode-hook)
+            (lambda ()
+              (setq-local completion-at-point-functions
+                          (remove 'python-completion-at-point completion-at-point-functions))
               (setq-local completion-styles '(basic))))
 
   ;; Option to move completion to minibuffer when corfu is active
@@ -70,6 +79,9 @@
 ;; https://www.masteringemacs.org/article/whats-new-in-emacs-301
 (use-package completion-preview
   :ensure nil
+  :hook
+  ;; conflicts with tab completion
+  ;; ((inferior-python-mode-hook . completion-preview-mode))
   )
 
 
