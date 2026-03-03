@@ -28,6 +28,20 @@
  )
 
 
+;; ----------------------------------------------------------------------------
+;; Face customization
+;; ----------------------------------------------------------------------------
+
+(custom-set-faces
+ '(ediff-current-diff-A ((t (:extend t :background "#fbc6a3" :foreground "black"))))
+ '(ediff-current-diff-Ancestor ((t (:extend t :background "#ccc6d1" :foreground "black"))))
+ '(ediff-current-diff-B ((t (:extend t :background "#e3f3b5" :foreground "black"))))
+ '(ediff-current-diff-C ((t (:extend t :background "#fadccc" :foreground "black"))))
+ '(ediff-fine-diff-A ((t (:background "#fbb091" :foreground "black"))))
+ '(ediff-fine-diff-Ancestor ((t (:background "#b6b0d6" :foreground "black"))))
+ '(ediff-fine-diff-B ((t (:background "#b6f691" :foreground "black"))))
+ '(ediff-fine-diff-C ((t (:background "#fbb0d6" :foreground "black"))))
+ )
 
 ;; ----------------------------------------------------------------------------
 ;; Improve some visuals

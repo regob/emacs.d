@@ -320,6 +320,7 @@
    (setq anki-editor-ignored-org-tags
          (append '("INPROGRESS" "MEETING" "NOTE" "CANCELLED" "REFILE" "CARD")
                  anki-editor-ignored-org-tags))
+   (setq anki-editor-latex-style 'mathjax)
    )
  )
 
