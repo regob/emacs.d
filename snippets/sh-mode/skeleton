@@ -1,0 +1,22 @@
+# -*- mode: snippet -*-
+# name: skeleton
+# key: skel
+# group : definitions
+# expand-env: ((yas-indent-line nil))
+# --
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [[ "\${1-}" =~ ^-*h(elp)?$ ]]; then
+    echo 'Usage: \$0'
+    exit
+fi
+
+cd "$(dirname "\$0")"
+
+main() {
+    $0
+}
+
+main "$@"
