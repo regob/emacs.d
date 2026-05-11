@@ -28,6 +28,7 @@
   :ensure nil
   :config
   (bind-key "m" 'man 'rb-help-keymap)
+  (setq Man-width-max 140)
   )
 
 ;; Neat documentation features
