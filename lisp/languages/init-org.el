@@ -322,6 +322,9 @@
                  anki-editor-ignored-org-tags))
    (setq anki-editor-latex-style 'mathjax)
    )
+
+ ;; requirement of anki-editor syntax highlighting
+ (use-package htmlize)
  )
 
 (provide 'init-org)
