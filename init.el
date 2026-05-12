@@ -69,7 +69,11 @@
                          ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
 
 (when-home
-    (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t))
+ (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t))
+
+;; allow Emacs to upgrade built-in packages from ELPA/MELPA
+(setq package-install-upgrade-built-in t)
+
 
 (package-initialize)
 
@@ -78,6 +82,24 @@
 
 ;; always load .el if newer than .elc
 (setq load-prefer-newer t)
+
+
+;; ----------------------------------------------------------------------------
+;; Handle upgrade of specific builtin packages
+;; ----------------------------------------------------------------------------
+
+;; https://github.com/jwiegley/use-package/issues/955
+(defun rb-ignore-builtin (pkg)
+  (assq-delete-all pkg package--builtins)
+  (assq-delete-all pkg package--builtin-versions))
+
+(rb-ignore-builtin 'compat)
+
+(use-package compat
+  :ensure t
+  :pin gnu
+  )
+
 
 ;; ----------------------------------------------------------------------------
 ;; System specific initialization
@@ -94,6 +116,7 @@
 ;; ----------------------------------------------------------------------------
 ;; Init general modules
 ;; ----------------------------------------------------------------------------
+
 
 (require 'init-defaults nil nil)
 
