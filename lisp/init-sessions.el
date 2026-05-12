@@ -6,14 +6,18 @@
 
 (use-package savehist
   :ensure nil
-  :config
+  :init
   (setq savehist-additional-variables
         '(project--list
           register-alist
           bookmark-alist
           search-ring
           regexp-search-ring
-          compile-history))
+          compile-history
+          ;; TODO: also manage named kbd macros in elisp file
+          kmacro-ring
+          last-kbd-macro))
+  :config
   (savehist-mode)
   )
 
