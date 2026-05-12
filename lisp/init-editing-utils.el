@@ -66,6 +66,8 @@
    (yaml-ts-mode . electric-indent-local-mode)
    (js-json-mode . electric-indent-local-mode)
    (json-ts-mode . electric-indent-local-mode)
+   (css-mode . electric-indent-local-mode)
+   (css-ts-mode . electric-indent-local-mode)
    (emacs-lisp-mode . electric-indent-local-mode)
    (typescript-ts-mode . electric-indent-local-mode)
 
@@ -77,6 +79,8 @@
    (sh-mode . electric-pair-local-mode)
    (bash-ts-mode . electric-pair-local-mode)
    (typescript-ts-mode . electric-pair-local-mode)
+   (css-mode . electric-pair-local-mode)
+   (css-ts-mode . electric-pair-local-mode)
    )
   :config
   (electric-indent-mode -1)
@@ -106,13 +110,11 @@
 ;; Whitespace cleanup
 ;; ----------------------------------------------------------------------------
 
-(when-home
- (use-package whitespace-cleanup-mode
-   :ensure t
-   :pin melpa
-   :diminish
-   :hook ((prog-mode . whitespace-cleanup-mode)
-          (conf-mode . whitespace-cleanup-mode))))
+(use-package whitespace-cleanup-mode
+  :ensure nil
+  :diminish
+  :hook ((prog-mode . whitespace-cleanup-mode)
+         (conf-mode . whitespace-cleanup-mode)))
 
 ;; ----------------------------------------------------------------------------
 ;; Undo tree
