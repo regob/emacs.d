@@ -131,11 +131,12 @@
 (require 'init-help nil nil)
 (require 'init-ibuffer nil nil)
 (require 'init-minibuffer nil nil)
+(require 'init-navigation nil nil)
 (require 'init-project nil nil)
 (require 'init-sessions nil nil)
+(require 'init-shell nil nil)
 (require 'init-utils nil nil)
 (require 'init-vc nil nil)
-(require 'init-shell nil nil)
 
 (when-treesit
  (require 'init-treesit nil nil))

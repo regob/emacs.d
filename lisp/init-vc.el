@@ -17,9 +17,9 @@
 
 (use-package smerge-mode
   :ensure nil
-  :custom
-  (smerge-command-prefix "\C-cv")
-  )
+  :bind-keymap ("C-c v" . smerge-basic-map)
+  :init
+  (setq smerge-command-prefix "\C-cv"))
 
 (provide 'init-vc)
 

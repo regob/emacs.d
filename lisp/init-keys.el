@@ -19,6 +19,9 @@
 (define-prefix-command 'rb-help-keymap)
 (global-set-key (kbd "C-c 7") 'rb-help-keymap)
 
+(define-prefix-command 'rb-nav-keymap)
+(global-set-key (kbd "C-z") 'rb-nav-keymap)
+
 
 ;; ----------------------------------------------------------------------------
 ;; Globals

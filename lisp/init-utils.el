@@ -156,6 +156,12 @@
         ;; Move to column, if needed. (1- because columns are 0-indexed in Emacs Lisp)
         (goto-char (+ (point-at-bol) (1- (string-to-number col))))))))
 
+(defun rb/insert-buffer-name ()
+  "Insert buffer's name at point."
+  (interactive)
+  (insert (buffer-name (window-buffer (minibuffer-selected-window)))))
+
+
 (bind-key (kbd "i") #'rb/jump-to-init-file 'rb-user-keymap)
 (bind-key (kbd "c") #'rb/byte-recompile 'rb-user-keymap)
 (bind-key (kbd "u") #'browse-url-at-point 'rb-user-keymap)
@@ -163,7 +169,7 @@
 (bind-key (kbd "s") #'scratch-buffer 'rb-user-keymap)
 (bind-key (kbd "p") #'rb/copy-buffer-filename 'rb-user-keymap)
 (bind-key (kbd "f") #'rb/open-file-link-at-point 'rb-user-keymap)
-
+(bind-key (kbd "n") #'rb/insert-buffer-name 'rb-user-keymap)
 
 (provide 'init-utils)
 
