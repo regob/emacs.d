@@ -11,7 +11,8 @@
 
 
 (use-package org
-  :ensure nil
+  :ensure t
+  :pin gnu
   :bind
   (:map org-mode-map ("C-c C-x t" . 'org-table-create))
   (:map global-map ("C-c c" . 'org-capture))
