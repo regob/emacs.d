@@ -94,7 +94,6 @@
   (assq-delete-all pkg package--builtin-versions))
 
 (rb-ignore-builtin 'compat)
-(rb-ignore-builtin 'org)
 
 (use-package compat
   :ensure t
