@@ -81,6 +81,7 @@
    (typescript-ts-mode . electric-pair-local-mode)
    (css-mode . electric-pair-local-mode)
    (css-ts-mode . electric-pair-local-mode)
+   (json-ts-mode . electric-pair-local-mode)
    )
   :config
   (electric-indent-mode -1)
