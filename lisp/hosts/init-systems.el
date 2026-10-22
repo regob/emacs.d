@@ -37,6 +37,9 @@
     (setq browse-url-generic-program "wslview")
     (setq epa-pinentry-mode 'loopback)
 
+    ;; needed for C-w and M-w to work for yanking into other programs
+    (setq select-active-regions nil)
+
     (global-set-key (kbd "C-c 9") #'rb/wl-copy)
     )
   )
